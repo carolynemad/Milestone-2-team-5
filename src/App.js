@@ -7,7 +7,7 @@ import Notifications from './components/HR/Notifications'
 import Attendance from './components/HR/Attendance'
 import ResetPassword from './components/HR/ResetPassword'
 import UpdatePassword from './components/HR/UpdatePassword'
-
+import Profile from "./components/HR/Profile"
 
 
 
@@ -20,6 +20,7 @@ function App() {
   //<Attendance/>
   //<ResetPassword/>
   //<UpdatePassword/>
+  //<Profile/>
   )
 }
 
