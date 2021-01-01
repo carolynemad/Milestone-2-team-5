@@ -8,6 +8,7 @@ import Attendance from './components/HR/Attendance'
 import ResetPassword from './components/HR/ResetPassword'
 import UpdatePassword from './components/HR/UpdatePassword'
 import Profile from "./components/HR/Profile"
+import ViewMember from "./components/HR/ViewMembers"
 
 
 
@@ -21,6 +22,7 @@ function App() {
   //<ResetPassword/>
   //<UpdatePassword/>
   //<Profile/>
+  //<ViewMember/>
   )
 }
 
