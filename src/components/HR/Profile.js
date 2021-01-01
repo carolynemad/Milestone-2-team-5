@@ -7,10 +7,16 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ImageIcon from '@material-ui/icons/Image';
-import WorkIcon from '@material-ui/icons/Work';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
-
+// import ImageIcon from '@material-ui/icons/Image';
+// import WorkIcon from '@material-ui/icons/Work';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+ import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+import EmailIcon from '@material-ui/icons/Email';
+import CakeIcon from '@material-ui/icons/Cake';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import RoomIcon from '@material-ui/icons/Room';
+import CommuteIcon from '@material-ui/icons/Commute';
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -125,7 +131,7 @@ export default function Profile() {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <ImageIcon />
+            <PermIdentityIcon />
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary="ID" secondary="AC1" />
@@ -133,7 +139,7 @@ export default function Profile() {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <BeachAccessIcon />
+            <EmailIcon />
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary="Email" secondary="cee@guc.edu.eg" />
@@ -142,7 +148,7 @@ export default function Profile() {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <BeachAccessIcon />
+            <CakeIcon />
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary="Birthdate" secondary="April 2, 1999" />
@@ -151,7 +157,7 @@ export default function Profile() {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <BeachAccessIcon />
+            <AttachMoneyIcon />
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary="Salary" secondary="$100,000" />
@@ -167,7 +173,7 @@ export default function Profile() {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <BeachAccessIcon />
+            <RoomIcon />
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary="Office Location" secondary="C7.312" />
@@ -175,7 +181,7 @@ export default function Profile() {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <BeachAccessIcon />
+            <ExitToAppIcon />
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary="Annual leave balance" secondary="10" />
@@ -183,7 +189,7 @@ export default function Profile() {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <BeachAccessIcon />
+            <CommuteIcon />
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary="Accident leave balance" secondary="4" />

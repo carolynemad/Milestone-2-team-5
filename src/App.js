@@ -9,20 +9,21 @@ import ResetPassword from './components/HR/ResetPassword'
 import UpdatePassword from './components/HR/UpdatePassword'
 import Profile from "./components/HR/Profile"
 import ViewMember from "./components/HR/ViewMembers"
-
+import Schedule from "./components/HR/Schedule"
 
 
 function App() {
   return(
   // <Login />
   <HR />
-  // <AddMember />
+  //<AddMember />
   //<Notifications/>
   //<Attendance/>
   //<ResetPassword/>
   //<UpdatePassword/>
   //<Profile/>
   //<ViewMember/>
+  //<Schedule/>
   )
 }
 
