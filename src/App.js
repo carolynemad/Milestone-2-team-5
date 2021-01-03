@@ -14,6 +14,10 @@ import RemoveMember from "./components/HR/RemoveMember"
 import AddLocation from "./components/HR/AddLocation"
 import AddFaculty from './components/HR/AddFaculty'
 import RemoveFaculty from "./components/HR/RemoveFaculty"
+import RemoveDepartment from "./components/HR/RemoveDepartment"
+import AddDepartment from "./components/HR/AddDepartment"
+import RemoveLocation from "./components/HR/RemoveLocation"
+
 
 function App() {
   return(
@@ -30,7 +34,11 @@ function App() {
   //<RemoveMember/>
   //<AddLocation/>
   //<AddFaculty/>
-  <RemoveFaculty/>
+  //<RemoveFaculty/>
+  //<RemoveDepartment/>
+  //<AddDepartment/>
+  <RemoveLocation/>
+
   )
 }
 
