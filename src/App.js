@@ -17,7 +17,8 @@ import RemoveFaculty from "./components/HR/RemoveFaculty"
 import RemoveDepartment from "./components/HR/RemoveDepartment"
 import AddDepartment from "./components/HR/AddDepartment"
 import RemoveLocation from "./components/HR/RemoveLocation"
-
+import AddCourse from "./components/HR/AddCourse"
+import RemoveCourse from "./components/HR/RemoveCourse"
 
 function App() {
   return(
@@ -37,8 +38,9 @@ function App() {
   //<RemoveFaculty/>
   //<RemoveDepartment/>
   //<AddDepartment/>
-  <RemoveLocation/>
-
+  //<RemoveLocation/>
+  //<AddCourse/>
+  <RemoveCourse/>
   )
 }
 
