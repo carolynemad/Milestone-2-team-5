@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     },
  
     Schedule: {
-      width: '100%',
+      width: '31vw',
       maxWidth: 360,
       backgroundColor: theme.palette.background.paper, justifyContent: 'center',
       alignItems: 'center',
@@ -108,7 +108,7 @@ export default function Schedule() {
               <tr>
                 <table>
 
-
+                <tr>
                 <List className={classes.Schedule}>
       {[0, 1, 2, 3].map((value) => {
         const labelId = `checkbox-list-label-${value}`;
@@ -134,8 +134,7 @@ export default function Schedule() {
         );
       })}
     </List>
-
-
+</tr>
 
                 </table>
               </tr>

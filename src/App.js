@@ -25,7 +25,7 @@ function App() {
   // <Login />
   //<HR />
   //<AddMember />
-  //<Notifications/>
+  <Notifications/>
   //<Attendance/>
   //<ResetPassword/>
   //<AddPassword/>
@@ -40,7 +40,7 @@ function App() {
   //<AddDepartment/>
   //<RemoveLocation/>
   //<AddCourse/>
-  <RemoveCourse/>
+  //<RemoveCourse/>
   )
 }
 

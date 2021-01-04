@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
       '& > *': {
         margin: theme.spacing(1),
-        width: '15vw ',
+        width: '30vw ',
       },
     },
     root3: {
@@ -32,7 +32,11 @@ const useStyles = makeStyles((theme) => ({
         fontWeight:'bold',
   
     },
- 
+    food: {
+      '& .MuiTextField-root': {
+        margin: theme.spacing(1),
+        width: '48ch',
+      },},
  
     tableStyle: {
       width: '28vw',
@@ -60,8 +64,7 @@ const useStyles = makeStyles((theme) => ({
     },
     formControl: {
         margin: theme.spacing(1),
-        minWidth: 120,
-        width:'15vw',
+        width:'30vw',
       },
       selectEmpty: {
         marginTop: theme.spacing(2),
@@ -126,30 +129,32 @@ export default function AddFaculty() {
             <table>
               <tr>
                 <table>
+                  <tr>
                   <td>
                     <form className={classes.root} noValidate autoComplete="off">
                       <TextField
                         id="outlined-basic"
                         label="Faculty Name"
-                        vari    ant="outlined"
+                        variant="outlined"
                         size="small"
                       />
                     </form>
                   </td>
-           
-                  <td>
-                
-                  <div>
+                  </tr>
+<tr>
+              
+       
+             <div  className={classes.food}>
         <TextField
-          id="Departments"
-          label="Departments"
-          multiline
-          rows={4}
-          defaultValue="Enter departments separated by commas"
+          id="outlined-helperText"
+          label="Courses"
+          helperText="Enter Courses separated by commas"
           variant="outlined"
         />
-      </div>
-                    </td>
+      </div> 
+      </tr>
+      
+       
                     <br/>
                 </table>
               </tr>

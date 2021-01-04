@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
       '& > *': {
         margin: theme.spacing(1),
-        width: '15vw ',
+        width: '30vw ',
       },
     },
     root3: {
@@ -32,7 +32,11 @@ const useStyles = makeStyles((theme) => ({
         fontWeight:'bold',
   
     },
- 
+    food: {
+      '& .MuiTextField-root': {
+        margin: theme.spacing(1),
+        width: '48ch',
+      },},
  
     tableStyle: {
       width: '28vw',
@@ -59,9 +63,8 @@ const useStyles = makeStyles((theme) => ({
       width: '50vw',
     },
     formControl: {
-        margin: theme.spacing(0.75),
-        minWidth: 120,
-        width:'15vw',
+        margin: theme.spacing(1),
+        width:'30vw',
       },
       selectEmpty: {
         marginTop: theme.spacing(2),
@@ -126,44 +129,44 @@ export default function AddDepartment() {
             <table>
               <tr>
                 <table>
+                  <tr>
                   <td>
                     <form className={classes.root} noValidate autoComplete="off">
                       <TextField
                         id="outlined-basic"
                         label="Department Name"
-                        vari    ant="outlined"
+                        variant="outlined"
                         size="small"
                       />
                     </form>
                   </td>
+                  </tr>
+                  <tr>
            <td>
            <form className={classes.root} noValidate autoComplete="off">
                       <TextField
                         id="outlined-basic"
                         label="Department Head Name"
-                        vari    ant="outlined"
+                        variant="outlined"
                         size="small"
                       />
                     </form>
            </td>
-           <br></br>
-           <br></br>
-           <br></br>
-           <br></br>
-
-
-<tr>              
-                  <div  className={classes.formControl}>
+           </tr>
+<tr>
+              
+       
+             <div  className={classes.food}>
         <TextField
-          id="Courses"
+          id="outlined-helperText"
           label="Courses"
-          multiline
-          rows={3}
-          defaultValue="Enter courses separated by commas"
+          helperText="Enter Courses separated by commas"
           variant="outlined"
         />
-      </div>
-      </tr>  
+      </div> 
+      </tr>
+      
+       
                     <br/>
                 </table>
               </tr>

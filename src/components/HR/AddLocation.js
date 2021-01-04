@@ -18,13 +18,13 @@ const useStyles = makeStyles((theme) => ({
     root: {
       '& > *': {
         margin: theme.spacing(1),
-        width: '15vw ',
+        width: '30vw ',
       },
     },
     root3: {
         '& > *': {
           margin: theme.spacing(1),
-          width: '15vw ',
+          width: '30vw ',
         },
       },
     titleStyle: {
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     formControl: {
         margin: theme.spacing(1),
         minWidth: 120,
-        width:'15vw',
+        width:'30vw',
       },
       selectEmpty: {
         marginTop: theme.spacing(2),
@@ -129,6 +129,7 @@ export default function AddLocation() {
             <table>
               <tr>
                 <table>
+                  <tr>
                   <td>
                     <form className={classes.root} noValidate autoComplete="off">
                       <TextField
@@ -139,6 +140,8 @@ export default function AddLocation() {
                       />
                     </form>
                   </td>
+                  </tr>
+                  <tr>
                   <td>
                     <form className={classes.root3} noValidate autoComplete="off">
                       <TextField
@@ -149,8 +152,8 @@ export default function AddLocation() {
                       />
                     </form>
                     </td>
-                    <br/>
-
+                    </tr>
+<tr>
                     <td>
                     <FormControl variant="outlined" size="small" className={classes.formControl}>
         <InputLabel id="demo-simple-select-outlined-label">Location Type</InputLabel>
@@ -174,6 +177,7 @@ export default function AddLocation() {
         </Select>
       </FormControl>
                   </td>
+                  </tr>
                 </table>
               </tr>
               <tr><div style={{justifyContent: 'center',
