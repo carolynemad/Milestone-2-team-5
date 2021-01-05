@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Login from "./components/Login";
 import TA from "./components/AC/TA";
 import HR from "./components/HR/HR";
+import CourseInstructor from "./components/AC/CourseInstructor";
 import AddMember from "./components/HR/AddMember";
 import Notifications from "./components/HR/Notifications";
 import Attendance from "./components/HR/Attendance";
@@ -23,11 +24,12 @@ import UpdateMember from "./components/HR/UpdateMember";
 import UpdateProfile from "./components/HR/UpdateProfile";
 import UpdateFaculty from "./components/HR/UpdateFaculty";
 import UpdateLocation from "./components/HR/UpdateLocation";
-
+import UpdateDepartment from "./components/HR/UpdateDepartment";
+import UpdateCourse from "./components/HR/UpdateCourse";
 function App() {
   return (
-    // <Login />
-    <HR />
+    //<Login />
+    //<HR />
     //<AddMember />
     //<Notifications/>
     //<Attendance/>
@@ -41,7 +43,7 @@ function App() {
     //<AddFaculty />
     //<RemoveFaculty/>
     //<RemoveDepartment/>
-    //<AddDepartment/>
+    //<AddDepartment />
     //<RemoveLocation/>
     //<AddCourse />
     //<RemoveCourse/>
@@ -49,6 +51,9 @@ function App() {
     //<UpdateProfile />
     //<UpdateFaculty />
     //<UpdateLocation />
+    //<UpdateDepartment />
+    //<UpdateCourse />
+    <CourseInstructor />
   );
 }
 
