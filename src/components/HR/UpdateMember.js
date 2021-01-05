@@ -7,9 +7,10 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -35,6 +36,14 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Helvetica",
     color: "black",
     fontWeight: "bold",
+  },
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
+    "& > *": {
+      margin: theme.spacing(1),
+      width: "31.35vw ",
+    },
   },
 
   tableStyle: {
@@ -84,12 +93,22 @@ function changeBackgroundOut(e) {
   e.target.style.color = "Black";
 }
 
-export default function AddMember() {
+export default function UpdateMember() {
   const classes = useStyles();
-  const [age, setAge] = React.useState("");
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  const [values, setValues] = React.useState({
+    amount: "",
+    day: "",
+  });
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const [type, setType] = React.useState("");
+
+  const handleChange2 = (event) => {
+    setType(event.target.type);
   };
 
   const [open, setOpen] = React.useState(false);
@@ -119,7 +138,9 @@ export default function AddMember() {
     >
       <table className={classes.tableStyle}>
         <tr>
-          <Typography className={classes.titleStyle}>Add New Member</Typography>
+          <Typography className={classes.titleStyle}>
+            Update New Member
+          </Typography>
 
           <br></br>
         </tr>
@@ -131,84 +152,113 @@ export default function AddMember() {
           <table>
             <tr>
               <table>
+                <tr>
+                  <td>
+                    <form
+                      className={classes.root2}
+                      noValidate
+                      autoComplete="off"
+                    >
+                      <TextField
+                        required
+                        id="outlined-basic"
+                        label="Member ID"
+                        variant="outlined"
+                        size="small"
+                      />
+                    </form>
+                  </td>
+                </tr>
                 <td>
-                  <form className={classes.root} noValidate autoComplete="off">
+                  <form className={classes.root2} noValidate autoComplete="off">
                     <TextField
-                      required
                       id="outlined-basic"
-                      label="First Name"
+                      label="Office Location"
                       variant="outlined"
                       size="small"
                     />
                   </form>
-                </td>
-                <td>
-                  <form className={classes.root} noValidate autoComplete="off">
-                    <TextField
-                      required
-                      id="outlined-basic"
-                      label="Last Name"
-                      variant="outlined"
-                      size="small"
-                    />
-                  </form>
+
+                  <FormControl
+                    variant="outlined"
+                    size="small"
+                    className={classes.formControl}
+                  >
+                    <InputLabel id="demo-simple-select-outlined-label">
+                      Days Off
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-outlined-label"
+                      id="demo-simple-select-outlined"
+                      value={values.day}
+                      onChange={handleChange2}
+                      label="Days Off"
+                    >
+                      <MenuItem value=""></MenuItem>
+                      <MenuItem value={10}>Saturday</MenuItem>
+                      <MenuItem value={20}>Monday</MenuItem>
+                      <MenuItem value={30}>Tuesday</MenuItem>
+                      <MenuItem value={40}>Wednesday</MenuItem>
+                      <MenuItem value={50}>Thursday</MenuItem>
+                      <MenuItem value={60}>Friday</MenuItem>
+                      <MenuItem value={70}>Sunday</MenuItem>
+                    </Select>
+                  </FormControl>
                 </td>
               </table>
             </tr>
             <tr>
               <FormControl
-                required
                 variant="outlined"
                 size="small"
                 className={classes.formControl}
               >
                 <InputLabel id="demo-simple-select-outlined-label">
-                  Gender
+                  Staff Member Type
                 </InputLabel>
                 <Select
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
-                  value={age}
-                  onChange={handleChange}
-                  label="Gender"
+                  value={type}
+                  onChange={handleChange2}
+                  label="Staff Member Type"
                 >
                   <MenuItem value=""></MenuItem>
-                  <MenuItem value={10}>Male</MenuItem>
-                  <MenuItem value={20}>Female</MenuItem>
-                  <MenuItem value={30}>Other</MenuItem>
+                  <MenuItem value={10}>Head Of Department</MenuItem>
+                  <MenuItem value={20}>Course Instructor</MenuItem>
+                  <MenuItem value={30}>Course Coordinator</MenuItem>
+                  <MenuItem value={40}>HR Member</MenuItem>
+                  <MenuItem value={50}>Teacher Assistant</MenuItem>
+                  <MenuItem value={60}>Unassigned</MenuItem>
                 </Select>
               </FormControl>
             </tr>
             <tr>
               <FormControl
-                required
+                fullWidth
+                className={classes.root2}
                 variant="outlined"
-                size="small"
-                className={classes.formControl}
               >
-                <InputLabel id="demo-simple-select-outlined-label">
-                  Member Type
+                <InputLabel htmlFor="outlined-adornment-amount">
+                  Salary
                 </InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  value={age}
-                  onChange={handleChange}
-                  label="Member Type"
-                >
-                  <MenuItem value=""></MenuItem>
-                  <MenuItem value={10}>Academic</MenuItem>
-                  <MenuItem value={20}>HR</MenuItem>
-                </Select>
+                <OutlinedInput
+                  id="outlined-adornment-amount"
+                  value={values.amount}
+                  onChange={handleChange("amount")}
+                  startAdornment={
+                    <InputAdornment position="start">EGY POUNDS</InputAdornment>
+                  }
+                  labelWidth={60}
+                />
               </FormControl>
             </tr>
             <tr>
               <td>
                 <form className={classes.root2} noValidate autoComplete="off">
                   <TextField
-                    required
                     id="outlined-basic"
-                    label="Email Address"
+                    label="Address"
                     variant="outlined"
                     size="small"
                   />
@@ -217,13 +267,16 @@ export default function AddMember() {
             </tr>
             <tr>
               <td>
-                <form className={classes.root2} noValidate autoComplete="off">
+                <form className={classes.container} noValidate>
                   <TextField
-                    required
-                    id="outlined-basic"
-                    label="Office Location"
-                    variant="outlined"
-                    size="small"
+                    id="date"
+                    label="Birthday"
+                    type="date"
+                    defaultValue="1999-04-02"
+                    className={classes.textField}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
                   />
                 </form>
               </td>
@@ -245,7 +298,7 @@ export default function AddMember() {
                   onClick={handleClick}
                   variant="contained"
                 >
-                  Add Member
+                  Update Member
                 </Button>
                 <Snackbar
                   open={open}
@@ -253,7 +306,7 @@ export default function AddMember() {
                   onClose={handleClose}
                 >
                   <Alert onClose={handleClose} severity="success">
-                    Member Added.
+                    Member Updated.
                   </Alert>
                 </Snackbar>
               </div>{" "}

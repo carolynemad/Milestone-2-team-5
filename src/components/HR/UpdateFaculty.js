@@ -5,6 +5,12 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -23,6 +29,12 @@ const useStyles = makeStyles((theme) => ({
       width: "31.35vw ",
     },
   },
+  food: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: "48ch",
+    },
+  },
 
   titleStyle: {
     fontSize: "2vw",
@@ -30,6 +42,14 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Helvetica",
     color: "black",
     fontWeight: "bold",
+  },
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
+    "& > *": {
+      margin: theme.spacing(1),
+      width: "31.35vw ",
+    },
   },
 
   tableStyle: {
@@ -79,12 +99,22 @@ function changeBackgroundOut(e) {
   e.target.style.color = "Black";
 }
 
-export default function UpdatePassword() {
+export default function UpdateFaculty() {
   const classes = useStyles();
-  const [password, setPassword] = React.useState("");
 
-  const handleChange = (event) => {
-    setPassword(event.target.value);
+  const [values, setValues] = React.useState({
+    amount: "",
+    day: "",
+  });
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const [type, setType] = React.useState("");
+
+  const handleChange2 = (event) => {
+    setType(event.target.type);
   };
 
   const [open, setOpen] = React.useState(false);
@@ -114,9 +144,7 @@ export default function UpdatePassword() {
     >
       <table className={classes.tableStyle}>
         <tr>
-          <Typography className={classes.titleStyle}>
-            Update my Password
-          </Typography>
+          <Typography className={classes.titleStyle}>Update Faculty</Typography>
 
           <br></br>
         </tr>
@@ -127,29 +155,44 @@ export default function UpdatePassword() {
         <tr className={classes.rowStyle}>
           <table>
             <tr>
-              <table>
-                <td>
-                  <form className={classes.root} noValidate autoComplete="off">
-                    <TextField
-                      id="outlined-basic"
-                      label="Old Password"
-                      variant="outlined"
-                      size="small"
-                    />
-                  </form>
-                </td>
-                <td>
-                  <form className={classes.root} noValidate autoComplete="off">
-                    <TextField
-                      id="outlined-basic"
-                      label="New Password"
-                      variant="outlined"
-                      size="small"
-                    />
-                  </form>
-                </td>
-              </table>
+              <td>
+                <form className={classes.root2} noValidate autoComplete="off">
+                  <TextField
+                    required
+                    id="outlined-basic"
+                    label="Faculty Name"
+                    variant="outlined"
+                    size="small"
+                  />
+                </form>
+              </td>
             </tr>
+
+            <tr>
+              <td>
+                <form className={classes.root2} noValidate autoComplete="off">
+                  <TextField
+                    id="outlined-basic"
+                    label="Faculty Head"
+                    variant="outlined"
+                    size="small"
+                  />
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <div className={classes.food}>
+                <TextField
+                  id="outlined-helperText"
+                  label="Departments"
+                  helperText="Enter Departments separated by commas"
+                  variant="outlined"
+                />
+              </div>
+            </tr>
+
+            <tr></tr>
             <tr>
               <div
                 style={{
@@ -166,7 +209,7 @@ export default function UpdatePassword() {
                   onClick={handleClick}
                   variant="contained"
                 >
-                  Update password
+                  Update Information
                 </Button>
                 <Snackbar
                   open={open}
@@ -174,7 +217,7 @@ export default function UpdatePassword() {
                   onClose={handleClose}
                 >
                   <Alert onClose={handleClose} severity="success">
-                    Password changed.
+                    Information Updated.
                   </Alert>
                 </Snackbar>
               </div>{" "}

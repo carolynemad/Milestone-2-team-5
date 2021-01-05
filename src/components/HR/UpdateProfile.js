@@ -5,6 +5,12 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -14,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       margin: theme.spacing(1),
-      width: "31.35vw",
+      width: "15vw ",
     },
   },
   root2: {
@@ -30,6 +36,14 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Helvetica",
     color: "black",
     fontWeight: "bold",
+  },
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
+    "& > *": {
+      margin: theme.spacing(1),
+      width: "31.35vw ",
+    },
   },
 
   tableStyle: {
@@ -79,12 +93,22 @@ function changeBackgroundOut(e) {
   e.target.style.color = "Black";
 }
 
-export default function RemoveLocation() {
+export default function UpdateProfile() {
   const classes = useStyles();
-  const [password, setPassword] = React.useState("");
 
-  const handleChange = (event) => {
-    setPassword(event.target.value);
+  const [values, setValues] = React.useState({
+    amount: "",
+    day: "",
+  });
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const [type, setType] = React.useState("");
+
+  const handleChange2 = (event) => {
+    setType(event.target.type);
   };
 
   const [open, setOpen] = React.useState(false);
@@ -114,9 +138,7 @@ export default function RemoveLocation() {
     >
       <table className={classes.tableStyle}>
         <tr>
-          <Typography className={classes.titleStyle}>
-            Remove Location
-          </Typography>
+          <Typography className={classes.titleStyle}>Update Profile</Typography>
 
           <br></br>
         </tr>
@@ -127,17 +149,81 @@ export default function RemoveLocation() {
         <tr className={classes.rowStyle}>
           <table>
             <tr>
+              <table>
+                <td>
+                  <FormControl
+                    variant="outlined"
+                    size="small"
+                    className={classes.formControl}
+                  >
+                    <InputLabel id="demo-simple-select-outlined-label">
+                      Gender
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-outlined-label"
+                      id="demo-simple-select-outlined"
+                      value={values.day}
+                      onChange={handleChange2}
+                      label="Gender"
+                    >
+                      <MenuItem value=""></MenuItem>
+                      <MenuItem value={10}>Male</MenuItem>
+                      <MenuItem value={20}>Female</MenuItem>
+                      <MenuItem value={30}>Other</MenuItem>
+                    </Select>
+                  </FormControl>
+                </td>
+              </table>
+            </tr>
+            <tr>
+              <FormControl
+                fullWidth
+                className={classes.root2}
+                variant="outlined"
+              >
+                <InputLabel htmlFor="outlined-adornment-amount">
+                  Salary
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-amount"
+                  value={values.amount}
+                  onChange={handleChange("amount")}
+                  startAdornment={
+                    <InputAdornment position="start">EGY POUNDS</InputAdornment>
+                  }
+                  labelWidth={60}
+                />
+              </FormControl>
+            </tr>
+            <tr>
               <td>
-                <form className={classes.root} noValidate autoComplete="off">
+                <form className={classes.root2} noValidate autoComplete="off">
                   <TextField
                     id="outlined-basic"
-                    label="Location Name"
+                    label="Address"
                     variant="outlined"
                     size="small"
                   />
                 </form>
               </td>
             </tr>
+            <tr>
+              <td>
+                <form className={classes.container} noValidate>
+                  <TextField
+                    id="date"
+                    label="Birthday"
+                    type="date"
+                    defaultValue="1999-04-02"
+                    className={classes.textField}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </form>
+              </td>
+            </tr>
+            <tr></tr>
             <tr>
               <div
                 style={{
@@ -154,7 +240,7 @@ export default function RemoveLocation() {
                   onClick={handleClick}
                   variant="contained"
                 >
-                  Remove Location
+                  Update Information
                 </Button>
                 <Snackbar
                   open={open}
@@ -162,7 +248,7 @@ export default function RemoveLocation() {
                   onClose={handleClose}
                 >
                   <Alert onClose={handleClose} severity="success">
-                    Location Removed.
+                    Information Updated.
                   </Alert>
                 </Snackbar>
               </div>{" "}

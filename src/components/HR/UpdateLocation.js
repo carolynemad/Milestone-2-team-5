@@ -5,6 +5,10 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -14,16 +18,15 @@ const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       margin: theme.spacing(1),
-      width: "15vw ",
+      width: "30vw ",
     },
   },
-  root2: {
+  root3: {
     "& > *": {
       margin: theme.spacing(1),
-      width: "31.35vw ",
+      width: "30vw ",
     },
   },
-
   titleStyle: {
     fontSize: "2vw",
     textAlign: "center",
@@ -56,16 +59,10 @@ const useStyles = makeStyles((theme) => ({
   colStyle: {
     width: "50vw",
   },
-  root3: {
-    width: "100%",
-    "& > * + *": {
-      marginTop: theme.spacing(2),
-    },
-  },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
-    width: "31.35vw",
+    width: "30vw",
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -79,12 +76,13 @@ function changeBackgroundOut(e) {
   e.target.style.color = "Black";
 }
 
-export default function UpdatePassword() {
+export default function UpdateLocation() {
   const classes = useStyles();
-  const [password, setPassword] = React.useState("");
+
+  const [type, setType] = React.useState("");
 
   const handleChange = (event) => {
-    setPassword(event.target.value);
+    setType(event.target.value);
   };
 
   const [open, setOpen] = React.useState(false);
@@ -115,7 +113,7 @@ export default function UpdatePassword() {
       <table className={classes.tableStyle}>
         <tr>
           <Typography className={classes.titleStyle}>
-            Update my Password
+            Update Location
           </Typography>
 
           <br></br>
@@ -128,26 +126,67 @@ export default function UpdatePassword() {
           <table>
             <tr>
               <table>
-                <td>
-                  <form className={classes.root} noValidate autoComplete="off">
-                    <TextField
-                      id="outlined-basic"
-                      label="Old Password"
+                <tr>
+                  <td>
+                    <form
+                      className={classes.root}
+                      noValidate
+                      autoComplete="off"
+                    >
+                      <TextField
+                        required
+                        id="outlined-basic"
+                        label="Location Name"
+                        variant="outlined"
+                        size="small"
+                      />
+                    </form>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <form
+                      className={classes.root3}
+                      noValidate
+                      autoComplete="off"
+                    >
+                      <TextField
+                        id="outlined-basic"
+                        label="Location Capacity"
+                        variant="outlined"
+                        size="small"
+                      />
+                    </form>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <FormControl
                       variant="outlined"
                       size="small"
-                    />
-                  </form>
-                </td>
-                <td>
-                  <form className={classes.root} noValidate autoComplete="off">
-                    <TextField
-                      id="outlined-basic"
-                      label="New Password"
-                      variant="outlined"
-                      size="small"
-                    />
-                  </form>
-                </td>
+                      className={classes.formControl}
+                    >
+                      <InputLabel id="demo-simple-select-outlined-label">
+                        Location Type
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={type}
+                        onChange={handleChange}
+                        label="Location Type"
+                      >
+                        <MenuItem value=""></MenuItem>
+                        <MenuItem value={10}>Lecture</MenuItem>
+                        <MenuItem value={20}>Lab</MenuItem>
+                        <MenuItem value={30}>Tutorial</MenuItem>
+                        <MenuItem value={40}>TAoffice</MenuItem>
+                        <MenuItem value={50}>DRoffice</MenuItem>
+                        <MenuItem value={60}>Exam Hall</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </td>
+                </tr>
               </table>
             </tr>
             <tr>
@@ -166,7 +205,7 @@ export default function UpdatePassword() {
                   onClick={handleClick}
                   variant="contained"
                 >
-                  Update password
+                  Update Location
                 </Button>
                 <Snackbar
                   open={open}
@@ -174,7 +213,7 @@ export default function UpdatePassword() {
                   onClose={handleClose}
                 >
                   <Alert onClose={handleClose} severity="success">
-                    Password changed.
+                    Location Updated.
                   </Alert>
                 </Snackbar>
               </div>{" "}
