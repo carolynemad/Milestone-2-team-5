@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Login from "./components/Login";
 import TA from "./components/AC/TA";
 import HR from "./components/HR/HR";
-import CourseInstructor from "./components/AC/CourseInstructor";
+import CourseInstructor from "./components/AC/CourseInstructor/CourseInstructor";
 import AddMember from "./components/HR/AddMember";
 import Notifications from "./components/HR/Notifications";
 import Attendance from "./components/HR/Attendance";
@@ -26,6 +26,16 @@ import UpdateFaculty from "./components/HR/UpdateFaculty";
 import UpdateLocation from "./components/HR/UpdateLocation";
 import UpdateDepartment from "./components/HR/UpdateDepartment";
 import UpdateCourse from "./components/HR/UpdateCourse";
+//////////////////////////////////////////////////////////////////////////////////
+import ScheduleIns from "./components/AC/CourseInstructor/ScheduleIns";
+import NotificationsIns from "./components/AC/CourseInstructor/NotificationsIns";
+import AttendanceIns from "./components/AC/CourseInstructor/AttendanceIns";
+import ResetPasswordIns from "./components/AC/CourseInstructor/ResetPasswordIns";
+import ProfileIns from "./components/AC/CourseInstructor/ProfileIns";
+import UpdateProfileIns from "./components/AC/CourseInstructor/UpdateProfileIns";
+import ViewRequests from "./components/AC/CourseInstructor/ViewRequests";
+import SendRequest from "./components/AC/CourseInstructor/SendRequest";
+
 function App() {
   return (
     //<Login />
@@ -47,13 +57,21 @@ function App() {
     //<RemoveLocation/>
     //<AddCourse />
     //<RemoveCourse/>
-    //<UpdateMember/>
+    //<UpdateMember />
     //<UpdateProfile />
     //<UpdateFaculty />
     //<UpdateLocation />
     //<UpdateDepartment />
     //<UpdateCourse />
-    <CourseInstructor />
+    //////////////////////////////
+    //<CourseInstructor />
+    //<ScheduleIns />
+    //<NotificationsIns />
+    //<AttendanceIns />
+    //<ResetPasswordIns />
+    //<ProfileIns />
+    //<ViewRequests />
+    <SendRequest />
   );
 }
 
