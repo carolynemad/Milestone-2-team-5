@@ -46,8 +46,8 @@ function App() {
     //<ResetPassword/>
     //<AddPassword/>
     //<Profile/>
-    //<ViewMember/>
-    //<Schedule/>
+    // <ViewMember />
+    //<Schedule />
     //<RemoveMember/>
     //<AddLocation/>
     //<AddFaculty />
@@ -64,14 +64,14 @@ function App() {
     //<UpdateDepartment />
     //<UpdateCourse />
     //////////////////////////////
-    //<CourseInstructor />
+    <CourseInstructor />
     //<ScheduleIns />
     //<NotificationsIns />
     //<AttendanceIns />
     //<ResetPasswordIns />
     //<ProfileIns />
     //<ViewRequests />
-    <SendRequest />
+    //<SendRequest />
   );
 }
 

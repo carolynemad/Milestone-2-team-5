@@ -26,7 +26,12 @@ import PermIdentityOutlinedIcon from "@material-ui/icons/PermIdentityOutlined";
 import UpdateOutlinedIcon from "@material-ui/icons/UpdateOutlined";
 import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
 import ListAltOutlinedIcon from "@material-ui/icons/ListAltOutlined";
-const drawerWidth = 240;
+import FunctionsIcon from "@material-ui/icons/Functions";
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
+import ViewListIcon from "@material-ui/icons/ViewList";
+
+const drawerWidth = 290;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -185,6 +190,31 @@ export default function ACpage() {
                 {index === 1 && <UpdateOutlinedIcon />}
                 {index === 2 && <LockOpenOutlinedIcon />}
                 {index === 3 && <ListAltOutlinedIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {[
+            "View Course Coverge",
+            "View Slots Assignment",
+            "View Staff",
+            "Add Course Assignment",
+            "Delete Course Assignment",
+            "Update Course Assignment",
+            "Assign Course Coordinaor",
+          ].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                {index === 0 && <FunctionsIcon />}
+                {index === 1 && <UpdateOutlinedIcon />}
+                {index === 2 && <ViewListIcon />}
+                {index === 3 && <AddIcon />}
+                {index === 4 && <RemoveIcon />}
+                {index === 5 && <ListAltOutlinedIcon />}
+                {index === 6 && <AddIcon />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>

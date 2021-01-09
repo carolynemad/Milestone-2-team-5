@@ -249,7 +249,7 @@ export default function UpdateMember() {
                   startAdornment={
                     <InputAdornment position="start">EGY POUNDS</InputAdornment>
                   }
-                  labelWidth={60}
+                  labelWidth={50}
                 />
               </FormControl>
             </tr>
@@ -272,6 +272,7 @@ export default function UpdateMember() {
                     id="date"
                     label="Birthday"
                     type="date"
+                    variant="outlined"
                     defaultValue="1999-04-02"
                     className={classes.textField}
                     InputLabelProps={{
