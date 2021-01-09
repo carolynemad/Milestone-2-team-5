@@ -35,6 +35,10 @@ import ProfileIns from "./components/AC/CourseInstructor/ProfileIns";
 import UpdateProfileIns from "./components/AC/CourseInstructor/UpdateProfileIns";
 import ViewRequests from "./components/AC/CourseInstructor/ViewRequests";
 import SendRequest from "./components/AC/CourseInstructor/SendRequest";
+import ViewMembersIns from "./components/AC/CourseInstructor/ViewMembersIns";
+import DeleteCourseAssignment from "./components/AC/CourseInstructor/DeleteCourseAssignment";
+import UpdateCourseAssignment from "./components/AC/CourseInstructor/UpdateCourseAssignment";
+import ViewSlotAssignment from "./components/AC/CourseInstructor/ViewSlotAssignment";
 
 function App() {
   return (
@@ -46,7 +50,7 @@ function App() {
     //<ResetPassword/>
     //<AddPassword/>
     //<Profile/>
-    // <ViewMember />
+    //<ViewMember />
     //<Schedule />
     //<RemoveMember/>
     //<AddLocation/>
@@ -64,7 +68,7 @@ function App() {
     //<UpdateDepartment />
     //<UpdateCourse />
     //////////////////////////////
-    <CourseInstructor />
+    //<CourseInstructor />
     //<ScheduleIns />
     //<NotificationsIns />
     //<AttendanceIns />
@@ -72,6 +76,9 @@ function App() {
     //<ProfileIns />
     //<ViewRequests />
     //<SendRequest />
+    //<DeleteCourseAssignment />
+    //<UpdateCourseAssignment />
+    <ViewSlotAssignment />
   );
 }
 
