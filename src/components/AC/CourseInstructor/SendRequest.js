@@ -28,7 +28,14 @@ const useStyles = makeStyles((theme) => ({
       width: "31.35vw ",
     },
   },
-
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
+    "& > *": {
+      margin: theme.spacing(1),
+      width: "31.35vw ",
+    },
+  },
   titleStyle: {
     fontSize: "2vw",
     textAlign: "center",
@@ -132,11 +139,12 @@ export default function SendRequest() {
         </tr>
         <tr className={classes.rowStyle}>
           <table>
-            <tr>
-              <table>
+            <table>
+              <tr>
                 <td>
                   <form className={classes.root2} noValidate autoComplete="off">
                     <FormControl
+                      required
                       variant="outlined"
                       size="small"
                       className={classes.formControl}
@@ -158,8 +166,11 @@ export default function SendRequest() {
                     </FormControl>
                   </form>
                 </td>
+              </tr>
+              <tr>
                 <td>
                   <FormControl
+                    required
                     variant="outlined"
                     size="small"
                     className={classes.formControl}
@@ -186,29 +197,32 @@ export default function SendRequest() {
                     </Select>
                   </FormControl>
                 </td>
-              </table>
+              </tr>
+            </table>
+
+            <tr>
+              <td>
+                <form className={classes.root2} noValidate autoComplete="off">
+                  <TextField
+                    id="outlined-basic"
+                    label="Brief/Comments"
+                    variant="outlined"
+                    size="small"
+                  />
+                </form>
+              </td>
             </tr>
             <tr>
-              <form className={classes.root} noValidate autoComplete="off">
-                <TextField
-                  required
-                  id="outlined-basic"
-                  label="Brief/Comments"
-                  variant="outlined"
-                  size="small"
-                />
-              </form>
-            </tr>
-            <tr>
-              <form className={classes.root} noValidate autoComplete="off">
-                <TextField
-                  required
-                  id="outlined-basic"
-                  label="Slot ID"
-                  variant="outlined"
-                  size="small"
-                />
-              </form>
+              <td>
+                <form className={classes.root2} noValidate autoComplete="off">
+                  <TextField
+                    id="outlined-basic"
+                    label="Slot ID"
+                    variant="outlined"
+                    size="small"
+                  />
+                </form>
+              </td>
             </tr>
             <tr>
               <td>
