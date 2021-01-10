@@ -7,10 +7,9 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import InputAdornment from "@material-ui/core/InputAdornment";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -29,14 +28,6 @@ const useStyles = makeStyles((theme) => ({
       width: "31.35vw ",
     },
   },
-
-  titleStyle: {
-    fontSize: "2vw",
-    textAlign: "center",
-    fontFamily: "Helvetica",
-    color: "black",
-    fontWeight: "bold",
-  },
   container: {
     display: "flex",
     flexWrap: "wrap",
@@ -44,6 +35,13 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       width: "31.35vw ",
     },
+  },
+  titleStyle: {
+    fontSize: "2vw",
+    textAlign: "center",
+    fontFamily: "Helvetica",
+    color: "black",
+    fontWeight: "bold",
   },
 
   tableStyle: {
@@ -93,22 +91,15 @@ function changeBackgroundOut(e) {
   e.target.style.color = "Black";
 }
 
-export default function UpdateMember() {
+export default function SendRequest() {
   const classes = useStyles();
-
   const [values, setValues] = React.useState({
-    amount: "",
-    day: "",
+    reciever: "",
+    type: "",
   });
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
-  };
-
-  const [type, setType] = React.useState("");
-
-  const handleChange2 = (event) => {
-    setType(event.target.type);
   };
 
   const [open, setOpen] = React.useState(false);
@@ -138,9 +129,7 @@ export default function UpdateMember() {
     >
       <table className={classes.tableStyle}>
         <tr>
-          <Typography className={classes.titleStyle}>
-            Update New Member
-          </Typography>
+          <Typography className={classes.titleStyle}>Send Request</Typography>
 
           <br></br>
         </tr>
@@ -150,115 +139,85 @@ export default function UpdateMember() {
         </tr>
         <tr className={classes.rowStyle}>
           <table>
-            <tr>
-              <table>
-                <tr>
-                  <td>
-                    <form
-                      className={classes.root2}
-                      noValidate
-                      autoComplete="off"
-                    >
-                      <TextField
-                        required
-                        id="outlined-basic"
-                        label="Member ID"
-                        variant="outlined"
-                        size="small"
-                      />
-                    </form>
-                  </td>
-                </tr>
+            <table>
+              <tr>
                 <td>
                   <form className={classes.root2} noValidate autoComplete="off">
-                    <TextField
-                      id="outlined-basic"
-                      label="Office Location"
+                    <FormControl
+                      required
                       variant="outlined"
                       size="small"
-                    />
+                      className={classes.formControl}
+                    >
+                      <InputLabel id="demo-simple-select-outlined-label">
+                        Receiver
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={values.Reciever}
+                        onChange={handleChange}
+                        label="Reciever"
+                      >
+                        <MenuItem value=""></MenuItem>
+                        <MenuItem value={10}>Head Of Department</MenuItem>
+                        <MenuItem value={20}>HR</MenuItem>
+                      </Select>
+                    </FormControl>
                   </form>
-
+                </td>
+              </tr>
+              <tr>
+                <td>
                   <FormControl
+                    required
                     variant="outlined"
                     size="small"
                     className={classes.formControl}
                   >
                     <InputLabel id="demo-simple-select-outlined-label">
-                      Days Off
+                      Request Type
                     </InputLabel>
                     <Select
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
                       value={values.day}
-                      onChange={handleChange2}
-                      label="Days Off"
+                      onChange={handleChange}
+                      label="Request Type"
                     >
                       <MenuItem value=""></MenuItem>
-                      <MenuItem value={10}>Saturday</MenuItem>
-                      <MenuItem value={20}>Monday</MenuItem>
-                      <MenuItem value={30}>Tuesday</MenuItem>
-                      <MenuItem value={40}>Wednesday</MenuItem>
-                      <MenuItem value={50}>Thursday</MenuItem>
-                      <MenuItem value={60}>Friday</MenuItem>
-                      <MenuItem value={70}>Sunday</MenuItem>
+                      <MenuItem value={10}>Accidental Leave</MenuItem>
+                      <MenuItem value={20}>Annual Leave</MenuItem>
+                      <MenuItem value={30}>Compensation Leave</MenuItem>
+                      <MenuItem value={40}>Maternity Leave</MenuItem>
+                      <MenuItem value={50}>Sick Leave</MenuItem>
+                      <MenuItem value={60}>Replacement</MenuItem>
+                      <MenuItem value={70}>ChangeDayOff</MenuItem>
+                      <MenuItem value={80}>SlotLinking</MenuItem>
                     </Select>
                   </FormControl>
                 </td>
-              </table>
-            </tr>
+              </tr>
+            </table>
+
             <tr>
-              <FormControl
-                variant="outlined"
-                size="small"
-                className={classes.formControl}
-              >
-                <InputLabel id="demo-simple-select-outlined-label">
-                  Staff Member Type
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  value={type}
-                  onChange={handleChange2}
-                  label="Staff Member Type"
-                >
-                  <MenuItem value=""></MenuItem>
-                  <MenuItem value={10}>Head Of Department</MenuItem>
-                  <MenuItem value={20}>Course Instructor</MenuItem>
-                  <MenuItem value={30}>Course Coordinator</MenuItem>
-                  <MenuItem value={40}>HR Member</MenuItem>
-                  <MenuItem value={50}>Teacher Assistant</MenuItem>
-                  <MenuItem value={60}>Unassigned</MenuItem>
-                </Select>
-              </FormControl>
-            </tr>
-            <tr>
-              <FormControl
-                fullWidth
-                className={classes.root2}
-                variant="outlined"
-              >
-                <InputLabel htmlFor="outlined-adornment-amount">
-                  Salary
-                </InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-amount"
-                  value={values.amount}
-                  onChange={handleChange("amount")}
-                  startAdornment={
-                    <InputAdornment position="start">EGY POUNDS</InputAdornment>
-                  }
-                  labelWidth={50}
-                />
-              </FormControl>
+              <td>
+                <form className={classes.root2} noValidate autoComplete="off">
+                  <TextField
+                    id="outlined-basic"
+                    label="Brief/Comments"
+                    variant="outlined"
+                    size="small"
+                  />
+                </form>
+              </td>
             </tr>
             <tr>
               <td>
                 <form className={classes.root2} noValidate autoComplete="off">
                   <TextField
                     id="outlined-basic"
-                    label="Address"
+                    label="Slot ID"
                     variant="outlined"
                     size="small"
                   />
@@ -270,9 +229,24 @@ export default function UpdateMember() {
                 <form className={classes.container} noValidate>
                   <TextField
                     id="date"
-                    label="Birthday"
+                    label="Active Date"
                     type="date"
-                    variant="outlined"
+                    defaultValue="1999-04-02"
+                    className={classes.textField}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </form>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <form className={classes.container} noValidate>
+                  <TextField
+                    id="date"
+                    label="End Date"
+                    type="date"
                     defaultValue="1999-04-02"
                     className={classes.textField}
                     InputLabelProps={{
@@ -299,7 +273,7 @@ export default function UpdateMember() {
                   onClick={handleClick}
                   variant="contained"
                 >
-                  Update Member
+                  Send Request
                 </Button>
                 <Snackbar
                   open={open}
@@ -307,7 +281,7 @@ export default function UpdateMember() {
                   onClose={handleClose}
                 >
                   <Alert onClose={handleClose} severity="success">
-                    Member Updated.
+                    Request Sent.
                   </Alert>
                 </Snackbar>
               </div>{" "}

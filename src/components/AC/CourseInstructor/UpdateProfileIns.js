@@ -93,7 +93,7 @@ function changeBackgroundOut(e) {
   e.target.style.color = "Black";
 }
 
-export default function UpdateMember() {
+export default function UpdateProfile() {
   const classes = useStyles();
 
   const [values, setValues] = React.useState({
@@ -138,9 +138,7 @@ export default function UpdateMember() {
     >
       <table className={classes.tableStyle}>
         <tr>
-          <Typography className={classes.titleStyle}>
-            Update New Member
-          </Typography>
+          <Typography className={classes.titleStyle}>Update Profile</Typography>
 
           <br></br>
         </tr>
@@ -152,86 +150,30 @@ export default function UpdateMember() {
           <table>
             <tr>
               <table>
-                <tr>
-                  <td>
-                    <form
-                      className={classes.root2}
-                      noValidate
-                      autoComplete="off"
-                    >
-                      <TextField
-                        required
-                        id="outlined-basic"
-                        label="Member ID"
-                        variant="outlined"
-                        size="small"
-                      />
-                    </form>
-                  </td>
-                </tr>
                 <td>
-                  <form className={classes.root2} noValidate autoComplete="off">
-                    <TextField
-                      id="outlined-basic"
-                      label="Office Location"
-                      variant="outlined"
-                      size="small"
-                    />
-                  </form>
-
                   <FormControl
                     variant="outlined"
                     size="small"
                     className={classes.formControl}
                   >
                     <InputLabel id="demo-simple-select-outlined-label">
-                      Days Off
+                      Gender
                     </InputLabel>
                     <Select
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
                       value={values.day}
                       onChange={handleChange2}
-                      label="Days Off"
+                      label="Gender"
                     >
                       <MenuItem value=""></MenuItem>
-                      <MenuItem value={10}>Saturday</MenuItem>
-                      <MenuItem value={20}>Monday</MenuItem>
-                      <MenuItem value={30}>Tuesday</MenuItem>
-                      <MenuItem value={40}>Wednesday</MenuItem>
-                      <MenuItem value={50}>Thursday</MenuItem>
-                      <MenuItem value={60}>Friday</MenuItem>
-                      <MenuItem value={70}>Sunday</MenuItem>
+                      <MenuItem value={10}>Male</MenuItem>
+                      <MenuItem value={20}>Female</MenuItem>
+                      <MenuItem value={30}>Other</MenuItem>
                     </Select>
                   </FormControl>
                 </td>
               </table>
-            </tr>
-            <tr>
-              <FormControl
-                variant="outlined"
-                size="small"
-                className={classes.formControl}
-              >
-                <InputLabel id="demo-simple-select-outlined-label">
-                  Staff Member Type
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  value={type}
-                  onChange={handleChange2}
-                  label="Staff Member Type"
-                >
-                  <MenuItem value=""></MenuItem>
-                  <MenuItem value={10}>Head Of Department</MenuItem>
-                  <MenuItem value={20}>Course Instructor</MenuItem>
-                  <MenuItem value={30}>Course Coordinator</MenuItem>
-                  <MenuItem value={40}>HR Member</MenuItem>
-                  <MenuItem value={50}>Teacher Assistant</MenuItem>
-                  <MenuItem value={60}>Unassigned</MenuItem>
-                </Select>
-              </FormControl>
             </tr>
             <tr>
               <FormControl
@@ -249,7 +191,7 @@ export default function UpdateMember() {
                   startAdornment={
                     <InputAdornment position="start">EGY POUNDS</InputAdornment>
                   }
-                  labelWidth={50}
+                  labelWidth={60}
                 />
               </FormControl>
             </tr>
@@ -272,7 +214,6 @@ export default function UpdateMember() {
                     id="date"
                     label="Birthday"
                     type="date"
-                    variant="outlined"
                     defaultValue="1999-04-02"
                     className={classes.textField}
                     InputLabelProps={{
@@ -299,7 +240,7 @@ export default function UpdateMember() {
                   onClick={handleClick}
                   variant="contained"
                 >
-                  Update Member
+                  Update Information
                 </Button>
                 <Snackbar
                   open={open}
@@ -307,7 +248,7 @@ export default function UpdateMember() {
                   onClose={handleClose}
                 >
                   <Alert onClose={handleClose} severity="success">
-                    Member Updated.
+                    Information Updated.
                   </Alert>
                 </Snackbar>
               </div>{" "}
