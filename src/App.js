@@ -1,60 +1,41 @@
 import React, { Component } from "react";
-import Login from "./components/Login";
-import TA from "./components/AC/TA";
-import HR from "./components/HR/HR";
-import CourseInstructor from "./components/AC/CourseInstructor";
-import AddMember from "./components/HR/AddMember";
-import Notifications from "./components/HR/Notifications";
-import Attendance from "./components/HR/Attendance";
-import ResetPassword from "./components/HR/ResetPassword";
-import AddPassword from "./components/HR/UpdatePassword";
-import Profile from "./components/HR/Profile";
-import ViewMember from "./components/HR/ViewMembers";
-import Schedule from "./components/HR/Schedule";
-import RemoveMember from "./components/HR/RemoveMember";
-import AddLocation from "./components/HR/AddLocation";
-import AddFaculty from "./components/HR/AddFaculty";
-import RemoveFaculty from "./components/HR/RemoveFaculty";
-import RemoveDepartment from "./components/HR/RemoveDepartment";
-import AddDepartment from "./components/HR/AddDepartment";
-import RemoveLocation from "./components/HR/RemoveLocation";
-import AddCourse from "./components/HR/AddCourse";
-import RemoveCourse from "./components/HR/RemoveCourse";
-import UpdateMember from "./components/HR/UpdateMember";
-import UpdateProfile from "./components/HR/UpdateProfile";
-import UpdateFaculty from "./components/HR/UpdateFaculty";
-import UpdateLocation from "./components/HR/UpdateLocation";
-import UpdateDepartment from "./components/HR/UpdateDepartment";
-import UpdateCourse from "./components/HR/UpdateCourse";
-function App() {
-  return (
-    //<Login />
-    //<HR />
-    //<AddMember />
-    //<Notifications/>
+import TA from "./components/AC/TA/TA";
+import Scheduler from './components/AC/TA/ViewScheduler';
+import './App.css';
+import Notifications from './components/AC/TA/Notifications';
+import SendRequest from './components/AC/TA/SendRequest';
+import UpdateProfile from "./components/AC/TA/UpdateProfile";
+import Profile from "./components/AC/TA/Profile";
+
+import ViewRequests from "./components/AC/TA/ViewRequests";
+import ResetPassword from "./components/AC/TA/ResetPassword";
+import Attendance from "./components/AC/TA/Attendance";
+
+// const data = [
+//   { start_date:'2020-06-10 6:00', end_date:'2020-06-10 8:00', text:'Event 1', id: 1 },
+//   { start_date:'2020-06-13 10:00', end_date:'2020-06-13 18:00', text:'Event 2', id: 2 }
+// ];
+
+class App extends Component { 
+  render() {
+      return (
+       
+        <SendRequest/>
+      //<UpdateProfile/>
+       //<ViewRequests/>
+       //<Notifications/>
+        //<ResetPassword/>
+      // <TA/>
+      //<Attendance/>
     //<Attendance/>
-    //<ResetPassword/>
-    //<AddPassword/>
-    //<Profile/>
-    //<ViewMember/>
-    //<Schedule/>
-    //<RemoveMember/>
-    //<AddLocation/>
-    //<AddFaculty />
-    //<RemoveFaculty/>
-    //<RemoveDepartment/>
-    //<AddDepartment />
-    //<RemoveLocation/>
-    //<AddCourse />
-    //<RemoveCourse/>
-    //<UpdateMember/>
-    //<UpdateProfile />
-    //<UpdateFaculty />
-    //<UpdateLocation />
-    //<UpdateDepartment />
-    //<UpdateCourse />
-    <CourseInstructor />
-  );
+          // <div>
+          //     <div className='scheduler-container'>
+          //         <Scheduler events={data}/>
+          //     </div>
+          // </div>
+      );
+  }
 }
+
 
 export default App;

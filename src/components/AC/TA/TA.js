@@ -155,7 +155,7 @@ export default function ACpage() {
               {/* <Avatar src="ashry.jpeg" />  */}
              
               <Typography variant="h6" noWrap>
-                Mohamad Ashry
+                Nora Sadek
               </Typography>
             </Toolbar>
           </AppBar>

@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Scheduler from './components/AC/TA/ViewScheduler';
+import './Scheduler.css';
+export default Scheduler;
+
 
 ReactDOM.render(
   <React.StrictMode>
