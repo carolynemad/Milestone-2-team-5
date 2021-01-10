@@ -14,6 +14,7 @@ import AttendanceTA from "./components/AC/TA/Attendance";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import HR from "./components/HR/HR";
+import HOD from "./components/HOD/HOD";
 import CourseInstructor from "./components/AC/CourseInstructor/CourseInstructor";
 import AddMember from "./components/HR/AddMember";
 import Notifications from "./components/HR/Notifications";
@@ -51,6 +52,31 @@ import ViewMembersIns from "./components/AC/CourseInstructor/ViewMembersIns";
 import DeleteCourseAssignment from "./components/AC/CourseInstructor/DeleteCourseAssignment";
 import UpdateCourseAssignment from "./components/AC/CourseInstructor/UpdateCourseAssignment";
 import ViewSlotAssignment from "./components/AC/CourseInstructor/ViewSlotAssignment";
+import ViewCourseCoverage from "./components/AC/CourseInstructor/ViewCourseCoverage";
+import AssignCourseCoordinator from "./components/AC/CourseInstructor/AssignCourseCoordinator";
+import AssignSlot from "./components/AC/CourseInstructor/AssignSlot";
+//////////////////////////////////////////////////////////////////////////////////
+import AcceptOrReject from "./components/HOD/AcceptOrReject";
+import AssignCourseInstructor from "./components/HOD/AssignCourseInstructor";
+import AttendanceHOD from "./components/HOD/AttendanceHOD";
+import DeleteCourseInstructor from "./components/HOD/DeleteCourseInstructor";
+import NotificationsHOD from "./components/HOD/NotificationsHOD";
+import ProfileHOD from "./components/HOD/ProfileHOD";
+import ResetPasswordHOD from "./components/HOD/ResetPasswordHOD";
+import SendRequestHOD from "./components/HOD/SendRequestHOD";
+import UpdateCourseInstructor from "./components/HOD/UpdateCourseInstructor";
+import UpdateProfileHOD from "./components/HOD/UpdateProfileHOD";
+import ViewCourseCoverageHOD from "./components/HOD/ViewCourseCoverageHOD";
+import ViewMembersHOD from "./components/HOD/ViewMembersHOD";
+import ViewRequestHOD from "./components/HOD/ViewRequestsHOD";
+import ViewSlotAssignmentHOD from "./components/HOD/ViewSlotAssignmentHOD";
+//////////////////////////////////////////////////////////////////////////////////
+import CourseCoordinator from "./components/AC/CourseCoordinator/CourseCoordinator";
+import AcceptOrRejectCOO from "./components/AC/CourseCoordinator/AcceptOrRejectCOO";
+import AddCourseSlot from "./components/AC/CourseCoordinator/AddCourseSlot";
+import RemoveCourseSlot from "./components/AC/CourseCoordinator/RemoveCourseSlot";
+import UpdateCourseSlot from "./components/AC/CourseCoordinator/UpdateCourseSlot";
+import ViewRequestsCOO from "./components/AC/CourseCoordinator/ViewRequestsCOO";
 
 // const data = [
 //   { start_date:'2020-06-10 6:00', end_date:'2020-06-10 8:00', text:'Event 1', id: 1 },
@@ -60,6 +86,7 @@ import ViewSlotAssignment from "./components/AC/CourseInstructor/ViewSlotAssignm
 class App extends Component {
   render() {
     return (
+      //////////////////////////////////////////////////////////////////////////////////
       //<SendRequestTA />
       //<UpdateProfileTA />
       //<ViewRequestsTA />*******
@@ -68,12 +95,14 @@ class App extends Component {
       //<TA />
       //<AttendanceTA />
       //<ProfileTA />
-      // <div>
+      // <div> ****************
       //     <div className='scheduler-container'>
       //         <Scheduler events={data}/>
       //     </div>
       // </div>
+      //////////////////////////////////////////////////////////////////////////////////
       //<Login />
+      //<SignUp />
       //////////////////////////////////////////////////////////////////////////////////
       //<HR />
       //<AddMember />
@@ -111,7 +140,32 @@ class App extends Component {
       //<DeleteCourseAssignment />
       //<UpdateCourseAssignment />
       //<ViewSlotAssignment />
-      <SignUp />
+      //<ViewCourseCoverage />
+      //<AssignCourseCoordinator />
+      //<AssignSlot />
+      //////////////////////////////////////////////////////////////////////////////////
+      //<HOD />
+      //<AcceptOrReject />
+      //<AssignCourseInstructor/>
+      //<AttendanceHOD/>
+      //<DeleteCourseInstructor/>
+      //<NotificationsHOD/>
+      //<ProfileHOD/>
+      //<ResetPasswordHOD/>
+      //<SendRequestHOD />
+      //<UpdateCourseInstructor />
+      //<UpdateProfileHOD />
+      //<ViewCourseCoverageHOD />
+      //<ViewMembersHOD />
+      //<ViewRequestHOD />
+      //<ViewSlotAssignmentHOD />
+      //////////////////////////////////////////////////////////////////////////////////
+      //<CourseCoordinator />
+      //<AcceptOrRejectCOO />
+      //<AddCourseSlot />
+      //<RemoveCourseSlot />
+      <UpdateCourseSlot />
+      //<ViewRequestsCOO/>
     );
   }
 }
