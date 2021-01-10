@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 
 import TA from "./components/AC/TA/TA";
-import Scheduler from './components/AC/TA/ViewScheduler';
-import './App.css';
-import Notifications from './components/AC/TA/Notifications';
-import SendRequest from './components/AC/TA/SendRequest';
-import UpdateProfile from "./components/AC/TA/UpdateProfile";
-import Profile from "./components/AC/TA/Profile";
-
-import ViewRequests from "./components/AC/TA/ViewRequests";
-import ResetPassword from "./components/AC/TA/ResetPassword";
-import Attendance from "./components/AC/TA/Attendance";
+import Scheduler from "./components/AC/TA/ViewScheduler";
+import "./App.css";
+import NotificationsTA from "./components/AC/TA/Notifications";
+import SendRequestTA from "./components/AC/TA/SendRequest";
+import UpdateProfileTA from "./components/SignUp";
+import ProfileTA from "./components/AC/TA/Profile";
+import ViewRequestsTA from "./components/AC/TA/ViewRequests";
+import ResetPasswordTA from "./components/AC/TA/ResetPassword";
+import AttendanceTA from "./components/AC/TA/Attendance";
+//////////////////////////////////////////////////////////////////////////////////
 import Login from "./components/Login";
-import TA from "./components/AC/TA";
+import SignUp from "./components/SignUp";
 import HR from "./components/HR/HR";
 import CourseInstructor from "./components/AC/CourseInstructor/CourseInstructor";
 import AddMember from "./components/HR/AddMember";
@@ -57,68 +57,63 @@ import ViewSlotAssignment from "./components/AC/CourseInstructor/ViewSlotAssignm
 //   { start_date:'2020-06-13 10:00', end_date:'2020-06-13 18:00', text:'Event 2', id: 2 }
 // ];
 
-class App extends Component { 
+class App extends Component {
   render() {
-      return (
-       
-        //<SendRequest/>
-      //<UpdateProfile/>
-       //<ViewRequests/>
-       //<Notifications/>
-        //<ResetPassword/>
-      // <TA/>
+    return (
+      //<SendRequestTA />
+      //<UpdateProfileTA />
+      //<ViewRequestsTA />*******
+      //<NotificationsTA />
+      //<ResetPasswordTA />
+      //<TA />
+      //<AttendanceTA />
+      //<ProfileTA />
+      // <div>
+      //     <div className='scheduler-container'>
+      //         <Scheduler events={data}/>
+      //     </div>
+      // </div>
+      //<Login />
+      //////////////////////////////////////////////////////////////////////////////////
+      //<HR />
+      //<AddMember />
+      //<Notifications/>
       //<Attendance/>
-    //<Attendance/>
-          // <div>
-          //     <div className='scheduler-container'>
-          //         <Scheduler events={data}/>
-          //     </div>
-          // </div>
-          //<Login />
-    //<HR />
-    //<AddMember />
-    //<Notifications/>
-    //<Attendance/>
-    //<ResetPassword/>
-    //<AddPassword/>
-    //<Profile/>
-    //<ViewMember />
-    //<Schedule />
-    //<RemoveMember/>
-    //<AddLocation/>
-    //<AddFaculty />
-    //<RemoveFaculty/>
-    //<RemoveDepartment/>
-    //<AddDepartment />
-    //<RemoveLocation/>
-    //<AddCourse />
-    //<RemoveCourse/>
-    //<UpdateMember />
-    //<UpdateProfile />
-    //<UpdateFaculty />
-    //<UpdateLocation />
-    //<UpdateDepartment />
-    //<UpdateCourse />
-    //////////////////////////////
-    //<CourseInstructor />
-    //<ScheduleIns />
-    //<NotificationsIns />
-    //<AttendanceIns />
-    //<ResetPasswordIns />
-    //<ProfileIns />
-    //<ViewRequests />
-    //<SendRequest />
-    //<DeleteCourseAssignment />
-    //<UpdateCourseAssignment />
-    <ViewSlotAssignment />
-      );
+      //<ResetPassword/>
+      //<AddPassword/>
+      //<Profile/>
+      //<ViewMember />
+      //<Schedule />
+      //<RemoveMember/>
+      //<AddLocation/>
+      //<AddFaculty />
+      //<RemoveFaculty/>
+      //<RemoveDepartment/>
+      //<AddDepartment />
+      //<RemoveLocation/>
+      //<AddCourse />
+      //<RemoveCourse/>
+      //<UpdateMember />
+      //<UpdateProfile />
+      //<UpdateFaculty />
+      //<UpdateLocation />
+      //<UpdateDepartment />
+      //<UpdateCourse />
+      //////////////////////////////////////////////////////////////////////////////////
+      //<CourseInstructor />
+      //<ScheduleIns />
+      //<NotificationsIns />
+      //<AttendanceIns />
+      //<ResetPasswordIns />
+      //<ProfileIns />
+      //<ViewRequests />
+      //<SendRequest />
+      //<DeleteCourseAssignment />
+      //<UpdateCourseAssignment />
+      //<ViewSlotAssignment />
+      <SignUp />
+    );
   }
-
-
-
-
 }
-
-
 
 export default App;
