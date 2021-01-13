@@ -42,6 +42,29 @@ function changeBackgroundOut(e) {
 
 export default function Login() {
   const classes = useStyles();
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const handleEmail = (e) => setEmail(e.target.value);
+  const handlePassword = (e) => setPassword(e.target.value);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const member = {
+      email: email,
+      password: password,
+    };
+    //   console.log(mem);
+    axios.post("/account/login", member).then(
+      (res) => {
+        //console.log(res)
+        //console.log(res.headers.authtoken)
+        localStorage.setItem("authtoken", res.headers.authtoken);
+        handleClose();
+      },
+      (err) => {
+        console.log("There is an .." + err);
+      }
+    );
+  };
 
   return (
     <div
@@ -80,6 +103,7 @@ export default function Login() {
             label="Username"
             variant="outlined"
             size="small"
+            onChange={handleEmail}
           />
         </tr>
         <tr>
@@ -95,6 +119,7 @@ export default function Login() {
             variant="outlined"
             color="white"
             size="small"
+            onChange={handlePassword}
           />
         </tr>
         <tr>
@@ -113,7 +138,7 @@ export default function Login() {
             onMouseOver={changeBackgroundIn}
             onMouseOut={changeBackgroundOut}
           >
-            <Button>Login</Button>
+            <Button onClick={handleSubmit}>Login</Button>
           </ButtonGroup>
         </tr>
       </table>

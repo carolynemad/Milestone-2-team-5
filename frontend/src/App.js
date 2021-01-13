@@ -101,7 +101,7 @@ class App extends Component {
       //     </div>
       // </div>
       //////////////////////////////////////////////////////////////////////////////////
-      //<Login />
+      <Login />
       //<SignUp />
       //////////////////////////////////////////////////////////////////////////////////
       //<HR />
@@ -164,7 +164,7 @@ class App extends Component {
       //<AcceptOrRejectCOO />
       //<AddCourseSlot />
       //<RemoveCourseSlot />
-      <UpdateCourseSlot />
+      //<UpdateCourseSlot />
       //<ViewRequestsCOO/>
     );
   }
