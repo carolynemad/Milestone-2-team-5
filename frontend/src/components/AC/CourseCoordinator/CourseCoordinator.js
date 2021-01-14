@@ -30,6 +30,8 @@ import FunctionsIcon from "@material-ui/icons/Functions";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import ViewListIcon from "@material-ui/icons/ViewList";
+import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import {Link} from 'react-router-dom'
 
 
@@ -202,9 +204,10 @@ export default function ACpage() {
           {[
             "View Slots Assignment",
             "View Staff",
-            "Add Course Assignment",
-            "Delete Course Assignment",
-            "Update Course Assignment",
+            "Add Course Slot",
+            "Delete Course Slot",
+            "Update Course Slot",
+            "Accept/Reject Requests"
             
           ].map((text, index) => (
             <ListItem button key={text}>
@@ -213,14 +216,28 @@ export default function ACpage() {
               <Link to = "/coursecoordinator/viewslotassignment">{index === 0 && <ViewListIcon />}</Link>
               <Link to = "/coursecoordinator/viewmember">{index === 1 && <ViewListIcon />}</Link>
               <Link to = "/coursecoordinator/addcourseslot">{index === 2 && <AddIcon />}</Link>
-              <Link to = "/coursecoordinator/deletecourseslot">{index === 3 && <RemoveIcon />}</Link>
+              <Link to = "/coursecoordinator/removecourseslot">{index === 3 && <RemoveIcon />}</Link>
               <Link to = "/coursecoordinator/updatecourseslot">{index === 4 && <ListAltOutlinedIcon />}</Link>
+              <Link to = "/coursecoordinator/acceptorrejectrequests">{index === 5 && <QuestionAnswerIcon  />}</Link>
               
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>
+        <Divider/>
+            <List>
+              {['Logout'].map((text, index) => (
+                <ListItem button key={text}>
+                  <ListItemIcon>
+                  <Link to = "/login">{index === 0 && <ExitToAppOutlinedIcon />}</Link>
+                 
+
+                 </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
