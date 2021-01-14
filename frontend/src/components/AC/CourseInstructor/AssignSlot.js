@@ -8,13 +8,20 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
+import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import axios from "axios";
 
-function generate(element) {
-  return [0, 1, 2].map((value) =>
-    React.cloneElement(element, {
-      key: value,
-    })
-  );
+function changeBackgroundIn(e) {
+  e.target.style.color = "#5D9EA6";
+}
+function changeBackgroundOut(e) {
+  e.target.style.color = "Black";
+}
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -74,7 +81,40 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AssignSlot() {
   const classes = useStyles();
-  const [dense] = React.useState(false);
+  const [memberID, setMemberID] = React.useState("");
+  const [slotID, setSlotID] = React.useState("");
+  const handleMemberID = (e) => setMemberID(e.target.value);
+  const handleSlotID = (e) => setSlotID(e.target.value);
+  const handleClose1 = () => setShow(false);
+  const [show, setShow] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  const handleShow = () => setShow(true);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const handleSubmit = (e) => {
+    setOpen(true);
+    e.preventDefault();
+    const course = {
+      acID: memberID,
+      slotID: slotID,
+    };
+    console.log(course);
+    axios
+      .post("/acAccount/assignAcMemberToUnassignedSlot", course)
+      .then((res) => {
+        console.log("success");
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
+  };
 
   return (
     <div
@@ -89,9 +129,7 @@ export default function AssignSlot() {
     >
       <table className={classes.tableStyle}>
         <tr>
-          <Typography className={classes.titleStyle}>
-            Unassigned Slots
-          </Typography>
+          <Typography className={classes.titleStyle}>Assigned Slot</Typography>
 
           <br></br>
         </tr>
@@ -116,25 +154,22 @@ export default function AssignSlot() {
                         label="Member ID"
                         variant="outlined"
                         size="small"
+                        onChange={handleMemberID}
                       />
                     </form>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <div className={classes.demo}>
-                      <List dense={dense}>
-                        {generate(
-                          <ListItem>
-                            <ListItemText primary="Slot ID" />
-                            <ListItemSecondaryAction>
-                              <IconButton edge="end">
-                                <AssignmentIndIcon />
-                              </IconButton>
-                            </ListItemSecondaryAction>
-                          </ListItem>
-                        )}
-                      </List>
+                    <div className={classes.root}>
+                      <TextField
+                        required
+                        id="outlined-basic"
+                        label="Slot ID"
+                        variant="outlined"
+                        size="small"
+                        onChange={handleSlotID}
+                      />
                     </div>
                   </td>
                 </tr>
@@ -149,6 +184,24 @@ export default function AssignSlot() {
                 }}
               >
                 <br />
+                <Button
+                  className={classes.buttonStyle}
+                  onMouseOver={changeBackgroundIn}
+                  onMouseOut={changeBackgroundOut}
+                  onClick={handleSubmit}
+                  variant="contained"
+                >
+                  Assign Slots
+                </Button>
+                <Snackbar
+                  open={open}
+                  autoHideDuration={6000}
+                  onClose={handleClose1}
+                >
+                  <Alert onClose={handleClose1} severity="success">
+                    Slots Assigned.
+                  </Alert>
+                </Snackbar>
               </div>{" "}
             </tr>
           </table>

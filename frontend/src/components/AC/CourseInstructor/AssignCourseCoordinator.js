@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-
+import axios from "axios";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -81,16 +81,31 @@ function changeBackgroundOut(e) {
 
 export default function AssignCourseCoordinator() {
   const classes = useStyles();
-  const [password, setPassword] = React.useState("");
-
-  const handleChange = (event) => {
-    setPassword(event.target.value);
-  };
-
   const [open, setOpen] = React.useState(false);
+  const [courseID, setCourseID] = React.useState("");
+  const [assistantID, setAssistantID] = React.useState("");
+  const handleCourseID = (e) => setCourseID(e.target.value);
+  const handleAssistantID = (e) => setAssistantID(e.target.value);
+  const [show, setShow] = React.useState(false);
+  const handleClose1 = () => setShow(false);
 
-  const handleClick = () => {
+  const handleSubmit = (e) => {
     setOpen(true);
+    e.preventDefault();
+    const course = {
+      courseID: courseID,
+      courseCoordinator: assistantID,
+    };
+    console.log(course);
+    axios
+      .post("/acAccount/assignCourseCoordinator", course)
+      .then((res) => {
+        console.log("success");
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
   };
 
   const handleClose = (event, reason) => {
@@ -135,6 +150,7 @@ export default function AssignCourseCoordinator() {
                       label="Assistant ID"
                       variant="outlined"
                       size="small"
+                      onChange={handleAssistantID}
                     />
                   </form>
                 </td>
@@ -145,6 +161,7 @@ export default function AssignCourseCoordinator() {
                       label="Course ID"
                       variant="outlined"
                       size="small"
+                      onChange={handleCourseID}
                     />
                   </form>
                 </td>
@@ -163,7 +180,7 @@ export default function AssignCourseCoordinator() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Assign Course Coordinator
