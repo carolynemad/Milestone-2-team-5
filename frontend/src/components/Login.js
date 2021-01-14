@@ -4,6 +4,7 @@ import { Typography } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   loginUsername: {
@@ -44,19 +45,22 @@ export default function Login() {
   const classes = useStyles();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [show, setShow] = React.useState(false);
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const handleSubmit = (e) => {
     e.preventDefault();
     const member = {
       email: email,
       password: password,
     };
-    //   console.log(mem);
+    console.log(member);
     axios.post("/account/login", member).then(
       (res) => {
-        //console.log(res)
-        //console.log(res.headers.authtoken)
+        console.log(res);
+        console.log(res.headers.authtoken);
         localStorage.setItem("authtoken", res.headers.authtoken);
         handleClose();
       },

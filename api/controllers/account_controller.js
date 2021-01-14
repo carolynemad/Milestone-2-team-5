@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs");
 //Models Requires
 const staffModel = require("../../models/staff_model");
 const attendanceLogModel = require("../../models/attendanceLog_model");
-
+//const verifyToken = require("../authentication/")
 const accountType = require("../constants/enums");
 
 //statusCode imports
@@ -64,14 +64,13 @@ async function authenticateM2(req, res, next) {
 
 //Log In
 const logIn = async (req, res) => {
-  const token = jwt.sign({ id: existingUser.id }, key);
-  res.header("authtoken", token);
+  // const token = jwt.sign({ id: existingUser.id }, key);
+
   try {
     const Account = req.body.Account;
     const accountFound = await staffModel.findOne({
       email: Account.email.toString().toLowerCase(),
     });
-
     if (!accountFound) {
       return res.json({
         statusCode: accountDoesntExist.statusCode,
@@ -111,7 +110,8 @@ const logIn = async (req, res) => {
     const token = jwt.sign(payLoad, secretOrKey, {
       expiresIn: "730.001h",
     });
-
+    res.header("authtoken", token);
+    console.log(res.header.authorization);
     return res.json({
       statusCode: signinSuccessfully.statusCode,
       message: signinSuccessfully.message,

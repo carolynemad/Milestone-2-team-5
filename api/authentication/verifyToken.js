@@ -1,28 +1,28 @@
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 
-const {
-  secretOrKey,
-} = require("../../../../../Documents/GitHub/milestone-1-team-5/config/keys");
-const { breach } = require("../constants/statusCodesEnum");
+// const {
+//   secretOrKey,
+// } = require("../../../../../Documents/GitHub/milestone-1-team-5/config/keys");
+// const { breach } = require("../constants/statusCodesEnum");
 
-const verifyToken = (req, res, next) => {
-  return jwt.verify(
-    req.headers.authorization,
-    secretOrKey,
-    (err, authorizedData) => {
-      if (!err) {
-        const header = req.headers.authorization;
-        const token = header;
-        req.data = authorizedData;
-        req.token = token;
-        return next();
-      }
-      console.log(err);
+// const verifyToken = (req, res, next) => {
+//   return jwt.verify(
+//     req.headers.authorization,
+//     secretOrKey,
+//     (err, authorizedData) => {
+//       if (!err) {
+//         const header = req.headers.authorization;
+//         const token = header;
+//         req.data = authorizedData;
+//         req.token = token;
+//         return next();
+//       }
+//       console.log(err);
 
-      return res.json({ statusCode: breach.statusCode, error: breach.message });
-    }
-  );
-};
-module.exports = {
-  verifyToken,
-};
+//       return res.json({ statusCode: breach.statusCode, error: breach.message });
+//     }
+//   );
+// };
+// module.exports = {
+//   verifyToken,
+// };
