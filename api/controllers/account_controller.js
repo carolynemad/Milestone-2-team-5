@@ -32,8 +32,7 @@ const {
 // const months = require('../constants/enums')
 
 //key imports
-const { secretOrKey, salt } = 
-require("../../config/keys");
+const { secretOrKey, salt } = require("../../config/keys");
 
 async function authenticateM2(req, res, next) {
   //console.log(req)
@@ -45,16 +44,16 @@ async function authenticateM2(req, res, next) {
   }
   try {
     const token = req.headers.authtoken;
-    //console.log(token);
+    console.log(token);
     const DecodeToken = jwt_decode(token);
     const id = DecodeToken.id;
-    //console.log(id);
+    console.log(id);
     const deletedtoken = await DeletedToken.findOne({ token: token });
     if (deletedtoken) {
-      //console.log("BEEEB");
+      console.log("BEEEB");
       res.send("Logged out .");
     } else {
-      //console.log("BEEEB3333");
+      console.log("BEEEB3333");
       jwt.verify(verified, key);
       next(); //authenticated
     }
@@ -65,14 +64,12 @@ async function authenticateM2(req, res, next) {
 
 //Log In
 const logIn = async (req, res) => {
-  // const token = jwt.sign({ id: existingUser.id }, key);
-
   try {
     // const Account = req.body.Account;
-    const Account = req.body;
-    console.log(Account)
+    const { email, password } = req.body;
+
     const accountFound = await staffModel.findOne({
-      email: Account.email.toString().toLowerCase(),
+      email: email.toString().toLowerCase(),
     });
     if (!accountFound) {
       return res.json({
@@ -80,10 +77,10 @@ const logIn = async (req, res) => {
         error: accountDoesntExist.message,
       });
     }
-    console.log(Account.password);
+    console.log(password);
     console.log(accountFound.password);
 
-    const match = bcrypt.compareSync(Account.password, accountFound.password);
+    const match = bcrypt.compareSync(password, accountFound.password);
 
     // const match =bcrypt.compare(Account.password, accountFound.password)
     console.log(match);
@@ -94,7 +91,17 @@ const logIn = async (req, res) => {
         error: wrongCredentials.message,
       });
     }
-
+    // if (password === "123456" && match) {
+    //   return res.json({
+    //     Firstmessage:
+    //       "Congrats! First time logging in! please change your password ",
+    //     email: accountFound.email,
+    //     id: accountFound._id,
+    //     statusCode: signinSuccessfully.statusCode,
+    //     message: signinSuccessfully.message,
+    //     token,
+    //   });
+    // }
     const payLoad = {
       id: accountFound._id,
       firstName: accountFound.firstName,
@@ -108,14 +115,19 @@ const logIn = async (req, res) => {
       office_location: accountFound.office_location,
       attendance_log: accountFound.attendance_log,
       leave_log: accountFound.leave_log,
+      tokenrole: accountFound.role,
     };
 
     const token = jwt.sign(payLoad, secretOrKey, {
       expiresIn: "730.001h",
     });
     res.header("authtoken", token);
-    // console.log(res.header.authorization);
+    res.setHeader("authtoken", token);
+    tokenrole = accountNotFound.role;
+    console.log(res.header.authtoken);
     return res.json({
+      email: accountFound.email,
+      id: accountFound._id,
       statusCode: signinSuccessfully.statusCode,
       message: signinSuccessfully.message,
       token,
@@ -147,6 +159,7 @@ const logout = async (req, res) => {
 //View Profile
 
 const viewProfile = async (req, res) => {
+  account_controller.use(authenticateM2);
   try {
     const Account = req.body;
 
@@ -186,6 +199,8 @@ const viewProfile = async (req, res) => {
 //Update Profile
 
 const updateProfile = async (req, res) => {
+  account_controller.use(authenticateM2);
+
   try {
     const { Account } = req.body;
     // const { id } = Account.memberId
