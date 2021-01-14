@@ -30,6 +30,8 @@ import FunctionsIcon from "@material-ui/icons/Functions";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import ViewListIcon from "@material-ui/icons/ViewList";
+import {Link} from 'react-router-dom'
+
 
 const drawerWidth = 290;
 
@@ -167,10 +169,10 @@ export default function ACpage() {
             <ListItem button key={text}>
               {/* <ListItemIcon>{index % 2 === 0 ? <ViewHeadlineOutlinedIcon /> : <MailIcon />}</ListItemIcon> */}
               <ListItemIcon>
-                {index === 0 && <ScheduleOutlinedIcon />}
-                {index === 1 && <SendOutlinedIcon />}
-                {index === 2 && <AllInboxOutlinedIcon />}
-                {index === 3 && <NotificationsActiveOutlinedIcon />}
+                <Link to = "/coursecoordinator/viewschedule">{index === 0 && <ScheduleOutlinedIcon />}</Link>
+                <Link to = "/coursecoordinator/sendrequest">{index === 1 && <SendOutlinedIcon />}</Link>
+                <Link to = "/coursecoordinator/viewrequests">{index === 2 && <AllInboxOutlinedIcon />}</Link>
+                <Link to = "/coursecoordinator/viewnotifications">{index === 3 && <NotificationsActiveOutlinedIcon />}</Link>
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -186,10 +188,10 @@ export default function ACpage() {
           ].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                {index === 0 && <PermIdentityOutlinedIcon />}
-                {index === 1 && <UpdateOutlinedIcon />}
-                {index === 2 && <LockOpenOutlinedIcon />}
-                {index === 3 && <ListAltOutlinedIcon />}
+              <Link to = "/coursecoordinator/viewprofile">{index === 0 && <PermIdentityOutlinedIcon />}</Link>
+              <Link to = "/coursecoordinator/updateprofile">{index === 1 && <UpdateOutlinedIcon />}</Link>
+              <Link to = "/coursecoordinator/restspassword">{index === 2 && <LockOpenOutlinedIcon />}</Link>
+              <Link to = "/coursecoordinator/attendance">{index === 3 && <ListAltOutlinedIcon />}</Link>
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -198,23 +200,22 @@ export default function ACpage() {
         <Divider />
         <List>
           {[
-            "Mesh Mazboteen",
             "View Slots Assignment",
             "View Staff",
             "Add Course Assignment",
             "Delete Course Assignment",
             "Update Course Assignment",
-            "Assign Course Coordinaor",
+            
           ].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                {index === 0 && <FunctionsIcon />}
-                {index === 1 && <UpdateOutlinedIcon />}
-                {index === 2 && <ViewListIcon />}
-                {index === 3 && <AddIcon />}
-                {index === 4 && <RemoveIcon />}
-                {index === 5 && <ListAltOutlinedIcon />}
-                {index === 6 && <AddIcon />}
+                
+              <Link to = "/coursecoordinator/viewslotassignment">{index === 0 && <ViewListIcon />}</Link>
+              <Link to = "/coursecoordinator/viewmember">{index === 1 && <ViewListIcon />}</Link>
+              <Link to = "/coursecoordinator/addcourseslot">{index === 2 && <AddIcon />}</Link>
+              <Link to = "/coursecoordinator/deletecourseslot">{index === 3 && <RemoveIcon />}</Link>
+              <Link to = "/coursecoordinator/updatecourseslot">{index === 4 && <ListAltOutlinedIcon />}</Link>
+              
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
