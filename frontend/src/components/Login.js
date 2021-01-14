@@ -61,9 +61,8 @@ export default function Login() {
       (res) => {
         console.log(res);
         localStorage.setItem("authtoken", res.data.token);
-        localStorage.setItem("tokenrole", res.data.tokenrole);
-        console.log(res.data.tokenrole);
-        console.log(res.data.authtoken);
+        console.log(localStorage.getItem("authtoken"));
+        console.log(res.data.token);
 
         handleClose();
       },
