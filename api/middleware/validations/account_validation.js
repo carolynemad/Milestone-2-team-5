@@ -26,13 +26,13 @@ const validateLogIn = (req, res, next) => {
 
   const validateUpdateProfile = (req, res, next) => {
     const schema = Joi.object({
-      Account: Joi.object({
-        memberId: Joi.string().min(5).required(),
+     
+        // memberId: Joi.string().min(5).required(),
         gender: Joi.string().valid([gender.MALE, gender.FEMALE]),
         birthDate: Joi.date(),
         address: Joi.string().min(3).required(),
         salary: Joi.number(),
-      }),
+      
     })
     const isValid = Joi.validate(req.body, schema)
     if (isValid.error) {

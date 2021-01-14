@@ -121,16 +121,23 @@ const logIn = async (req, res) => {
     const token = jwt.sign(payLoad, secretOrKey, {
       expiresIn: "730.001h",
     });
+
+    const tokenId = accountFound.memberId
+
+    
     res.header("authtoken", token);
     res.setHeader("authtoken", token);
-    tokenrole = accountNotFound.role;
+
+    res.header("tokenID", tokenId);
+    res.setHeader("tokenID", tokenId);
+    // tokenrole = accountNotFound.role;
     console.log(res.header.authtoken);
     return res.json({
       email: accountFound.email,
       id: accountFound._id,
       statusCode: signinSuccessfully.statusCode,
       message: signinSuccessfully.message,
-      token,
+      token,tokenId
     });
   } catch (exception) {
     console.log(exception);
@@ -203,23 +210,14 @@ const updateProfile = async (req, res) => {
 
   try {
     const { Account } = req.body;
-    // const { id } = Account.memberId
-
-    // const accountFound = await staffModel.findById(id)
+   
 
     const accountFound = await staffModel.findOne(
-      { memberId: Account.memberId },
-      console.log(Account.memberId)
+      { memberId: req.header.tokenId },
+      console.log("Done")
     );
 
-    // const { id } = req.data
-
-    // if (id !== Account.id) {
-    //   return res.json({
-    //     statusCode: breach.statusCode,
-    //     error: breach.message,
-    //   })
-    // }
+ 
     if (!accountFound) {
       return res.json({
         statusCode: accountNotFound.statusCode,
@@ -227,12 +225,7 @@ const updateProfile = async (req, res) => {
       });
     }
 
-    // if(Account.firstName != null || Account.lastName != null){
-    //   return res.json({
-    //     statusCode: cantChangeName.statusCode,
-    //     error: cantChangeName.message,
-    //   })
-    // }
+
     if (accountFound.staffMemberType != "HR Member") {
       console.log(accountFound.staffMemberType);
       if (Account.salary != null) {

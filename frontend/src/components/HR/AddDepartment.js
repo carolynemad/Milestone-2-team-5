@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-
+import axios from "axios";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -79,14 +79,41 @@ function changeBackgroundOut(e) {
 
 export default function AddDepartment() {
   const classes = useStyles();
-
-  const [name, setName] = React.useState("");
-
-  const handleChange = (event) => {
-    setName(event.target.value);
-  };
-
+  const [depName, setDepName] = React.useState("");
+  const [depHeadName, setDepHeadName] = React.useState("");
+  const [courses, setCourses] = React.useState("");
+  const [show, setShow] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const handleDepName = (e) => setDepName(e.target.value);
+  const handleDepHeadName = (e) => setDepHeadName(e.target.value);
+  const handleCourses = (e) => setCourses(e.target.value);
+  const handleClose1 = () => setShow(false);
+
+  const handleSubmit = (e) => {
+    setOpen(true);
+    e.preventDefault();
+    const dep = {
+      departmentName: depName,
+      department: {
+        //To be revisited 3ashan el backend bya5od department kamla
+        depHeadName: depHeadName,
+        course: courses,
+      },
+    };
+    console.log(dep);
+    axios
+      .post("/hrAccount/addDepartment", dep)
+      .then((res) => {
+        console.log("success");
+        //console.log(res.data.msg)
+
+        //swal(res.data.msg);
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
+  };
 
   const handleClick = () => {
     setOpen(true);
@@ -138,6 +165,7 @@ export default function AddDepartment() {
                         label="Department Name"
                         variant="outlined"
                         size="small"
+                        onChange={handleDepName}
                       />
                     </form>
                   </td>
@@ -155,6 +183,7 @@ export default function AddDepartment() {
                         label="Department Head Name"
                         variant="outlined"
                         size="small"
+                        onChange={handleDepHeadName}
                       />
                     </form>
                   </td>
@@ -167,6 +196,7 @@ export default function AddDepartment() {
                       label="Courses"
                       helperText="Enter Courses separated by commas"
                       variant="outlined"
+                      onChange={handleCourses}
                     />
                   </div>
                 </tr>
@@ -187,7 +217,7 @@ export default function AddDepartment() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Add Department
