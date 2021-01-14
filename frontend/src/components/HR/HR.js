@@ -32,6 +32,8 @@ import SystemUpdateAltIcon from "@material-ui/icons/SystemUpdateAlt";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import ViewListIcon from "@material-ui/icons/ViewList";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
+import {Link} from 'react-router-dom'
+
 
 const drawerWidth = 290;
 
@@ -167,10 +169,9 @@ export default function ACpage() {
             <ListItem button key={text}>
               {/* <ListItemIcon>{index % 2 === 0 ? <ViewHeadlineOutlinedIcon /> : <MailIcon />}</ListItemIcon> */}
               <ListItemIcon>
-                {index === 0 && <ScheduleOutlinedIcon />}
-                {index === 1 && <SendOutlinedIcon />}
-                {index === 2 && <AllInboxOutlinedIcon />}
-                {index === 3 && <NotificationsActiveOutlinedIcon />}
+              <Link to = "/hr/viewschedule">{index === 0 &&<ScheduleOutlinedIcon />}</Link>
+              <Link to = "hr/viewnotifications">{index === 1 && <NotificationsActiveOutlinedIcon />}</Link>
+              
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -186,10 +187,10 @@ export default function ACpage() {
           ].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                {index === 0 && <PermIdentityOutlinedIcon />}
-                {index === 1 && <UpdateOutlinedIcon />}
-                {index === 2 && <LockOpenOutlinedIcon />}
-                {index === 3 && <ListAltOutlinedIcon />}
+                <Link to = "/hr/viewprofile">{index === 0 && <PermIdentityOutlinedIcon />}</Link>
+                <Link to = "/hr/updateprofile">{index === 1 && <UpdateOutlinedIcon />}</Link>
+                <Link to = "/hr/resetpassword">{index === 2 && <LockOpenOutlinedIcon />}</Link>
+                <Link to = "/hr/attendance">{index === 3 && <ListAltOutlinedIcon />}</Link>
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -201,10 +202,10 @@ export default function ACpage() {
             (text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>
-                  {index === 0 && <AddIcon />}
-                  {index === 1 && <RemoveIcon />}
-                  {index === 2 && <SystemUpdateAltIcon />}
-                  {index === 3 && <ViewListIcon />}
+                <Link to = "/hr/addmember">{index === 0 && <AddIcon />}</Link>
+                <Link to = "/hr/removemember">{index === 1 && <RemoveIcon />}</Link>
+                <Link to = "/hr/updatemember">{index === 2 && <SystemUpdateAltIcon />}</Link>
+                <Link to = "/hr/viewmember">{index === 3 && <ViewListIcon />}</Link>
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
@@ -217,9 +218,9 @@ export default function ACpage() {
             (text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>
-                  {index === 0 && <AddIcon />}
-                  {index === 1 && <RemoveIcon />}
-                  {index === 2 && <SystemUpdateAltIcon />}
+                <Link to = "/hr/addfaculty">{index === 0 && <AddIcon />}</Link>
+                <Link to = "/hr/removefaculty">{index === 1 && <RemoveIcon />}</Link>
+                <Link to = "/hr/updatefaculty"> {index === 2 && <SystemUpdateAltIcon />}</Link>
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
@@ -232,9 +233,9 @@ export default function ACpage() {
             (text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>
-                  {index === 0 && <AddIcon />}
-                  {index === 1 && <RemoveIcon />}
-                  {index === 2 && <SystemUpdateAltIcon />}
+                <Link to = "/hr/adddepartment">{index === 0 && <AddIcon />}</Link>
+                <Link to = "/hr/removedepartment"> {index === 1 && <RemoveIcon />}</Link>
+                <Link to = "/hr/updatedepartment">{index === 2 && <SystemUpdateAltIcon />}</Link>
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
@@ -247,9 +248,9 @@ export default function ACpage() {
             (text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>
-                  {index === 0 && <AddIcon />}
-                  {index === 1 && <RemoveIcon />}
-                  {index === 2 && <SystemUpdateAltIcon />}
+                <Link to = "/hr/addlocation">{index === 0 && <AddIcon />}</Link>
+                <Link to = "/hr/removelocation">{index === 1 && <RemoveIcon />}</Link>
+                <Link to = "/hr/updatelocation">{index === 2 && <SystemUpdateAltIcon />}</Link>
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
@@ -262,9 +263,9 @@ export default function ACpage() {
             (text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>
-                  {index === 0 && <AddIcon />}
-                  {index === 1 && <RemoveIcon />}
-                  {index === 2 && <SystemUpdateAltIcon />}
+                <Link to = "/hr/addcourse">{index === 0 && <AddIcon />}</Link>
+                <Link to = "/hr/removecourse">{index === 1 && <RemoveIcon />}</Link>
+                <Link to = "/hr/updatecourse">{index === 2 && <SystemUpdateAltIcon />}</Link>
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
@@ -276,7 +277,8 @@ export default function ACpage() {
         <List>
           {["Missing SignIn / SignOut"].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon>{index === 0 && <MeetingRoomIcon />}</ListItemIcon>
+              
+               <ListItemIcon><Link to = "/hr/missingsigninsignout">{index === 0 && <MeetingRoomIcon />} </Link></ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
@@ -286,7 +288,7 @@ export default function ACpage() {
           {["Logout"].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                {index === 0 && <ExitToAppOutlinedIcon />}
+              <Link to = "/login">{index === 0 && <ExitToAppOutlinedIcon />}</Link>
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
