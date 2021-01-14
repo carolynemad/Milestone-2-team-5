@@ -1,4 +1,4 @@
-import React , {useState}from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
@@ -9,7 +9,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import axios from 'axios'
+import axios from "axios";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -79,19 +79,8 @@ function changeBackgroundOut(e) {
 
 export default function AddLocation() {
   const classes = useStyles();
-
-  const [type, setType] = React.useState("");
-
-  const handleChange = (event) => {
-    setType(event.target.value);
-  };
-
+  const [show, setShow] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -99,8 +88,37 @@ export default function AddLocation() {
 
     setOpen(false);
   };
+  const handleClose1 = () => setShow(false);
 
-  
+  const [locName, setLocName] = React.useState("");
+  const [locCapacity, setLocCapacity] = React.useState(0);
+  const [locType, setLocType] = React.useState("");
+  const handleLocationName = (e) => setLocName(e.target.value);
+  const handleLocationCapacity = (e) => setLocCapacity(e.target.value);
+  const handleLocationType = (e) => setLocType(e.target.value);
+
+  const handleSubmit = (e) => {
+    setOpen(true);
+    e.preventDefault();
+    const loc = {
+      locationName: locName,
+      locationType: locType,
+      capacity: locCapacity,
+    };
+    console.log(loc);
+    axios
+      .post("/hrAccount/addLocation", loc)
+      .then((res) => {
+        console.log("success");
+        //console.log(res.data.msg)
+
+        //swal(res.data.msg);
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
+  };
 
   return (
     <div
@@ -140,6 +158,7 @@ export default function AddLocation() {
                         label="Location Name"
                         variant="outlined"
                         size="small"
+                        onChange={handleLocationName}
                       />
                     </form>
                   </td>
@@ -157,6 +176,7 @@ export default function AddLocation() {
                         label="Location Capacity"
                         variant="outlined"
                         size="small"
+                        onChange={handleLocationCapacity}
                       />
                     </form>
                   </td>
@@ -175,17 +195,16 @@ export default function AddLocation() {
                       <Select
                         labelId="demo-simple-select-outlined-label"
                         id="demo-simple-select-outlined"
-                        value={type}
-                        onChange={handleChange}
+                        onChange={handleLocationType}
                         label="Location Type"
                       >
                         <MenuItem value=""></MenuItem>
-                        <MenuItem value={10}>Lecture</MenuItem>
-                        <MenuItem value={20}>Lab</MenuItem>
-                        <MenuItem value={30}>Tutorial</MenuItem>
-                        <MenuItem value={40}>TAoffice</MenuItem>
-                        <MenuItem value={50}>DRoffice</MenuItem>
-                        <MenuItem value={60}>Exam Hall</MenuItem>
+                        <MenuItem value={"lecture"}>Lecture</MenuItem>
+                        <MenuItem value={"lab"}>Lab</MenuItem>
+                        <MenuItem value={"tutorial"}>Tutorial</MenuItem>
+                        <MenuItem value={"TAoffice"}>TAoffice</MenuItem>
+                        <MenuItem value={"DRoffice"}>DRoffice</MenuItem>
+                        <MenuItem value={"Exam Hall"}>Exam Hall</MenuItem>
                       </Select>
                     </FormControl>
                   </td>
@@ -205,7 +224,7 @@ export default function AddLocation() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Add Location

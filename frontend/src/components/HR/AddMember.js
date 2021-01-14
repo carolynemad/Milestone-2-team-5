@@ -10,6 +10,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import axios from "axios";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -86,16 +87,46 @@ function changeBackgroundOut(e) {
 
 export default function AddMember() {
   const classes = useStyles();
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-
+  const [show, setShow] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [gender, setGender] = React.useState("Other");
+  const [memberType, setMemberType] = React.useState("HR");
+  const [email, setEmail] = React.useState("");
+  const [location, setLocation] = React.useState("");
+  const handleFirstName = (e) => setFirstName(e.target.value);
+  const handleLastName = (e) => setLastName(e.target.value);
+  const handleGender = (e) => setGender(e.target.value);
+  const handleMemberType = (e) => setMemberType(e.target.value);
+  const handleEmail = (e) => setEmail(e.target.value);
+  const handleLocation = (e) => setLocation(e.target.value);
+  const handleClose1 = () => setShow(false);
 
-  const handleClick = () => {
+  const handleSubmit = (e) => {
     setOpen(true);
+    e.preventDefault();
+    const mem = {
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      gender: gender,
+      officeLocation: location,
+      memberType: memberType,
+    };
+    console.log(mem);
+    axios
+      .post("/hrAccount/addNewMember", mem)
+      .then((res) => {
+        console.log("success");
+        //console.log(res.data.msg)
+
+        //swal(res.data.msg);
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
   };
 
   const handleClose = (event, reason) => {
@@ -139,6 +170,7 @@ export default function AddMember() {
                       label="First Name"
                       variant="outlined"
                       size="small"
+                      onChange={handleFirstName}
                     />
                   </form>
                 </td>
@@ -150,6 +182,7 @@ export default function AddMember() {
                       label="Last Name"
                       variant="outlined"
                       size="small"
+                      onChange={handleLastName}
                     />
                   </form>
                 </td>
@@ -168,14 +201,13 @@ export default function AddMember() {
                 <Select
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
-                  value={age}
-                  onChange={handleChange}
+                  onChange={handleGender}
                   label="Gender"
                 >
                   <MenuItem value=""></MenuItem>
-                  <MenuItem value={10}>Male</MenuItem>
-                  <MenuItem value={20}>Female</MenuItem>
-                  <MenuItem value={30}>Other</MenuItem>
+                  <MenuItem value={"MALE"}>Male</MenuItem>
+                  <MenuItem value={"FEMALE"}>Female</MenuItem>
+                  <MenuItem value={"OTHER"}>Other</MenuItem>
                 </Select>
               </FormControl>
             </tr>
@@ -192,13 +224,12 @@ export default function AddMember() {
                 <Select
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
-                  value={age}
-                  onChange={handleChange}
+                  onChange={handleMemberType}
                   label="Member Type"
                 >
                   <MenuItem value=""></MenuItem>
-                  <MenuItem value={10}>Academic</MenuItem>
-                  <MenuItem value={20}>HR</MenuItem>
+                  <MenuItem value={"AC"}>Academic</MenuItem>
+                  <MenuItem value={"HR"}>HR</MenuItem>
                 </Select>
               </FormControl>
             </tr>
@@ -211,6 +242,7 @@ export default function AddMember() {
                     label="Email Address"
                     variant="outlined"
                     size="small"
+                    onChange={handleEmail}
                   />
                 </form>
               </td>
@@ -224,6 +256,7 @@ export default function AddMember() {
                     label="Office Location"
                     variant="outlined"
                     size="small"
+                    onChange={handleLocation}
                   />
                 </form>
               </td>
@@ -242,7 +275,7 @@ export default function AddMember() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Add Member

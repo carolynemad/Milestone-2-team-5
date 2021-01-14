@@ -5,11 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import InputAdornment from "@material-ui/core/InputAdornment";
-
+import axios from "axios";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -87,16 +83,41 @@ function changeBackgroundOut(e) {
 
 export default function UpdateCourse() {
   const classes = useStyles();
-  const [values, setValues] = React.useState({
-    amount: "",
-  });
-  const [open, setOpen] = React.useState(false);
 
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-  const handleClick = () => {
+  const [show, setShow] = React.useState(false);
+  const handleClose1 = () => setShow(false);
+  const [oldID, setOldID] = React.useState("");
+  const [newID, setNewID] = React.useState("");
+  const [courseName, setCourseName] = React.useState("");
+  const [depName, setDepName] = React.useState("");
+  const handleOldID = (e) => setOldID(e.target.value);
+  const handleNewID = (e) => setNewID(e.target.value);
+  const handleCourseName = (e) => setCourseName(e.target.value);
+  const handleDepartmentName = (e) => setDepName(e.target.value);
+  const [open, setOpen] = React.useState(false);
+  const handleSubmit = (e) => {
     setOpen(true);
+    e.preventDefault();
+    const obj = {
+      courseID: oldID,
+      courseNewId: newID, //NOT SURE
+      courseName: courseName,
+      departmentName: depName,
+    };
+    console.log(obj);
+    axios
+      .post("/hrAccount/updateCourse", obj)
+      .then((res) => {
+        console.log("success");
+
+        console.log(res);
+
+        //swal(res.data.msg);
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
   };
 
   const handleClose = (event, reason) => {
@@ -142,6 +163,7 @@ export default function UpdateCourse() {
                       label="Old Course ID"
                       variant="outlined"
                       size="small"
+                      onChange={handleOldID}
                     />
                   </form>
                 </td>
@@ -152,6 +174,7 @@ export default function UpdateCourse() {
                       label="New Course ID"
                       variant="outlined"
                       size="small"
+                      onChange={handleNewID}
                     />
                   </form>
                 </td>
@@ -166,6 +189,7 @@ export default function UpdateCourse() {
                       label="Course Name"
                       variant="outlined"
                       size="small"
+                      onChange={handleCourseName}
                     />
                   </form>
                 </td>
@@ -176,6 +200,7 @@ export default function UpdateCourse() {
                       label="Department Name"
                       variant="outlined"
                       size="small"
+                      onChange={handleDepartmentName}
                     />
                   </form>
                 </td>
@@ -196,7 +221,7 @@ export default function UpdateCourse() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Update Course

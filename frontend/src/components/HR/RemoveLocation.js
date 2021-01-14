@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-
+import axios from "axios";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -81,16 +81,33 @@ function changeBackgroundOut(e) {
 
 export default function RemoveLocation() {
   const classes = useStyles();
-  const [password, setPassword] = React.useState("");
-
+  const [locationName, setLocationName] = React.useState("");
+  const [show, setShow] = React.useState(false);
   const handleChange = (event) => {
-    setPassword(event.target.value);
+    setLocationName(event.target.value);
   };
-
+  const handleClose1 = () => setShow(false);
   const [open, setOpen] = React.useState(false);
 
-  const handleClick = () => {
+  const handleSubmit = (e) => {
     setOpen(true);
+    e.preventDefault();
+    const obj = {
+      locationName: locationName,
+    };
+    console.log(obj);
+    axios
+      .post("/hrAccount/removeLocation", obj)
+      .then((res) => {
+        console.log("success");
+        //console.log(res.data.msg)
+
+        //swal(res.data.msg);
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
   };
 
   const handleClose = (event, reason) => {
@@ -134,6 +151,7 @@ export default function RemoveLocation() {
                     label="Location Name"
                     variant="outlined"
                     size="small"
+                    onChange={handleChange}
                   />
                 </form>
               </td>
@@ -151,7 +169,7 @@ export default function RemoveLocation() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Remove Location

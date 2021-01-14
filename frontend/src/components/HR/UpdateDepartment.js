@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import axios from "axios";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -79,17 +80,42 @@ function changeBackgroundOut(e) {
 
 export default function UpdateDepartment() {
   const classes = useStyles();
-
-  const [name, setName] = React.useState("");
-
-  const handleChange = (event) => {
-    setName(event.target.value);
-  };
-
+  const [show, setShow] = React.useState(false);
+  const handleClose1 = () => setShow(false);
   const [open, setOpen] = React.useState(false);
 
-  const handleClick = () => {
+  const [depName, setDepName] = React.useState("");
+  const [depHeadName, setDepHeadName] = React.useState("");
+  const [course, setCourse] = React.useState("");
+  const [staff, setStaff] = React.useState("");
+  const handleDepartmentName = (e) => setDepName(e.target.value);
+  const handleDepartmentHeadName = (e) => setDepHeadName(e.target.value);
+  const handleStaff = (e) => setStaff(e.target.value);
+  const handleCourse = (e) => setCourse(e.target.value);
+
+  const handleSubmit = (e) => {
     setOpen(true);
+    e.preventDefault();
+    const obj = {
+      departmentHead: depHeadName,
+      departmentName: depName,
+      staff: staff,
+      courses: course,
+    };
+    console.log(obj);
+    axios
+      .post("/hrAccount/updateDepartment", obj)
+      .then((res) => {
+        console.log("success");
+
+        console.log(res);
+
+        //swal(res.data.msg);
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
   };
 
   const handleClose = (event, reason) => {
@@ -140,6 +166,7 @@ export default function UpdateDepartment() {
                         label="Department Name"
                         variant="outlined"
                         size="small"
+                        onChange={handleDepartmentName}
                       />
                     </form>
                   </td>
@@ -156,6 +183,7 @@ export default function UpdateDepartment() {
                         label="Department Head Name"
                         variant="outlined"
                         size="small"
+                        onchange={handleDepartmentHeadName}
                       />
                     </form>
                   </td>
@@ -167,6 +195,7 @@ export default function UpdateDepartment() {
                       label="Courses"
                       helperText="Enter Courses separated by commas"
                       variant="outlined"
+                      onChange={handleCourse}
                     />
                   </div>
                 </tr>
@@ -177,6 +206,7 @@ export default function UpdateDepartment() {
                       label="Staff"
                       helperText="Enter Staff ID(s) separated by commas"
                       variant="outlined"
+                      onChange={handleStaff}
                     />
                   </div>
                 </tr>
@@ -196,7 +226,7 @@ export default function UpdateDepartment() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Update Department

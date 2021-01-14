@@ -124,12 +124,17 @@ const logIn = async (req, res) => {
 
     const tokenId = accountFound.memberId
 
+    // const tokenMemberType = accountFound.staffMemberType
+
     
     res.header("authtoken", token);
     res.setHeader("authtoken", token);
 
     res.header("tokenID", tokenId);
     res.setHeader("tokenID", tokenId);
+
+    // res.header("tokenMemberType", tokenMemberType);
+    // res.setHeader("tokenMemberType", tokenMemberType);
     // tokenrole = accountNotFound.role;
     console.log(res.header.authtoken);
     return res.json({

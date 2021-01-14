@@ -34,12 +34,29 @@ const {
 const department_model = require("../../models/department_model");
 const enums = require("../constants/enums");
 const { requestType, requestStatus } = require("../constants/enums");
+const { secretOrKey } = require("../../config/keys");
 
 ///////////////////////// HEAD OF DEPARTMENT ///////////////////////
 
 // Delete Course Instructor
 const deleteCourseInstructor = async (req, res) => {
   try {
+//authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Head Of Department"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
     const courseFound = await courseModel.findOne({
       courseName: req.body.Body.courseID,
     });
@@ -108,6 +125,22 @@ const deleteCourseInstructor = async (req, res) => {
 
 const assignCourseInstructor = async (req, res) => {
   try {
+
+    //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Head Of Department"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
     const Course = req.body;
 
     const courseFound = await courseModel.findOne({
@@ -162,6 +195,23 @@ const assignCourseInstructor = async (req, res) => {
 
 const viewDaysOff = async (req, res) => {
   try {
+
+    //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.memberId).includes("AC"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
     const Department = req.body;
     const deptFound = await departmentModel.findOne({
       departmentName: Department.Department.departmentName,
@@ -228,6 +278,23 @@ const viewDaysOff = async (req, res) => {
 
 const viewRequests = async (req, res) => {
   try {
+
+     //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.memberId).includes("AC"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+    
     const Department = req.body;
     const deptFound = await departmentModel.findOne({
       departmentName: Department.Department.departmentName,
@@ -274,6 +341,23 @@ const viewRequests = async (req, res) => {
 
 const viewCourseCoverage = async (req, res) => {
   try {
+
+     //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Instructor")) || ((check.staffMemberType).includes("Head"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
     const Department = req.body;
     const deptFound = await departmentModel.findOne({
       departmentName: Department.Department.departmentName,
@@ -322,6 +406,25 @@ const viewCourseCoverage = async (req, res) => {
 
 const hodViewDepartmentStaff = async (req, res) => {
   try {
+
+    
+
+     //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Head"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
     const departmentFound = await departmentModel.findOne({
       departmentName: req.body.Body.departmentName,
     });
@@ -356,6 +459,23 @@ const hodViewDepartmentStaff = async (req, res) => {
 
 const hodViewDepartmentStaffPerCourse = async (req, res) => {
   try {
+
+    //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Instructor")) || ((check.staffMemberType).includes("Head"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
     const departmentFound = await departmentModel.findOne({
       departmentName: req.body.Body.departmentName,
     });
@@ -411,6 +531,23 @@ const hodViewDepartmentStaffPerCourse = async (req, res) => {
 
 const viewTeachingAssignments = async (req, res) => {
   try {
+
+    //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Instructor")) || ((check.staffMemberType).includes("Head"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
     const departmentFound = await departmentModel.findOne({
       departmentName: req.body.Body.departmentName,
     });
@@ -461,9 +598,23 @@ const viewTeachingAssignments = async (req, res) => {
 
 const viewSchedule = async (req, res) => {
   try {
-    //my id from token
+    //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const myID = jwt.verify(req.headers.tokenId,secretOrKey)
 
-    const myID = req.body.Account.memberID;
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (((check.memberId).includes("AC"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
+    // const myID = req.body.Account.memberID;
 
     const replacementRequests = await requestModel.find({
       status: enums.requestStatus.ACCEPTED,
@@ -516,7 +667,26 @@ const viewSchedule = async (req, res) => {
 
 const viewReplacementRequests = async (req, res) => {
   try {
-    const myID = req.body.Account.memberID;
+
+
+     //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const myID = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (((check.memberId).includes("AC"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
+
+    // const myID = req.body.Account.memberID;
 
     var ReplacementRequests = await requestModel.find({
       requestType: requestType.REPLACEMENT,
@@ -546,8 +716,25 @@ const viewReplacementRequests = async (req, res) => {
 
 const sendReplacementRequests = async (req, res) => {
   try {
+
+ //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const myID = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (((check.memberId).includes("AC"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
     const Body = req.body.Body;
-    const myID = "AC2 ";
+    // const myID = "AC2 ";
     const reciever = await staffModel.findOne({ memberId: Body.recieverID });
 
     if (!reciever) {
@@ -601,6 +788,23 @@ const sendReplacementRequests = async (req, res) => {
 
 const hodRejectRequest = async (req, res) => {
   try {
+
+     //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (((check.staffMemberType).includes("Head"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
     const departmentFound = await departmentModel.findOne({
       departmentName: req.body.Body.departmentName,
     });
@@ -653,6 +857,23 @@ const hodRejectRequest = async (req, res) => {
 
 const coordinatorAddCourseSlots = async (req, res) => {
   try {
+
+ //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (((check.staffMemberType).includes("Coordinator"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
     const Course = req.body.Body;
     const courseFound = await courseModel.findOne({
       courseID: Course.courseID,
@@ -707,6 +928,23 @@ const coordinatorAddCourseSlots = async (req, res) => {
 
 const coordinatorUpdateCourseSlots = async (req, res) => {
   try {
+
+     //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (((check.staffMemberType).includes("Coordinator"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
     const Course = req.body.Body;
     const courseFound = await courseModel.findOne({
       courseID: Course.courseID,
@@ -764,6 +1002,23 @@ const coordinatorUpdateCourseSlots = async (req, res) => {
 
 const coordinatorDeleteCourseSlots = async (req, res) => {
   try {
+
+ //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (((check.staffMemberType).includes("Coordinator"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
     const Course = req.body.Body;
     const courseFound = await courseModel.findOne({
       courseID: Course.courseID,
@@ -825,9 +1080,26 @@ const coordinatorDeleteCourseSlots = async (req, res) => {
 
 const coordinatorViewSlotLinking = async (req, res) => {
   try {
-    //Will Be Changed Upon Token
+
+ //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (((check.staffMemberType).includes("Coordinator"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
+
     const body = req.body.Body;
-    const coordinator = await staffModel.findOne({ memberId: body.memberId });
+    const coordinator = await staffModel.findOne({ memberId: id });
     var course = await courseModel.findOne({
       courseCoordinator: coordinator.email,
     });
@@ -879,11 +1151,29 @@ const coordinatorViewSlotLinking = async (req, res) => {
 
 const sendSlotLinkingRequest = async (req, res) => {
   try {
-    const Body = req.body.Body;
-    const reqId = "R6";
-    const myID = "AC2 ";
 
-    const request = await requestModel.findOne({ requestId: reqId });
+
+ //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (((check.memberId).includes("AC"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
+    const Body = req.body.Body;
+    const reqId = Body.requestID;// CHECKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+    const myID = id;
+
+    const request = await requestModel.findOne({ requestID: reqId });
     if (request) {
       return res.json({
         statusCode: requestAlreadyExists.statusCode,
@@ -982,9 +1272,22 @@ const sendSlotLinkingRequest = async (req, res) => {
 
 const viewSlotAssignments = async (req, res) => {
   try {
-    //Will Be Changed Upon Token
+ //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const myID = jwt.verify(req.headers.tokenId,secretOrKey)
 
-    myID = "AC5";
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Instructor")) || ((check.staffMemberType).includes("Head"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+    // myID = "AC5";
 
     var allCourses = await courseModel.find();
     if (allCourses.length != 0) {
@@ -1028,9 +1331,22 @@ const viewSlotAssignments = async (req, res) => {
 
 const assignCourseCoordinator = async (req, res) => {
   try {
-    //Will Be Changed Upon Token
+ //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
 
-    myID = "AC5";
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Instructor"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+    myID = id;
     const body = req.body.Body;
 
     const acMember = await staffModel.findOne({ memberId: body.memberId });
@@ -1119,9 +1435,23 @@ const assignCourseCoordinator = async (req, res) => {
 
 const assignAcMemberToUnassignedSlot = async (req, res) => {
   try {
-    //Will Be Changed Upon Token
+     //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
 
-    myID = "AC5";
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Instructor"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
+    myID = id;
     const body = req.body.Body;
 
     const acMember = await staffModel.findOne({ memberId: body.memberId });
@@ -1209,7 +1539,24 @@ const assignAcMemberToUnassignedSlot = async (req, res) => {
 
 const changeDayOff = async (req, res) => {
   try {
-    var myID = "AC6";
+
+     //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.memberId).includes("AC"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
+    var myID = id;
 
     var allCourses = await courseModel.find();
 
@@ -1322,7 +1669,24 @@ const changeDayOff = async (req, res) => {
 
 const showNotifications = async (req, res) => {
   try {
-    var myID = "AC6";
+
+ //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.memberId).includes("AC"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
+    var myID = id;
 
     const user = await staffModel.findOne({ memberId: myID });
 
@@ -1399,7 +1763,23 @@ const cancelStillPendingRequests = async (req, res) => {
   try {
     var body = req.body.Body;
 
-    var myID = "AC6";
+     //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.memberId).includes("AC"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
+    var myID = id;
     var user = await staffModel.findOne({ memberId: myID });
 
     var myRequests = user.requestLog;
@@ -1459,7 +1839,24 @@ const cancelStillPendingRequests = async (req, res) => {
 const viewStatusOfAllSubmittedRequests = async (req, res) => {
   try {
     var body = req.body.Body;
-    var myID = "AC6";
+
+     //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.memberId).includes("AC"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
+    var myID = id;
     var user = await staffModel.findOne({ memberId: myID });
 
     var submittedRequests = await requestModel.find({ senderID: myID });
@@ -1594,8 +1991,25 @@ const viewStatusOfAllSubmittedRequests = async (req, res) => {
 
 const coordinatorViewCourseCoverage = async (req, res) => {
   try {
+
+ //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Coordinator"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
     //token.id
-    myID = "AC5";
+    myID = id;
     const instructor = await staffModel.findOne({ memberId: myID });
 
     if (!instructor) {
@@ -1644,7 +2058,24 @@ const coordinatorViewCourseCoverage = async (req, res) => {
 
 const instructorViewDepartmentStaff = async (req, res) => {
   try {
-    const myID = "AC5";
+
+ //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Instructor"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
+    const myID = id;
     console.log(myID);
 
     var i = 0;
@@ -1697,7 +2128,24 @@ const instructorViewDepartmentStaff = async (req, res) => {
 
 const instructorViewDepartmentStaffPerCourse = async (req, res) => {
   try {
-    const myID = "AC5";
+
+     //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Instructor"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
+    const myID = id;
     console.log(myID);
 
     var i = 0;
@@ -1769,9 +2217,26 @@ const instructorViewDepartmentStaffPerCourse = async (req, res) => {
 // Delete Course Instructor
 const deleteAssignmentOFAcMember = async (req, res) => {
   try {
+
+ //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Instructor"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
     const body = req.body;
 
-    const myID = "AC3";
+    const myID = id;
     const member = await staffModel.findOne({ memberId: myID });
     const courses = await courseModel.find();
 
@@ -1836,8 +2301,25 @@ const deleteAssignmentOFAcMember = async (req, res) => {
 
 const submitAnyTypeOfLeaves = async (req, res) => {
   try {
+
+ //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.memberId).includes("AC"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
     var body = req.body.Body;
-    var myID = "AC6";
+    var myID = id;
     var allCourses = await courseModel.find();
     var i = 0;
     var HOD = "";
@@ -1902,7 +2384,25 @@ const submitAnyTypeOfLeaves = async (req, res) => {
 
 const hodAcceptRequest = async (req, res) => {
   try {
-    const myID = "AC6";
+
+
+ //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Head"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
+    const myID = id;
     const body = req.body.Body;
 
     const requestFound = await requestModel.findOne({
@@ -2121,7 +2621,24 @@ const hodAcceptRequest = async (req, res) => {
 
 const instructorDeleteCourseAssignment = async (req, res) => {
   try {
-    myID = "AC5"; //ahmad
+
+     //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Instructor"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
+    myID = id; //ahmad
 
     const body = req.body.Body;
     const taID = body.taID;
@@ -2220,7 +2737,24 @@ const instructorDeleteCourseAssignment = async (req, res) => {
 
 const instructorUpdateCourseAssignment = async (req, res) => {
   try {
-    myID = "AC5"; //ahmad
+
+ //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Instructor"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
+    myID = id; //ahmad
 
     const body = req.body.Body;
     const taID1 = body.taID1; //removed
@@ -2333,7 +2867,25 @@ const instructorUpdateCourseAssignment = async (req, res) => {
 
 const coordinatorRejectSlotLinkingRequest = async (req, res) => {
   try {
-    const memberID = "AC6";
+
+
+ //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Instructor"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
+    const memberID = id;
     const RequestID = req.body.Body.requestID; //body
 
     console.log(RequestID);
@@ -2416,7 +2968,24 @@ const coordinatorRejectSlotLinkingRequest = async (req, res) => {
 
 const coordinatorAcceptSlotLinkingRequest = async (req, res) => {
   try {
-    const memberID = "AC6";
+
+ //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Coordinator"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
+    const memberID = id;
     const RequestID = req.body.Body.requestID; //body
 
     console.log(RequestID);
@@ -2514,6 +3083,23 @@ const coordinatorAcceptSlotLinkingRequest = async (req, res) => {
 
 const updateCourseInstructor = async (req, res) => {
   try {
+
+ //authenticate that this is a valid member
+        //authorize that this is a Hr member
+        const payload = jwt.verify(req.headers.token,secretOrKey);
+        const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+        const check = await staffModel.findOne({memberId: id})
+
+        if(!check){
+          return res.send("not authorized");
+        }
+        // console.log(payload.id);
+        if (!((check.staffMemberType).includes("Head"))){ 
+            //console.log(payload.id);
+            return res.send("not authorized");
+        }
+
     const courseFound = await courseModel.findOne({
       courseName: req.body.Body.courseID,
     });

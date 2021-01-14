@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-
+import axios from "axios";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -81,14 +81,14 @@ function changeBackgroundOut(e) {
 
 export default function RemoveCourse() {
   const classes = useStyles();
-  const [password, setPassword] = React.useState("");
+  const [courseID, setCourseID] = React.useState("");
 
-  const handleChange = (event) => {
-    setPassword(event.target.value);
+  const handleCourseID = (event) => {
+    setCourseID(event.target.value);
   };
-
+  const [show, setShow] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-
+  const handleClose1 = () => setShow(false);
   const handleClick = () => {
     setOpen(true);
   };
@@ -99,6 +99,26 @@ export default function RemoveCourse() {
     }
 
     setOpen(false);
+  };
+  const handleSubmit = (e) => {
+    setOpen(true);
+    e.preventDefault();
+    const course = {
+      courseID: courseID,
+    };
+    console.log(course);
+    axios
+      .post("/hrAccount/deleteCourse", course)
+      .then((res) => {
+        console.log("success");
+        //console.log(res.data.msg)
+
+        //swal(res.data.msg);
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
   };
 
   return (
@@ -132,6 +152,7 @@ export default function RemoveCourse() {
                     label="Course ID"
                     variant="outlined"
                     size="small"
+                    onChange={handleCourseID}
                   />
                 </form>
               </td>
@@ -149,7 +170,7 @@ export default function RemoveCourse() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Remove Course
