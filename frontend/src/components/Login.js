@@ -60,6 +60,7 @@ export default function Login() {
     axios.post("/account/login", member).then(
       (res) => {
         console.log(res);
+        console.log(res.headers)
         console.log(res.headers.authtoken);
         localStorage.setItem("authtoken", res.headers.authtoken);
         handleClose();

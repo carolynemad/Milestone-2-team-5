@@ -83,9 +83,17 @@ import ViewRequestsCOO from "./components/AC/CourseCoordinator/ViewRequestsCOO";
 //   { start_date:'2020-06-13 10:00', end_date:'2020-06-13 18:00', text:'Event 2', id: 2 }
 // ];
 
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
 class App extends Component {
   render() {
     return (
+      <Router>
+        <div>
+
+        </div>
+
+      </Router>
       //////////////////////////////////////////////////////////////////////////////////
       //<SendRequestTA />
       //<UpdateProfileTA />
@@ -101,10 +109,10 @@ class App extends Component {
       //     </div>
       // </div>
       //////////////////////////////////////////////////////////////////////////////////
-      <Login />
+      // <Login />
       //<SignUp />
       //////////////////////////////////////////////////////////////////////////////////
-      //<HR />
+      // <HR />
       //<AddMember />
       //<Notifications/>
       //<Attendance/>

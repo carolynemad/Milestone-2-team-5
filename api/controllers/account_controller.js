@@ -68,7 +68,9 @@ const logIn = async (req, res) => {
   // const token = jwt.sign({ id: existingUser.id }, key);
 
   try {
-    const Account = req.body.Account;
+    // const Account = req.body.Account;
+    const Account = req.body;
+    console.log(Account)
     const accountFound = await staffModel.findOne({
       email: Account.email.toString().toLowerCase(),
     });
@@ -112,7 +114,7 @@ const logIn = async (req, res) => {
       expiresIn: "730.001h",
     });
     res.header("authtoken", token);
-    console.log(res.header.authorization);
+    // console.log(res.header.authorization);
     return res.json({
       statusCode: signinSuccessfully.statusCode,
       message: signinSuccessfully.message,

@@ -6,10 +6,10 @@ const { staffMemberType, accountType, gender } = require('../../constants/enums'
 
 const validateLogIn = (req, res, next) => {
     const schema = Joi.object({
-      Account: Joi.object({
+     // Account: Joi.object({
         email: Joi.string().email().required(),
         password: Joi.string().required(),
-      }),
+     // }),
     })
     const isValid = Joi.validate(req.body, schema)
     if (isValid.error) {

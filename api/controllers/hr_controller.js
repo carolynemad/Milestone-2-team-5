@@ -18,7 +18,7 @@ const { staffMemberType, memberType } = require("../constants/enums");
 const {
   salt,
   secretOrKey,
-} = require("../../../milestone-1-team-5/config/keys");
+} = require("../../config/keys");
 
 //statusCode imports
 const {
