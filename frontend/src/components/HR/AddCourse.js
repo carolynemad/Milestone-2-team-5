@@ -9,6 +9,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import axios from "axios";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -87,24 +88,62 @@ function changeBackgroundOut(e) {
 
 export default function AddCourse() {
   const classes = useStyles();
-  const [values, setValues] = React.useState({
-    amount: "",
-  });
+  const [depName, setDepName] = React.useState("");
+  const [courseName, setCourseName] = React.useState("");
+  const [courseID, setCourseID] = React.useState("");
+  const [coverage, setCoverage] = React.useState("");
+  const [instructor, setInstructor] = React.useState("");
+  const [coordinator, setCoordinator] = React.useState("");
+  const [assistant, setAssistant] = React.useState("");
+  const [slot, setSlot] = React.useState("");
+  const [show, setShow] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const handleClose = () => setShow(false);
 
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
+  const handleClose1 = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
 
     setOpen(false);
+  };
+
+  const handleShow = () => setShow(true);
+  const handleDepName = (e) => setDepName(e.target.value);
+  const handleCourseName = (e) => setCourseName(e.target.value);
+  const handleCourseID = (e) => setCourseID(e.target.value);
+  const handleCoverage = (e) => setCoverage(e.target.value);
+  const handleInstructor = (e) => setInstructor(e.target.value);
+  const handleCoordinator = (e) => setCoordinator(e.target.value);
+  const handleAssistant = (e) => setAssistant(e.target.value);
+  const handleSlot = (e) => setSlot(e.target.value);
+
+  const handleSubmit = (e) => {
+    setOpen(true);
+    e.preventDefault();
+    const course = {
+      departmentName: depName,
+      courseName: courseName,
+      courseID: courseID,
+      courseCoordinator: coordinator,
+      courseInstructors: instructor,
+      courseAssistant: assistant,
+      slots: slot,
+      courseCoverage: coverage,
+    };
+    console.log(course);
+    axios
+      .post("/hr/addCourse", course)
+      .then((res) => {
+        console.log("success");
+        //console.log(res.data.msg)
+
+        //swal(res.data.msg);
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose();
   };
 
   return (
@@ -140,6 +179,7 @@ export default function AddCourse() {
                       label="Department Name"
                       variant="outlined"
                       size="small"
+                      onChange={handleDepName}
                     />
                   </form>
                 </td>
@@ -151,6 +191,7 @@ export default function AddCourse() {
                       label="Course Name"
                       variant="outlined"
                       size="small"
+                      onChange={handleCourseName}
                     />
                   </form>
                 </td>
@@ -166,6 +207,7 @@ export default function AddCourse() {
                       label="Course ID"
                       variant="outlined"
                       size="small"
+                      onChange={handleCourseID}
                     />
                   </form>
                 </td>
@@ -177,6 +219,7 @@ export default function AddCourse() {
                       label="Course Coordinator"
                       variant="outlined"
                       size="small"
+                      onChange={handleCoordinator}
                     />
                   </form>
                 </td>
@@ -196,8 +239,7 @@ export default function AddCourse() {
                   </InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-amount"
-                    value={values.amount}
-                    onChange={handleChange("amount")}
+                    onChange={handleCoverage}
                     startAdornment={
                       <InputAdornment position="start">%</InputAdornment>
                     }
@@ -216,6 +258,7 @@ export default function AddCourse() {
                       label="Course Instructors"
                       variant="outlined"
                       size="small"
+                      onChange={handleInstructor}
                     />
                   </form>
                 </td>
@@ -227,6 +270,7 @@ export default function AddCourse() {
                       label="Course Assistants"
                       variant="outlined"
                       size="small"
+                      onChange={handleAssistant}
                     />
                   </form>
                 </td>
@@ -241,6 +285,7 @@ export default function AddCourse() {
                     label="Slots"
                     variant="outlined"
                     size="small"
+                    onChange={handleSlot}
                   />
                 </form>
               </td>
@@ -258,7 +303,7 @@ export default function AddCourse() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Add Course
@@ -266,9 +311,9 @@ export default function AddCourse() {
                 <Snackbar
                   open={open}
                   autoHideDuration={6000}
-                  onClose={handleClose}
+                  onClose={handleClose1}
                 >
-                  <Alert onClose={handleClose} severity="success">
+                  <Alert onClose={handleClose1} severity="success">
                     Course Added.
                   </Alert>
                 </Snackbar>

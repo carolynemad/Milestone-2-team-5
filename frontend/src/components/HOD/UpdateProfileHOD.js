@@ -96,6 +96,7 @@ function changeBackgroundOut(e) {
 
 export default function UpdateProfile() {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
 
   const [show, setShow] = React.useState(false);
   const [address, setAddress] = React.useState("");
@@ -106,7 +107,16 @@ export default function UpdateProfile() {
   const handleAddress = (e) => setAddress(e.target.value);
   const handleGender = (e) => setGender(e.target.value);
   const handleDate = (e) => setDate(e.target.value);
+  const handleClose1 = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   const handleSubmit = (e) => {
+    setOpen(true);
     e.preventDefault();
     const profile = {
       address: address,
@@ -228,9 +238,9 @@ export default function UpdateProfile() {
                 <Snackbar
                   //open={open}
                   autoHideDuration={6000}
-                  onClose={handleClose}
+                  onClose={handleClose1}
                 >
-                  <Alert onClose={handleClose} severity="success">
+                  <Alert onClose={handleClose1} severity="success">
                     Information Updated.
                   </Alert>
                 </Snackbar>
