@@ -66,22 +66,38 @@ export default function Login(props) {
         console.log(res);
         localStorage.setItem("tokenID" , res.data.tokenId)
         localStorage.setItem("authtoken", res.data.token);
-        console.log(res.data.token);
-        console.log(res.data.tokenId)
-        console.log(localStorage.getItem("authtoken"));
+        if(res.data.token){
+          console.log(res.data.token);
+          console.log(res.data.tokenId)
+          console.log(localStorage.getItem("authtoken"));
 
-        if((res.data.tokenId).substring(0,2) === "HR"){
-          console.log("HERE");
-          // console.log(this.props)
-         props.history.push("/hr")
-         
+          if((res.data.tokenId).substring(0,2) === "HR"){
+            console.log("HERE");
+            // console.log(this.props)
+           props.history.push("/hr")
+           
+          }
+          else {
+            // //1-Instructor
+            // if(res.data.tokenMemberType === "Course Instructor"){
+            //   props.history.push("/hr")
+            // }
+            // //2-Coordinator
+            // if(res.data.tokenMemberType === "Course Coordinator"){
+            //   props.history.push("/coursecoordinator")
+            // }
+            // //3-HOD
+            // if(res.data.tokenMemberType === "Head Of Department"){
+            //   props.history.push("/hod")
+            // }
+            // //4-TA
+            // if(res.data.tokenMemberType === "Teacher Assistant"){
+            //   props.history.push("/ta")
+            // }
+  
+          }
         }
-        else {
 
-        }
-
-        // const iid = (res.data.tokenId).substring(0,2)
-        // {iid == "HR" ?  <HR/> : null}
 
         handleClose();
       },
@@ -94,7 +110,6 @@ export default function Login(props) {
   return (
     <div
       style={{
-        // backgroundImage:style=  `url("GUC1.jpeg")` ,
         width: "100vw",
         height: "50vw",
         justifyContent: "center",
