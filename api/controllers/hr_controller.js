@@ -60,6 +60,14 @@ const addLocation = async (req, res) => {
   try {
     const { Location } = req.body;
 
+    const payload = jwt.verify(req.headers.token,secretOrKey);
+    const idd = jwt.verify(req.headers.tokenId,secretOrKey);
+
+    if (!((idd).includes("HR"))){ 
+      return res.send("Not Authorized");
+  }
+
+    
     const locationFound = await locationModel.findOne({
       locationName: Location.locationName,
     });

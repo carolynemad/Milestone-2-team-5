@@ -114,17 +114,29 @@ export default function UpdateProfile() {
       birthDate: date,
     };
     console.log(profile);
-    axios
-      .post("/account/updateProfile", profile)
+   
+      try{
+        axios
+      .post("/account/updateProfile", profile , 
+      {
+        headers: {
+          "tokenFrontEnd1": localStorage.getItem("tokenID"),
+          "tokenFrontEnd": localStorage.getItem()
+        }
+      })
       .then((res) => {
-        console.log("success");
-        //console.log(res.data.msg)
 
-        //swal(res.data.msg);
       })
       .catch((err) => {
         console.log("There is an error ..." + err);
       });
+
+      }
+      catch {
+
+      }
+      
+     
     handleClose();
   };
   return (
