@@ -32,7 +32,8 @@ const {
 // const months = require('../constants/enums')
 
 //key imports
-const { secretOrKey, salt } = require("../../config/keys");
+const { secretOrKey, salt } = 
+require("../../config/keys");
 
 async function authenticateM2(req, res, next) {
   //console.log(req)
