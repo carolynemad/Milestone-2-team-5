@@ -50,14 +50,14 @@ export default function Login() {
   const handlePassword = (e) => setPassword(e.target.value);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const member = {
       email: email,
       password: password,
     };
     console.log(member);
-    axios.post("/account/login", member).then(
+    await axios.post("/account/login", member).then(
       (res) => {
         console.log(res);
         localStorage.setItem("authtoken", res.data.token);
