@@ -30,6 +30,7 @@ import FunctionsIcon from "@material-ui/icons/Functions";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import ViewListIcon from "@material-ui/icons/ViewList";
+import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import {Link} from 'react-router-dom'
 
 
@@ -218,10 +219,24 @@ export default function ACpage() {
               <Link to = "/courseinstructor/updatecourseassignment">{index === 5 && <ListAltOutlinedIcon />}</Link>
               <Link to = "/courseinstructor/assigncoursecoordinator">{index === 6 && <AddIcon />}</Link>
               </ListItemIcon>
+
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>
+        <Divider/>
+            <List>
+              {['Logout'].map((text, index) => (
+                <ListItem button key={text}>
+                  <ListItemIcon>
+                  <Link to = "/login">{index === 0 && <ExitToAppOutlinedIcon />}</Link>
+                 
+
+                 </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />

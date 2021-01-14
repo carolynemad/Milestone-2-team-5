@@ -5,7 +5,7 @@ import ViewScheduler from "./components/AC/TA/ViewScheduler";
 import "./App.css";
 import NotificationsTA from "./components/AC/TA/Notifications";
 import SendRequestTA from "./components/AC/TA/SendRequest";
-import UpdateProfileTA from "./components/SignUp";
+import UpdateProfileTA from "./components/AC/TA/UpdateProfile";
 import ProfileTA from "./components/AC/TA/Profile";
 import ViewRequestsTA from "./components/AC/TA/ViewRequests";
 import ResetPasswordTA from "./components/AC/TA/ResetPassword";
@@ -77,6 +77,14 @@ import AddCourseSlot from "./components/AC/CourseCoordinator/AddCourseSlot";
 import RemoveCourseSlot from "./components/AC/CourseCoordinator/RemoveCourseSlot";
 import UpdateCourseSlot from "./components/AC/CourseCoordinator/UpdateCourseSlot";
 import ViewRequestsCOO from "./components/AC/CourseCoordinator/ViewRequestsCOO";
+import SendRequestCOO from "./components/AC/CourseCoordinator/SendRequestCOO";
+import NotificationsCOO from "./components/AC/CourseCoordinator/NotificationsCOO";
+import Myprofile from "./components/AC/CourseCoordinator/Myprofile";
+import UpdateMyProfile from "./components/AC/CourseCoordinator/UpdateMyProfile";
+import ResetPasswordCOO from "./components/AC/CourseCoordinator/ResetPasswordCOO";
+import AttendanceCOO from "./components/AC/CourseCoordinator/AttendanceCOO";
+import ViewSlotAssignmentCOO from "./components/AC/CourseCoordinator/ViewSlotAssignmentCOO";
+import ViewStaff from "./components/AC/CourseCoordinator/ViewStaff";
 
 // const data = [
 //   { start_date:'2020-06-10 6:00', end_date:'2020-06-10 8:00', text:'Event 1', id: 1 },
@@ -225,7 +233,7 @@ class App extends Component {
             component={AcceptOrRejectCOO}
           />
           <Route
-            path="/coursecoaddordinator/addcourseslot"
+            path="/coursecoordinator/addcourseslot"
             exact
             component={AddCourseSlot}
           />
@@ -244,6 +252,48 @@ class App extends Component {
             exact
             component={ViewRequestsCOO}
           />
+          <Route
+            path="/coursecoordinator/sendrequest"
+            exact
+            component={SendRequestCOO}
+          />
+          <Route
+            path="/coursecoordinator/viewnotifications"
+            exact
+            component={NotificationsCOO}
+          />
+          <Route
+            path="/coursecoordinator/viewprofile"
+            exact
+            component={Myprofile}
+          />
+          <Route
+            path="/coursecoordinator/updateprofile"
+            exact
+            component={UpdateMyProfile}
+          />
+           <Route
+            path="/coursecoordinator/restspassword"
+            exact
+            component={ResetPasswordCOO}
+          />
+          <Route
+            path="/coursecoordinator/attendance"
+            exact
+            component={Attendance}
+          />
+          <Route
+            path="/coursecoordinator/viewslotassignment"
+            exact
+            component={ViewSlotAssignmentCOO}
+          />
+          <Route
+            path="/coursecoordinator/viewmember"
+            exact
+            component={ViewStaff}
+          />
+
+
           {/* Course Instructor */}
           <Route path="/courseinstructor" exact component={CourseInstructor} />
           <Route
@@ -326,9 +376,9 @@ class App extends Component {
           <Route path="/ta/attendance" exact component={Attendance} />
           <Route path="/ta/viewnotifications" exact component={Notifications} />
           <Route path="/ta/viewprofile" exact component={Profile} />
-          <Route path="/ta/resetpassword" exact component={ResetPassword} />
+          <Route path="/ta/resetpassword" exact component={ResetPasswordTA} />
           <Route path="/ta/sendrequest" exact component={SendRequest} />
-          <Route path="/ta/updateprofile" exact component={UpdateProfile} />
+          <Route path="/ta/updateprofile" exact component={UpdateProfileTA} />
           <Route path="/ta/viewrequests" exact component={ViewRequests} />
           {/* <Route path="/ta/viewschedule" exact component={ViewScheduler}/> */}
           {/* HOD */}

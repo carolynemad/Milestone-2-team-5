@@ -5,7 +5,6 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import axios from "axios";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -80,43 +79,21 @@ function changeBackgroundOut(e) {
   e.target.style.color = "Black";
 }
 
-export default function ResetPasswordHOD() {
+export default function ResetPassword() {
   const classes = useStyles();
-  const [show, setShow] = React.useState(false);
-  const [oldpassword, setOldPassword] = React.useState("");
-  const[newpassword,setNewPassword] = React.useState("");
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const handleOldPassword = (e) => setOldPassword(e.target.value);
-  const handleNewPassword = (e) => setNewPassword(e.target.value);
-  const [open, setOpen] = React.useState(false);
-  const handleSubmit = (e) => {
-    
-    setOpen(true);
-    e.preventDefault();
-    const password = {
-      password: newpassword,
-    };
-    console.log(password);
-    axios
-      .post("/account/resetPassword", password)
-      .then((res) => {
-        console.log("success");
-        //console.log(res.data.msg)
+  const [password, setPassword] = React.useState("");
 
-        //swal(res.data.msg);
-      })
-      .catch((err) => {
-        console.log("There is an error ..." + err);
-      });
-    handleClose();
+  const handleChange = (event) => {
+    setPassword(event.target.value);
   };
-  
+
+  const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
     setOpen(true);
   };
-  const handleClose1 = (event, reason) => {
+
+  const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
@@ -124,9 +101,6 @@ export default function ResetPasswordHOD() {
     setOpen(false);
   };
 
-  
-
-  
   return (
     <div
       style={{
@@ -161,7 +135,6 @@ export default function ResetPasswordHOD() {
                       label="Old Password"
                       variant="outlined"
                       size="small"
-                      onchange={handleOldPassword}
                     />
                   </form>
                 </td>
@@ -172,7 +145,6 @@ export default function ResetPasswordHOD() {
                       label="New Password"
                       variant="outlined"
                       size="small"
-                      onchange={handleNewPassword}
                     />
                   </form>
                 </td>
@@ -191,7 +163,7 @@ export default function ResetPasswordHOD() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleSubmit}
+                  onClick={handleClick}
                   variant="contained"
                 >
                   Reset password
@@ -199,9 +171,9 @@ export default function ResetPasswordHOD() {
                 <Snackbar
                   open={open}
                   autoHideDuration={6000}
-                  onClose={handleClose1}
+                  onClose={handleClose}
                 >
-                  <Alert onClose={handleClose1} severity="success">
+                  <Alert onClose={handleClose} severity="success">
                     Password changed.
                   </Alert>
                 </Snackbar>
