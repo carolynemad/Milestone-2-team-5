@@ -190,7 +190,7 @@ export default function ACpage() {
               <ListItemIcon>
               <Link to = "/courseinstructor/viewprofile">{index === 0 && <PermIdentityOutlinedIcon />}</Link>
               <Link to = "/courseinstructor/updateprofile">{index === 1 && <UpdateOutlinedIcon />}</Link>
-              <Link to = "/courseinstructor/resstpassword">{index === 2 && <LockOpenOutlinedIcon />}</Link>
+              <Link to = "/courseinstructor/resetpassword">{index === 2 && <LockOpenOutlinedIcon />}</Link>
               <Link to = "/courseinstructor/attendance">{index === 3 && <ListAltOutlinedIcon />}</Link>
               </ListItemIcon>
               <ListItemText primary={text} />

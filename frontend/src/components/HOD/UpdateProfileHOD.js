@@ -106,7 +106,9 @@ export default function UpdateProfile() {
   const handleAddress = (e) => setAddress(e.target.value);
   const handleGender = (e) => setGender(e.target.value);
   const handleDate = (e) => setDate(e.target.value);
+  const [open, setOpen] = React.useState(false);
   const handleSubmit = (e) => {
+    setOpen(true);
     e.preventDefault();
     const profile = {
       address: address,
@@ -126,6 +128,15 @@ export default function UpdateProfile() {
         console.log("There is an error ..." + err);
       });
     handleClose();
+  };
+  const handleClick = () => {
+    setOpen(true);
+  };
+  const handleClose1 = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
   };
   return (
     <div
@@ -228,9 +239,9 @@ export default function UpdateProfile() {
                 <Snackbar
                   //open={open}
                   autoHideDuration={6000}
-                  onClose={handleClose}
+                  onClose={handleClose1}
                 >
-                  <Alert onClose={handleClose} severity="success">
+                  <Alert onClose={handleClose1} severity="success">
                     Information Updated.
                   </Alert>
                 </Snackbar>
