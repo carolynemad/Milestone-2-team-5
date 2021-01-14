@@ -11,7 +11,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputAdornment from "@material-ui/core/InputAdornment";
-
+import axios from "axios";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -95,26 +95,49 @@ function changeBackgroundOut(e) {
 
 export default function UpdateMember() {
   const classes = useStyles();
-
-  const [values, setValues] = React.useState({
-    amount: "",
-    day: "",
-  });
-
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-
-  const [type, setType] = React.useState("");
-
-  const handleChange2 = (event) => {
-    setType(event.target.type);
-  };
-
   const [open, setOpen] = React.useState(false);
+  const [show, setShow] = React.useState(false);
+  const handleClose1 = () => setShow(false);
+  const [memberID, setMemberID] = React.useState("");
+  const [memberType, setMemberType] = React.useState("Unassigned");
+  const [location, setLocation] = React.useState("");
+  const [address, setAddress] = React.useState("");
+  const [daysOff, setDaysOff] = React.useState("Friday");
+  const [salary, setSalary] = React.useState(0);
+  const [birthDate, setBirthDate] = React.useState("");
+  const handleMemberType = (e) => setMemberType(e.target.value);
+  const handleLocation = (e) => setLocation(e.target.value);
+  const handleAddress = (e) => setAddress(e.target.value);
+  const handleMemberID = (e) => setMemberID(e.target.value);
+  const handleSalary = (e) => setSalary(e.target.value);
+  const handleDaysOff = (e) => setDaysOff(e.target.value);
+  const handleBirthDate = (e) => setBirthDate(e.target.value);
 
-  const handleClick = () => {
+  const handleSubmit = (e) => {
     setOpen(true);
+    e.preventDefault();
+    const mem = {
+      salary: salary,
+      birthDate: birthDate,
+      address: address,
+      officeLocation: location,
+      StaffMemberType: memberType,
+      daysOff: daysOff,
+      memberID: memberID, //Needs to be changes in backend
+    };
+    console.log(mem);
+    axios
+      .post("/hrAccount/updateExistingMember", mem)
+      .then((res) => {
+        console.log("success");
+        //console.log(res.data.msg)
+
+        //swal(res.data.msg);
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
   };
 
   const handleClose = (event, reason) => {
@@ -165,6 +188,7 @@ export default function UpdateMember() {
                         label="Member ID"
                         variant="outlined"
                         size="small"
+                        onChange={handleMemberID}
                       />
                     </form>
                   </td>
@@ -176,6 +200,7 @@ export default function UpdateMember() {
                       label="Office Location"
                       variant="outlined"
                       size="small"
+                      onChange={handleLocation}
                     />
                   </form>
 
@@ -190,8 +215,7 @@ export default function UpdateMember() {
                     <Select
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
-                      value={values.day}
-                      onChange={handleChange2}
+                      onChange={handleDaysOff}
                       label="Days Off"
                     >
                       <MenuItem value=""></MenuItem>
@@ -219,8 +243,7 @@ export default function UpdateMember() {
                 <Select
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
-                  value={type}
-                  onChange={handleChange2}
+                  onChange={handleMemberType}
                   label="Staff Member Type"
                 >
                   <MenuItem value=""></MenuItem>
@@ -244,8 +267,7 @@ export default function UpdateMember() {
                 </InputLabel>
                 <OutlinedInput
                   id="outlined-adornment-amount"
-                  value={values.amount}
-                  onChange={handleChange("amount")}
+                  onChange={handleSalary}
                   startAdornment={
                     <InputAdornment position="start">EGY POUNDS</InputAdornment>
                   }
@@ -261,6 +283,7 @@ export default function UpdateMember() {
                     label="Address"
                     variant="outlined"
                     size="small"
+                    onChange={handleAddress}
                   />
                 </form>
               </td>
@@ -274,6 +297,7 @@ export default function UpdateMember() {
                     type="date"
                     variant="outlined"
                     defaultValue="1999-04-02"
+                    onChange={handleBirthDate}
                     className={classes.textField}
                     InputLabelProps={{
                       shrink: true,
@@ -296,7 +320,7 @@ export default function UpdateMember() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Update Member

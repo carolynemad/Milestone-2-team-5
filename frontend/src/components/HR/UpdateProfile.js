@@ -11,7 +11,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputAdornment from "@material-ui/core/InputAdornment";
-
+import axios from "axios";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -95,28 +95,42 @@ function changeBackgroundOut(e) {
 
 export default function UpdateProfile() {
   const classes = useStyles();
-
-  const [values, setValues] = React.useState({
-    amount: "",
-    day: "",
-  });
-
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-
-  const [type, setType] = React.useState("");
-
-  const handleChange2 = (event) => {
-    setType(event.target.type);
-  };
-
   const [open, setOpen] = React.useState(false);
+  const [show, setShow] = React.useState(false);
+  const [gender, setGender] = React.useState("Other");
+  const [salary, setSalary] = React.useState(0);
+  const [address, setAddress] = React.useState("");
+  const [birthDate, setBirthDate] = React.useState("");
 
-  const handleClick = () => {
+  const handleGender = (e) => setGender(e.target.value);
+  const handleSalary = (e) => setSalary(e.target.value);
+  const handleAddress = (e) => setAddress(e.target.value);
+  const handleBirthDate = (e) => setBirthDate(e.target.value);
+  const handleClose1 = () => setShow(false);
+
+  const handleSubmit = (e) => {
     setOpen(true);
-  };
+    e.preventDefault();
+    const mem = {
+      gender: gender,
+      salary: salary,
+      address: address,
+      birthDate: birthDate,
+    };
+    console.log(mem);
+    axios
+      .post("/account/updateProfile", mem)
+      .then((res) => {
+        console.log("success");
+        //console.log(res.data.msg)
 
+        //swal(res.data.msg);
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
+  };
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -162,8 +176,7 @@ export default function UpdateProfile() {
                     <Select
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
-                      value={values.day}
-                      onChange={handleChange2}
+                      onChange={handleGender}
                       label="Gender"
                     >
                       <MenuItem value=""></MenuItem>
@@ -186,8 +199,7 @@ export default function UpdateProfile() {
                 </InputLabel>
                 <OutlinedInput
                   id="outlined-adornment-amount"
-                  value={values.amount}
-                  onChange={handleChange("amount")}
+                  onChange={handleSalary}
                   startAdornment={
                     <InputAdornment position="start">EGY POUNDS</InputAdornment>
                   }
@@ -203,6 +215,7 @@ export default function UpdateProfile() {
                     label="Address"
                     variant="outlined"
                     size="small"
+                    onChange={handleAddress}
                   />
                 </form>
               </td>
@@ -215,6 +228,7 @@ export default function UpdateProfile() {
                     label="Birthday"
                     type="date"
                     defaultValue="1999-04-02"
+                    onChange={handleBirthDate}
                     className={classes.textField}
                     InputLabelProps={{
                       shrink: true,
@@ -237,7 +251,7 @@ export default function UpdateProfile() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Update Information

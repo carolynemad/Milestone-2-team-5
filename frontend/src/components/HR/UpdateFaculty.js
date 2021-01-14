@@ -5,12 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import axios from "axios";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -101,28 +96,40 @@ function changeBackgroundOut(e) {
 
 export default function UpdateFaculty() {
   const classes = useStyles();
-
-  const [values, setValues] = React.useState({
-    amount: "",
-    day: "",
-  });
-
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-
-  const [type, setType] = React.useState("");
-
-  const handleChange2 = (event) => {
-    setType(event.target.type);
-  };
-
   const [open, setOpen] = React.useState(false);
+  const [show, setShow] = React.useState(false);
+  const [name, setName] = React.useState("");
+  const [head, setHead] = React.useState("");
+  const [department, setDepartment] = React.useState("");
+  const handleName = (e) => setName(e.target.value);
+  const handleHead = (e) => setHead(e.target.value);
+  const handleDepartment = (e) => setDepartment(e.target.value);
 
-  const handleClick = () => {
+  const handleSubmit = (e) => {
     setOpen(true);
+    e.preventDefault();
+    const obj = {
+      facultyName: name,
+      departments: department,
+      facultyHead: head,
+    };
+    console.log(obj);
+    axios
+      .post("/hrAccount/updateFaculty", obj)
+      .then((res) => {
+        console.log("success");
+
+        console.log(res);
+
+        //swal(res.data.msg);
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
   };
 
+  const handleClose1 = () => setShow(false);
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -163,6 +170,7 @@ export default function UpdateFaculty() {
                     label="Faculty Name"
                     variant="outlined"
                     size="small"
+                    onChange={handleName}
                   />
                 </form>
               </td>
@@ -176,6 +184,7 @@ export default function UpdateFaculty() {
                     label="Faculty Head"
                     variant="outlined"
                     size="small"
+                    onChange={handleHead}
                   />
                 </form>
               </td>
@@ -188,6 +197,7 @@ export default function UpdateFaculty() {
                   label="Departments"
                   helperText="Enter Departments separated by commas"
                   variant="outlined"
+                  onChange={handleDepartment}
                 />
               </div>
             </tr>
@@ -206,7 +216,7 @@ export default function UpdateFaculty() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Update Information

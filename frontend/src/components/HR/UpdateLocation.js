@@ -9,7 +9,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-
+import axios from "axios";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -78,17 +78,37 @@ function changeBackgroundOut(e) {
 
 export default function UpdateLocation() {
   const classes = useStyles();
-
-  const [type, setType] = React.useState("");
-
-  const handleChange = (event) => {
-    setType(event.target.value);
-  };
-
   const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
+  const [show, setShow] = React.useState(false);
+  const [locName, setLocName] = React.useState("");
+  const [capacity, setCapacity] = React.useState("");
+  const [locType, setLocType] = React.useState("lecture");
+  const handleClose1 = () => setShow(false);
+  const handlelocName = (e) => setLocName(e.target.value);
+  const handleCapacity = (e) => setCapacity(e.target.value);
+  const handleLocType = (e) => setLocType(e.target.value);
+  const handleSubmit = (e) => {
     setOpen(true);
+    e.preventDefault();
+    const obj = {
+      locationName: locName,
+      locationType: locType,
+      capacity: capacity,
+    };
+    console.log(obj);
+    axios
+      .post("/hrAccount/updateLocation", obj)
+      .then((res) => {
+        console.log("success");
+
+        console.log(res);
+
+        //swal(res.data.msg);
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
   };
 
   const handleClose = (event, reason) => {
@@ -139,6 +159,7 @@ export default function UpdateLocation() {
                         label="Location Name"
                         variant="outlined"
                         size="small"
+                        onChange={handlelocName}
                       />
                     </form>
                   </td>
@@ -155,6 +176,7 @@ export default function UpdateLocation() {
                         label="Location Capacity"
                         variant="outlined"
                         size="small"
+                        onChange={handleCapacity}
                       />
                     </form>
                   </td>
@@ -172,8 +194,7 @@ export default function UpdateLocation() {
                       <Select
                         labelId="demo-simple-select-outlined-label"
                         id="demo-simple-select-outlined"
-                        value={type}
-                        onChange={handleChange}
+                        onChange={handleLocType}
                         label="Location Type"
                       >
                         <MenuItem value=""></MenuItem>
@@ -202,7 +223,7 @@ export default function UpdateLocation() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Update Location

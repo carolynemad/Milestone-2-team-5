@@ -190,7 +190,7 @@ export default function ACpage() {
                 <Link to = "/hr/viewprofile">{index === 0 && <PermIdentityOutlinedIcon />}</Link>
                 <Link to = "/hr/updateprofile">{index === 1 && <UpdateOutlinedIcon />}</Link>
                 <Link to = "/hr/resetpassword">{index === 2 && <LockOpenOutlinedIcon />}</Link>
-                <Link to = "/hr/attendance">{index === 3 && <ListAltOutlinedIcon />}</Link>
+                <Link to = "/hr/viewattendance">{index === 3 && <ListAltOutlinedIcon />}</Link>
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>

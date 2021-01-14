@@ -96,7 +96,6 @@ function changeBackgroundOut(e) {
 
 export default function UpdateProfile() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
 
   const [show, setShow] = React.useState(false);
   const [address, setAddress] = React.useState("");
@@ -107,14 +106,7 @@ export default function UpdateProfile() {
   const handleAddress = (e) => setAddress(e.target.value);
   const handleGender = (e) => setGender(e.target.value);
   const handleDate = (e) => setDate(e.target.value);
-  const handleClose1 = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
-
+  const [open, setOpen] = React.useState(false);
   const handleSubmit = (e) => {
     setOpen(true);
     e.preventDefault();
@@ -124,30 +116,27 @@ export default function UpdateProfile() {
       birthDate: date,
     };
     console.log(profile);
-   
-      try{
-        axios
-      .post("/account/updateProfile", profile , 
-      {
-        headers: {
-          "tokenFrontEnd1": localStorage.getItem("tokenID"),
-          "tokenFrontEnd": localStorage.getItem()
-        }
-      })
+    axios
+      .post("/account/updateProfile", profile)
       .then((res) => {
+        console.log("success");
+        //console.log(res.data.msg)
 
+        //swal(res.data.msg);
       })
       .catch((err) => {
         console.log("There is an error ..." + err);
       });
-
-      }
-      catch {
-
-      }
-      
-     
     handleClose();
+  };
+  const handleClick = () => {
+    setOpen(true);
+  };
+  const handleClose1 = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
   };
   return (
     <div

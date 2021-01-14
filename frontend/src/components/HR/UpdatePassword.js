@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import axios from "axios";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -82,15 +83,31 @@ function changeBackgroundOut(e) {
 export default function UpdatePassword() {
   const classes = useStyles();
   const [password, setPassword] = React.useState("");
-
-  const handleChange = (event) => {
-    setPassword(event.target.value);
-  };
-
+  const [newPassword, setNewPassword] = React.useState("");
+  const [show, setShow] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
+  const handlePassword = (e) => setPassword(e.target.value);
+  const handleNewPassword = (e) => setNewPassword(e.target.value);
+  const handleClose1 = () => setShow(false);
+  const handleSubmit = (e) => {
     setOpen(true);
+    e.preventDefault();
+    const obj = {
+      password: newPassword,
+    };
+    console.log(obj);
+    axios
+      .post("/account/resetPassword", obj)
+      .then((res) => {
+        console.log("success");
+        //console.log(res.data.msg)
+
+        //swal(res.data.msg);
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
   };
 
   const handleClose = (event, reason) => {
@@ -135,6 +152,7 @@ export default function UpdatePassword() {
                       label="Old Password"
                       variant="outlined"
                       size="small"
+                      onChange={handlePassword}
                     />
                   </form>
                 </td>
@@ -145,6 +163,7 @@ export default function UpdatePassword() {
                       label="New Password"
                       variant="outlined"
                       size="small"
+                      onChange={handleNewPassword}
                     />
                   </form>
                 </td>
@@ -163,7 +182,7 @@ export default function UpdatePassword() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Update password

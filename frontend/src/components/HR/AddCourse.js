@@ -136,9 +136,7 @@ export default function AddCourse() {
       .post("/hr/addCourse", course)
       .then((res) => {
         console.log("success");
-        //console.log(res.data.msg)
-
-        //swal(res.data.msg);
+        
       })
       .catch((err) => {
         console.log("There is an error ..." + err);
