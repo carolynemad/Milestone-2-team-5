@@ -201,12 +201,12 @@ const { accountType , gender} = require('../../constants/enums')
   const validateAddLocation = (req, res, next) => {
 
     const schema = {
-      Location: Joi.object({
+     
         locationName: Joi.string().required(),
         locationType: Joi.string().valid("lecture", "lab", "tutorial", "TAoffice", "DRoffice", "Exam Hall").required(),
         capacity: Joi.number().required(),
        
-      })
+      
     }
     const isValid = Joi.validate(req.body, schema)
     if (isValid.error) {
