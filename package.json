@@ -8,7 +8,7 @@
   "scripts": {
     "test": "jest --watch",
     "start": "nodemon portal.js",
-    "start2": "concurrently \"nodemon portal.js\" \"npm start --prefix frontend\""
+    "start2": "concurrently \"nodemon portal.js\" \"npm start --prefix client\""
   },
   "author": "",
   "license": "ISC",
