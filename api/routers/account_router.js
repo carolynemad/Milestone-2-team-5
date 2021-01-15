@@ -8,6 +8,7 @@ const {
   viewProfile,
   updateProfile,
   resetPassword,
+  logout,
   changePassword,
   signInToCampus,
   signOutFromCampus,
@@ -24,6 +25,8 @@ const {
 
 //routings
 router.post("/login", validateLogIn, logIn);
+router.post("/logout", logout);
+
 router.post("/viewProfile", viewProfile);
 router.post("/updateProfile", validateUpdateProfile, updateProfile);
 router.post("/resetPassword", validateResetPassword, resetPassword);

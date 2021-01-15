@@ -1014,31 +1014,34 @@ const viewAttendanceRecord = async (req, res) => {
 
     const id = val.memberId;
     const check = await staffModel.findOne({ memberId: id });
-
+// console.log(val)
     if (!check) {
       return res.send("not authorized");
     }
     if (!check.staffMemberType.includes("HR")) {
       return res.send("not authorized");
     }
-    const { Account } = req.body;
+    const  Account  = req.body;
 
     const accountFound = await staffModel.findOne(
-      { email: Account.email },
-      console.log("Found")
+      { memberId: Account.memberId },
     );
+    console.log("Found")
+    console.log(accountFound.attendanceLog)
 
     if (!accountFound) {
-      res.json({
+     return res.json({
         statusCode: accountNotFound.statusCode,
         error: accountNotFound.message,
       });
     }
+
+    const log = await attendanceLogModel.findOne({memberId: accountFound.memberId})
     return res.json({
       statusCode: successCode,
       firstName: accountFound.firstName,
       lastName: accountFound.lastName,
-      attendanceLog: accountFound.attendanceLog,
+      attendanceLog: log,
     });
   } catch (e) {
     return res.json({

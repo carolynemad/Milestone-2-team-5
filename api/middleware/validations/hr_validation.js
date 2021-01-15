@@ -253,7 +253,7 @@ const validateUpdateLocation = (req, res, next) => {
 
 const validateViewAttendanceLog = (req, res, next) => {
   const schema = {
-    Account: Joi.object({ email: Joi.string().email().required() }).required(),
+    memberId: Joi.string().required()
   };
   const isValid = Joi.validate(req.body, schema);
   if (isValid.error) {

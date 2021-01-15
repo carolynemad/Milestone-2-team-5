@@ -87,7 +87,7 @@ export default function Notifications() {
     e.preventDefault();
 
     axios
-      .post("/acAccount/showNotifications")
+      .post("/hrAccount/showNotifications")
       .then((res) => {
         console.log("success");
         console.log(res);
