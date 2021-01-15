@@ -90,15 +90,15 @@ export default function UpdateCourseSlots() {
   const classes = useStyles();
   const [show, setShow] = React.useState(false);
   const [slotid, setSlotID] = React.useState("");
-  const[courseid,setCourseID] = React.useState("");
-  const[slotday,setSlotDay] = React.useState("");
-  const[slotnumber,setSlotNumber] = React.useState("");
-  const[slottype,setSlotType] = React.useState("");
-  const[memberid,setMemberID] = React.useState("");
-  const[location,setLocation] = React.useState("");
+  const [courseid, setCourseID] = React.useState("");
+  const [slotday, setSlotDay] = React.useState("");
+  const [slotnumber, setSlotNumber] = React.useState("");
+  const [slottype, setSlotType] = React.useState("");
+  const [memberid, setMemberID] = React.useState("");
+  const [location, setLocation] = React.useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleSlotID= (e) => setSlotID(e.target.value);
+  const handleSlotID = (e) => setSlotID(e.target.value);
   const handleCourseID = (e) => setCourseID(e.target.value);
   const handleSlotDay = (e) => setSlotDay(e.target.value);
   const handleSlotNumber = (e) => setSlotNumber(e.target.value);
@@ -107,30 +107,29 @@ export default function UpdateCourseSlots() {
   const handleLocation = (e) => setLocation(e.target.value);
   const [open, setOpen] = React.useState(false);
   const handleSubmit = (e) => {
-    
     setOpen(true);
     e.preventDefault();
     const updatecourseslot = {
-      courseID:courseid,
-      location:location,
-      slotDay:slotday,
-      slotType:slottype,
-      slotNumber:slotnumber,
-      slotID:slotid,
-      acID:memberid,
+      courseID: courseid,
+      location: location,
+      slotDay: slotday,
+      slotType: slottype,
+      slotNumber: slotnumber,
+      slotID: slotid,
+      acID: memberid,
     };
     console.log(updatecourseslot);
     axios
       .post("/acAccount/coordinatorUpdateCourseSlots", updatecourseslot)
       .then((res) => {
         console.log("success");
+        console.log(res);
       })
       .catch((err) => {
         console.log("There is an error ..." + err);
       });
     handleClose();
   };
-  
 
   const handleClick = () => {
     setOpen(true);
@@ -142,7 +141,6 @@ export default function UpdateCourseSlots() {
 
     setOpen(false);
   };
-
 
   return (
     <div
@@ -221,17 +219,17 @@ export default function UpdateCourseSlots() {
                       <Select
                         labelId="demo-simple-select-outlined-label"
                         id="demo-simple-select-outlined"
-                       //value={day}
+                        //value={day}
                         onChange={handleSlotDay}
                         label="Slot Day"
                       >
                         <MenuItem value=""></MenuItem>
-                        <MenuItem value={10}>Saturday</MenuItem>
-                        <MenuItem value={20}>Sunday</MenuItem>
-                        <MenuItem value={30}>Monday</MenuItem>
-                        <MenuItem value={40}>Tuesday</MenuItem>
-                        <MenuItem value={50}>Wednesday</MenuItem>
-                        <MenuItem value={60}>Thursday</MenuItem>
+                        <MenuItem value={"Saturday"}>Saturday</MenuItem>
+                        <MenuItem value={"Sunday"}>Sunday</MenuItem>
+                        <MenuItem value={"Monday"}>Monday</MenuItem>
+                        <MenuItem value={"Tuesday"}>Tuesday</MenuItem>
+                        <MenuItem value={"Wednesday"}>Wednesday</MenuItem>
+                        <MenuItem value={"Thursday"}>Thursday</MenuItem>
                       </Select>
                     </FormControl>
                   </td>
@@ -254,11 +252,11 @@ export default function UpdateCourseSlots() {
                         label="Slot Number"
                       >
                         <MenuItem value=""></MenuItem>
-                        <MenuItem value={10}>First</MenuItem>
-                        <MenuItem value={20}>Second</MenuItem>
-                        <MenuItem value={30}>Third</MenuItem>
-                        <MenuItem value={40}>Forth</MenuItem>
-                        <MenuItem value={50}>Fifth</MenuItem>
+                        <MenuItem value={"First"}>First</MenuItem>
+                        <MenuItem value={"Second"}>Second</MenuItem>
+                        <MenuItem value={"Third"}>Third</MenuItem>
+                        <MenuItem value={"Forth"}>Forth</MenuItem>
+                        <MenuItem value={"Fifth"}>Fifth</MenuItem>
                       </Select>
                     </FormControl>
                   </td>
@@ -279,14 +277,14 @@ export default function UpdateCourseSlots() {
                     <Select
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
-                     // value={type}
+                      // value={type}
                       onChange={handleSlotType}
                       label="Slot Type"
                     >
                       <MenuItem value=""></MenuItem>
-                      <MenuItem value={10}>Lecture</MenuItem>
-                      <MenuItem value={20}>Lab</MenuItem>
-                      <MenuItem value={30}>Tutoial</MenuItem>
+                      <MenuItem value={"Lecture"}>Lecture</MenuItem>
+                      <MenuItem value={"Lab"}>Lab</MenuItem>
+                      <MenuItem value={"Tutorial"}>Tutoial</MenuItem>
                     </Select>
                   </FormControl>
                 </td>
@@ -313,6 +311,7 @@ export default function UpdateCourseSlots() {
                       label="Location"
                       variant="outlined"
                       size="small"
+                      onChange={handleLocation}
                     />
                   </form>
                 </td>

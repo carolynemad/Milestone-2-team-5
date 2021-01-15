@@ -16,6 +16,7 @@ import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import RoomIcon from "@material-ui/icons/Room";
 import CommuteIcon from "@material-ui/icons/Commute";
 import BookIcon from "@material-ui/icons/Book";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -95,6 +96,43 @@ function changeBackgroundOut(e) {
 export default function Profile() {
   const classes = useStyles();
 
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [birthDate, setBirthDate] = React.useState("");
+  const [salary, setSalary] = React.useState("");
+  const [daysOff, setDaysOff] = React.useState("");
+  const [annual, setAnnual] = React.useState("");
+  const [accident, setAccident] = React.useState("");
+  const [request, setRequest] = React.useState("");
+  const [id, setID] = React.useState("Other");
+  const [memberType, setMemberType] = React.useState("HR");
+  const [email, setEmail] = React.useState("");
+  const [location, setLocation] = React.useState("");
+  const componentDidMount = () => {
+    axios
+      .get("/account/viewProfile")
+      .then((res) => {
+        console.log("here");
+        React.setState({
+          firstname: res.data.firstName,
+          lastname: res.data.lastName,
+          birthDate: res.data.birthDate,
+          salary: res.data.salary,
+          daysOff: res.data.daysOff,
+          annual: res.data.annualLeaveBalance,
+          request: res.data.requestLog,
+          id: res.data.memberId,
+          memberType: res.data.staffMemberType,
+          email: res.data.email,
+          location: res.data.location,
+        });
+        console.log(firstName);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div
       style={{
@@ -116,7 +154,7 @@ export default function Profile() {
           <div className={classes.root}>
             <Avatar className={classes.purple}>C</Avatar>
             <Typography className={classes.titleStyle}>
-              Caroline Emad
+              {setFirstName}
             </Typography>
           </div>
           <br></br>

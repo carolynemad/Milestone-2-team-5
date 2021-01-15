@@ -162,7 +162,7 @@ export default function ACpage() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Slim Abdelnadher
+            Course Coordinator
           </Typography>
         </Toolbar>
       </AppBar>
@@ -199,10 +199,18 @@ export default function ACpage() {
             <ListItem button key={text}>
               {/* <ListItemIcon>{index % 2 === 0 ? <ViewHeadlineOutlinedIcon /> : <MailIcon />}</ListItemIcon> */}
               <ListItemIcon>
-                <Link to = "/coursecoordinator/viewschedule">{index === 0 && <ScheduleOutlinedIcon />}</Link>
-                <Link to = "/coursecoordinator/sendrequest">{index === 1 && <SendOutlinedIcon />}</Link>
-                <Link to = "/coursecoordinator/viewrequests">{index === 2 && <AllInboxOutlinedIcon />}</Link>
-                <Link to = "/coursecoordinator/viewnotifications">{index === 3 && <NotificationsActiveOutlinedIcon />}</Link>
+                <Link to="/coursecoordinator/viewschedule">
+                  {index === 0 && <ScheduleOutlinedIcon />}
+                </Link>
+                <Link to="/coursecoordinator/sendrequest">
+                  {index === 1 && <SendOutlinedIcon />}
+                </Link>
+                <Link to="/coursecoordinator/viewrequests">
+                  {index === 2 && <AllInboxOutlinedIcon />}
+                </Link>
+                <Link to="/coursecoordinator/viewnotifications">
+                  {index === 3 && <NotificationsActiveOutlinedIcon />}
+                </Link>
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -218,10 +226,18 @@ export default function ACpage() {
           ].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-              <Link to = "/coursecoordinator/viewprofile">{index === 0 && <PermIdentityOutlinedIcon />}</Link>
-              <Link to = "/coursecoordinator/updateprofile">{index === 1 && <UpdateOutlinedIcon />}</Link>
-              <Link to = "/coursecoordinator/restspassword">{index === 2 && <LockOpenOutlinedIcon />}</Link>
-              <Link to = "/coursecoordinator/attendance">{index === 3 && <ListAltOutlinedIcon />}</Link>
+                <Link to="/coursecoordinator/viewprofile">
+                  {index === 0 && <PermIdentityOutlinedIcon />}
+                </Link>
+                <Link to="/coursecoordinator/updateprofile">
+                  {index === 1 && <UpdateOutlinedIcon />}
+                </Link>
+                <Link to="/coursecoordinator/restspassword">
+                  {index === 2 && <LockOpenOutlinedIcon />}
+                </Link>
+                <Link to="/coursecoordinator/attendance">
+                  {index === 3 && <ListAltOutlinedIcon />}
+                </Link>
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -235,46 +251,46 @@ export default function ACpage() {
             "Add Course Slot",
             "Delete Course Slot",
             "Update Course Slot",
-            "Accept/Reject Requests"
-            
+            "Accept/Reject Requests",
           ].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                
-              <Link to = "/coursecoordinator/viewslotassignment">{index === 0 && <ViewListIcon />}</Link>
-              <Link to = "/coursecoordinator/viewmember">{index === 1 && <ViewListIcon />}</Link>
-              <Link to = "/coursecoordinator/addcourseslot">{index === 2 && <AddIcon />}</Link>
-              <Link to = "/coursecoordinator/removecourseslot">{index === 3 && <RemoveIcon />}</Link>
-              <Link to = "/coursecoordinator/updatecourseslot">{index === 4 && <ListAltOutlinedIcon />}</Link>
-              <Link to = "/coursecoordinator/acceptorrejectrequests">{index === 5 && <QuestionAnswerIcon  />}</Link>
-              
+                <Link to="/coursecoordinator/viewslotassignment">
+                  {index === 0 && <ViewListIcon />}
+                </Link>
+                <Link to="/coursecoordinator/viewmember">
+                  {index === 1 && <ViewListIcon />}
+                </Link>
+                <Link to="/coursecoordinator/addcourseslot">
+                  {index === 2 && <AddIcon />}
+                </Link>
+                <Link to="/coursecoordinator/removecourseslot">
+                  {index === 3 && <RemoveIcon />}
+                </Link>
+                <Link to="/coursecoordinator/updatecourseslot">
+                  {index === 4 && <ListAltOutlinedIcon />}
+                </Link>
+                <Link to="/coursecoordinator/acceptorrejectrequests">
+                  {index === 5 && <QuestionAnswerIcon />}
+                </Link>
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>
-        <Divider/>
-
+        <Divider />
         <List>
-          {[
-            "Logout",
-            
-            
-          ].map((text, index) => (
-            <ListItem button key={text} onClick={handleSubmit}>
+          {["Logout"].map((text, index) => (
+            <ListItem button key={text}>
               <ListItemIcon>
-                
-              <Link to = "/login">{index === 0 && <ExitToAppOutlinedIcon/> }</Link>
-             
-              
+                <Link to="/login">
+                  {index === 0 && <ExitToAppOutlinedIcon />}
+                </Link>
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>
-
-
-                            
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />

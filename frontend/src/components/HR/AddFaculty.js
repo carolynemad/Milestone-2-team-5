@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-
+import axios from "axios";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -79,17 +79,34 @@ function changeBackgroundOut(e) {
 
 export default function AddFaculty() {
   const classes = useStyles();
-
+  const [show, setShow] = React.useState(false);
   const [name, setName] = React.useState("");
-
-  const handleChange = (event) => {
-    setName(event.target.value);
-  };
-
+  const [dep, setDepartmentName] = React.useState("");
+  const handleName = (e) => setName(e.target.value);
+  const handleDepartmentName = (e) => setDepartmentName(e.target.value);
   const [open, setOpen] = React.useState(false);
+  const handleClose1 = () => setShow(false);
 
-  const handleClick = () => {
+  const handleSubmit = (e) => {
     setOpen(true);
+    e.preventDefault();
+    const fac = {
+      facultyName: name,
+      departmentName: dep, //To be checked with the backend ..didnt find it.
+    };
+    console.log(fac);
+    axios
+      .post("/hrAccount/addFaculty", fac)
+      .then((res) => {
+        console.log("success");
+        console.log(res);
+
+        //swal(res.data.msg);
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
   };
 
   const handleClose = (event, reason) => {
@@ -138,6 +155,7 @@ export default function AddFaculty() {
                         label="Faculty Name"
                         variant="outlined"
                         size="small"
+                        onChange={handleName}
                       />
                     </form>
                   </td>
@@ -150,6 +168,7 @@ export default function AddFaculty() {
                       label="Departments"
                       helperText="Enter Departments separated by commas"
                       variant="outlined"
+                      onChange={handleDepartmentName}
                     />
                   </div>
                 </tr>
@@ -170,7 +189,7 @@ export default function AddFaculty() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Add Faculty

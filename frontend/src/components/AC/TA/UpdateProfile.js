@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   colStyle: {
     width: "50vw",
   },
-  
+
   root3: {
     width: "100%",
     "& > * + *": {
@@ -95,7 +95,7 @@ function changeBackgroundOut(e) {
   e.target.style.color = "Black";
 }
 
-export default function UpdateProfile() {
+export default function UpdateProfileIns() {
   const classes = useStyles();
 
   const [show, setShow] = React.useState(false);
@@ -108,7 +108,6 @@ export default function UpdateProfile() {
   const handleAddress = (e) => setAddress(e.target.value);
   const handleGender = (e) => setGender(e.target.value);
   const handleDate = (e) => setDate(e.target.value);
-  const handleSalary = (e) => setSalary(e.target.value);
   const [open, setOpen] = React.useState(false);
   const handleSubmit = (e) => {
     setOpen(true);
@@ -117,16 +116,13 @@ export default function UpdateProfile() {
       address: address,
       gender: gender,
       birthDate: date,
-      salary: salary,
     };
     console.log(profile);
     axios
       .post("/account/updateProfile", profile)
       .then((res) => {
         console.log("success");
-        //console.log(res.data.msg)
-
-        //swal(res.data.msg);
+        console.log(res);
       })
       .catch((err) => {
         console.log("There is an error ..." + err);
@@ -185,34 +181,15 @@ export default function UpdateProfile() {
                       label="Gender"
                     >
                       <MenuItem value=""></MenuItem>
-                      <MenuItem value={10}>Male</MenuItem>
-                      <MenuItem value={20}>Female</MenuItem>
-                      <MenuItem value={30}>Other</MenuItem>
+                      <MenuItem value={"Male"}>Male</MenuItem>
+                      <MenuItem value={"Female"}>Female</MenuItem>
+                      <MenuItem value={"Other"}>Other</MenuItem>
                     </Select>
                   </FormControl>
                 </td>
               </table>
             </tr>
-            <tr>
-              <FormControl
-                fullWidth
-                className={classes.root2}
-                variant="outlined"
-              >
-                <InputLabel htmlFor="outlined-adornment-amount">
-                  Salary
-                </InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-amount"
-                  //value={values.amount}
-                  onChange={handleSalary}
-                  startAdornment={
-                    <InputAdornment position="start">EGY POUNDS</InputAdornment>
-                  }
-                  labelWidth={60}
-                />
-              </FormControl>
-            </tr>
+
             <tr>
               <td>
                 <form className={classes.root2} noValidate autoComplete="off">
@@ -265,9 +242,9 @@ export default function UpdateProfile() {
                 <Snackbar
                   open={open}
                   autoHideDuration={6000}
-                  onClose={handleClose}
-                > 
-                  <Alert onClose={handleClose} severity="success">
+                  onClose={handleClose1}
+                >
+                  <Alert onClose={handleClose1} severity="success">
                     Information Updated.
                   </Alert>
                 </Snackbar>

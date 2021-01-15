@@ -94,12 +94,18 @@ export default function AddMember() {
   const [gender, setGender] = React.useState("Other");
   const [memberType, setMemberType] = React.useState("HR");
   const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [birthDate, setBirthDate] = React.useState("");
+  const [address, setAddress] = React.useState("");
   const [location, setLocation] = React.useState("");
   const handleFirstName = (e) => setFirstName(e.target.value);
   const handleLastName = (e) => setLastName(e.target.value);
   const handleGender = (e) => setGender(e.target.value);
   const handleMemberType = (e) => setMemberType(e.target.value);
   const handleEmail = (e) => setEmail(e.target.value);
+  const handlePassword = (e) => setPassword(e.target.value);
+  const handleAddress = (e) => setAddress(e.target.value);
+  const handleBirthDate = (e) => setBirthDate(e.target.value);
   const handleLocation = (e) => setLocation(e.target.value);
   const handleClose1 = () => setShow(false);
 
@@ -113,13 +119,16 @@ export default function AddMember() {
       gender: gender,
       officeLocation: location,
       memberType: memberType,
+      //password
+      birthDate: birthDate,
+      address: address,
     };
     console.log(mem);
     axios
       .post("/hrAccount/addNewMember", mem)
       .then((res) => {
         console.log("success");
-        console.log(res)
+        console.log(res);
 
         //swal(res.data.msg);
       })
@@ -228,39 +237,84 @@ export default function AddMember() {
                   label="Member Type"
                 >
                   <MenuItem value=""></MenuItem>
-                  <MenuItem value={"AC"}>Academic</MenuItem>
+                  <MenuItem value={"Academic"}>Academic</MenuItem>
                   <MenuItem value={"HR"}>HR</MenuItem>
                 </Select>
               </FormControl>
             </tr>
             <tr>
-              <td>
-                <form className={classes.root2} noValidate autoComplete="off">
-                  <TextField
-                    required
-                    id="outlined-basic"
-                    label="Email Address"
-                    variant="outlined"
-                    size="small"
-                    onChange={handleEmail}
-                  />
-                </form>
-              </td>
+              <table>
+                <td>
+                  <form className={classes.root} noValidate autoComplete="off">
+                    <TextField
+                      required
+                      id="outlined-basic"
+                      label="Email Address"
+                      variant="outlined"
+                      size="small"
+                      onChange={handleEmail}
+                    />
+                  </form>
+                </td>
+                <td>
+                  <form className={classes.root} noValidate autoComplete="off">
+                    <TextField
+                      required
+                      id="outlined-basic"
+                      label="Password"
+                      variant="outlined"
+                      size="small"
+                      onChange={handlePassword}
+                    />
+                  </form>
+                </td>
+              </table>
             </tr>
             <tr>
-              <td>
-                <form className={classes.root2} noValidate autoComplete="off">
-                  <TextField
-                    required
-                    id="outlined-basic"
-                    label="Office Location"
-                    variant="outlined"
-                    size="small"
-                    onChange={handleLocation}
-                  />
-                </form>
-              </td>
+              <table>
+                <td>
+                  <form className={classes.root} noValidate autoComplete="off">
+                    <TextField
+                      required
+                      id="outlined-basic"
+                      label="Office Location"
+                      variant="outlined"
+                      size="small"
+                      onChange={handleLocation}
+                    />
+                  </form>
+                </td>
+                <td>
+                  <form className={classes.root} noValidate autoComplete="off">
+                    <TextField
+                      required
+                      id="outlined-basic"
+                      label="Address"
+                      variant="outlined"
+                      size="small"
+                      onChange={handleAddress}
+                    />
+                  </form>
+                </td>
+              </table>
             </tr>
+            <td>
+              <form className={classes.root2} noValidate>
+                <TextField
+                  id="date"
+                  label="Birthday"
+                  variant="outlined"
+                  type="date"
+                  defaultValue="1999-04-02"
+                  onChange={handleBirthDate}
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </form>
+            </td>
+
             <tr></tr>
             <tr>
               <div

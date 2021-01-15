@@ -60,10 +60,10 @@ const deleteCourseInstructor = async (req, res) => {
     }
 
     const courseFound = await courseModel.findOne({
-      courseName: req.body.Body.courseID,
+      courseID: req.body.courseID,
     });
     const accountFound = await staffModel.findOne({
-      memberId: req.body.Body.memberId,
+      memberId: req.body.memberId,
     });
 
     if (!courseFound) {
@@ -149,9 +149,8 @@ const assignCourseInstructor = async (req, res) => {
       courseID: Course.courseID,
     });
     const accountFound = await staffModel.findOne({
-      memberid: Course.memberId,
+      memberId: Course.memberId,
     });
-
     if (!courseFound) {
       return res.json({
         statusCode: courseNotFound.statusCode,
@@ -165,10 +164,13 @@ const assignCourseInstructor = async (req, res) => {
         error: accountNotFound.message,
       });
     }
+    console.log("1");
 
     if (!courseFound.courseInstructors.includes(Course.email)) {
+      console.log("2");
+
       console.log(courseFound.courseInstructors);
-      courseFound.courseInstructors.push(Course.Body.instructorEmail);
+      courseFound.courseInstructors.push(Course.instructorEmail);
       console.log(courseFound.courseInstructors);
       await courseModel.findOneAndUpdate({
         courseInstructors: courseFound.courseInstructors,
@@ -876,11 +878,12 @@ const coordinatorAddCourseSlots = async (req, res) => {
     if (!check.staffMemberType.includes("Coordinator")) {
       return res.send("not authorized");
     }
-
-    const Course = req.body.Body;
+    console.log("1");
+    const Course = req.body;
     const courseFound = await courseModel.findOne({
       courseID: Course.courseID,
     });
+    console.log("2");
 
     if (!courseFound) {
       return res.json({
@@ -889,6 +892,7 @@ const coordinatorAddCourseSlots = async (req, res) => {
       });
     }
     console.log(courseFound);
+    console.log("3");
 
     if (!courseFound.slots.includes(Course.slotID)) {
       courseFound.slots.push(Course.slotID);
@@ -948,12 +952,12 @@ const coordinatorUpdateCourseSlots = async (req, res) => {
       return res.send("not authorized");
     }
 
-    const Course = req.body.Body;
+    const Course = req.body;
     const courseFound = await courseModel.findOne({
       courseID: Course.courseID,
     });
     const slotFound = await slotModel.findOne({ slotID: Course.slotID });
-
+    console.log(slotFound);
     if (!courseFound) {
       return res.json({
         statusCode: courseDoesNotExist.statusCode,
@@ -1022,7 +1026,7 @@ const coordinatorDeleteCourseSlots = async (req, res) => {
       return res.send("not authorized");
     }
 
-    const Course = req.body.Body;
+    const Course = req.body;
     const courseFound = await courseModel.findOne({
       courseID: Course.courseID,
     });
@@ -2905,7 +2909,7 @@ const coordinatorRejectSlotLinkingRequest = async (req, res) => {
     }
 
     const memberID = id;
-    const RequestID = req.body.Body.requestID; //body
+    const RequestID = req.body.requestID; //body
 
     console.log(RequestID);
     const requestsFound = await requestModel.findOne({ requestID: RequestID });
@@ -3104,13 +3108,17 @@ const updateCourseInstructor = async (req, res) => {
   try {
     //authenticate that this is a valid member
     //authorize that this is a Hr member
-
+    console.log("1");
     jwt.verify(req.headers.authtoken, secretOrKey);
     console.log(jwt_decode(req.headers.authtoken).id);
+    console.log("2");
+
     const val = await staffModel.findById(jwt_decode(req.headers.authtoken).id);
+    console.log("3");
 
     const id = val.memberId;
     const check = await staffModel.findOne({ memberId: id });
+    console.log("4");
 
     if (!check) {
       return res.send("not authorized");
@@ -3120,15 +3128,19 @@ const updateCourseInstructor = async (req, res) => {
     }
 
     const courseFound = await courseModel.findOne({
-      courseName: req.body.Body.courseID,
+      courseID: req.body.courseID,
     });
-    const accountFound2 = await staffModel.findOne({
-      memberId: req.body.Body.memberId2,
-    });
-    const accountFound1 = await staffModel.findOne({
-      memberId: req.body.Body.memberId1,
-    });
+    console.log("5");
 
+    const accountFound2 = await staffModel.findOne({
+      memberId: req.body.memberId2,
+    });
+    console.log("6");
+
+    const accountFound1 = await staffModel.findOne({
+      memberId: req.body.memberId1,
+    });
+    console.log("7");
     if (!courseFound) {
       return res.json({
         statusCode: courseNotFound.statusCode,
@@ -3138,27 +3150,27 @@ const updateCourseInstructor = async (req, res) => {
     if (!accountFound2) {
       return res.json({
         statusCode: memberNotFound.statusCode,
-        error: req.body.Body.memberId2 + " " + memberNotFound.message,
+        error: req.body.memberId2 + " " + memberNotFound.message,
       });
     }
 
     if (!accountFound1) {
       return res.json({
         statusCode: memberNotFound.statusCode,
-        error: req.body.Body.memberId1 + ": " + memberNotFound.message,
+        error: req.body.memberId1 + ": " + memberNotFound.message,
       });
     }
 
-    if (!courseFound.courseInstructors.includes(accountFound.memberId1)) {
+    if (!courseFound.courseInstructors.includes(accountFound1.memberId1)) {
       return res.json({
         statusCode: "9080",
         message: "This instructor does not teach this course",
       });
     }
 
-    if (!courseFound.courseInstructors.includes(req.body.Body.memberId2)) {
+    if (!courseFound.courseInstructors.includes(req.body.memberId2)) {
       var array = courseFound.courseInstructors;
-      var index = array.indexOf(accountFound.memberId);
+      var index = array.indexOf(accountFound1.memberId);
 
       console.log(array);
       console.log(index);
@@ -3174,12 +3186,12 @@ const updateCourseInstructor = async (req, res) => {
 
       console.log(courseFound.courseInstructors);
 
-      courseFound.courseInstructors.push(req.body.Body.courseID);
+      courseFound.courseInstructors.push(req.body.courseID);
 
       console.log(courseFound.courseInstructors);
 
       await courseModel.findOneAndUpdate(
-        { courseID: req.body.Body.courseID },
+        { courseID: req.body.courseID },
         { courseInstructors: courseFound.courseInstructors }
       );
       await courseFound.save();

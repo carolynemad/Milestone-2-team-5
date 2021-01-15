@@ -94,13 +94,14 @@ export default function UpdateCourseInstructor() {
     const course = {
       courseID: courseid,
       memberId1: oldmemberid,
-      memberID2: newmemberid
+      memberId2: newmemberid,
     };
     console.log(course);
     axios
-      .post("/acAccount/assignCourseInstructor", course)
+      .post("/acAccount/updateCourseInstructor", course)
       .then((res) => {
         console.log("success");
+        console.log(res);
       })
       .catch((err) => {
         console.log("There is an error ..." + err);
