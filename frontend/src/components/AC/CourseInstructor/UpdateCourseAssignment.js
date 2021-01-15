@@ -9,6 +9,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import axios from "axios";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -78,27 +79,38 @@ function changeBackgroundOut(e) {
 
 export default function UpdateCourseAssignment() {
   const classes = useStyles();
-
-  const [type, setType] = React.useState("");
-
-  const handleChange = (event) => {
-    setType(event.target.value);
-  };
-
+  const [show, setShow] = React.useState(false);
+  const [oldassistantname, setOldAssistantName] = React.useState("");
+  const[newassistantname,setNewAssistantName] = React.useState("");
+  const[courseid,setCourseID] = React.useState("");
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleOldAssistantName = (e) => setOldAssistantName(e.target.value);
+  const handleNewAssistantName= (e) => setNewAssistantName(e.target.value);
+  const handleCourseID = (e) => setCourseID(e.target.value);
   const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
+  const handleSubmit = (e) => {
+    
     setOpen(true);
+    e.preventDefault();
+    const updatecourseassignment = {
+      courseID:courseid,
+      
+    };
+    console.log(UpdateCourseAssignment);
+    axios
+      .post("/acAccount/updatecourseassignment", updatecourseassignment)
+      .then((res) => {
+        console.log("success");
+        //console.log(res.data.msg)
+
+        //swal(res.data.msg);
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose();
   };
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
-
   return (
     <div
       style={{
@@ -139,6 +151,7 @@ export default function UpdateCourseAssignment() {
                         label="Old assistant Name"
                         variant="outlined"
                         size="small"
+                        onchange={handleOldAssistantName}
                       />
                     </form>
                   </td>
@@ -156,6 +169,7 @@ export default function UpdateCourseAssignment() {
                         label="New assistant Name"
                         variant="outlined"
                         size="small"
+                        onchange={handleNewAssistantName}
                       />
                     </form>
                   </td>
@@ -173,6 +187,7 @@ export default function UpdateCourseAssignment() {
                         label="Course ID"
                         variant="outlined"
                         size="small"
+                        onchange={handleCourseID}
                       />
                     </form>
                   </td>
@@ -192,7 +207,7 @@ export default function UpdateCourseAssignment() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Update Course Assignment

@@ -329,7 +329,7 @@ class App extends Component {
           <Route
             path="/courseinstructor/resetpassword"
             exact
-            component={ResetPassword}
+            component={ResetPasswordIns}
           />
           <Route
             path="/courseinstructor/viewschedule"
