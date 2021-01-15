@@ -93,14 +93,15 @@ export default function AssignCourseCoordinator() {
     setOpen(true);
     e.preventDefault();
     const course = {
-      courseID: courseID,
-      courseCoordinator: assistantID,
+      courseId: courseID,
+      memberId: assistantID,
     };
-    console.log(course);
+    // console.log(course);
     axios
       .post("/acAccount/assignCourseCoordinator", course)
       .then((res) => {
         console.log("success");
+        console.log(res)
       })
       .catch((err) => {
         console.log("There is an error ..." + err);

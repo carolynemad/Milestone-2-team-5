@@ -108,7 +108,6 @@ export default function UpdateProfileIns() {
   const handleAddress = (e) => setAddress(e.target.value);
   const handleGender = (e) => setGender(e.target.value);
   const handleDate = (e) => setDate(e.target.value);
-  const handleSalary = (e) => setSalary(e.target.value);
   const [open, setOpen] = React.useState(false);
   const handleSubmit = (e) => {
     setOpen(true);
@@ -117,13 +116,13 @@ export default function UpdateProfileIns() {
       address: address,
       gender: gender,
       birthDate: date,
-      salary: salary,
     };
     console.log(profile);
     axios
       .post("/account/updateProfile", profile)
       .then((res) => {
         console.log("success");
+        console.log(res)
        
       })
       .catch((err) => {
@@ -183,34 +182,15 @@ export default function UpdateProfileIns() {
                       label="Gender"
                     >
                       <MenuItem value=""></MenuItem>
-                      <MenuItem value={10}>Male</MenuItem>
-                      <MenuItem value={20}>Female</MenuItem>
-                      <MenuItem value={30}>Other</MenuItem>
+                      <MenuItem value={"Male"}>Male</MenuItem>
+                      <MenuItem value={"Female"}>Female</MenuItem>
+                      <MenuItem value={"Other"}>Other</MenuItem>
                     </Select>
                   </FormControl>
                 </td>
               </table>
             </tr>
-            <tr>
-              <FormControl
-                fullWidth
-                className={classes.root2}
-                variant="outlined"
-              >
-                <InputLabel htmlFor="outlined-adornment-amount">
-                  Salary
-                </InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-amount"
-                  //value={values.amount}
-                  onChange={handleSalary}
-                  startAdornment={
-                    <InputAdornment position="start">EGY POUNDS</InputAdornment>
-                  }
-                  labelWidth={60}
-                />
-              </FormControl>
-            </tr>
+        
             <tr>
               <td>
                 <form className={classes.root2} noValidate autoComplete="off">

@@ -91,17 +91,7 @@ const logIn = async (req, res) => {
         error: wrongCredentials.message,
       });
     }
-    // if (password === "123456" && match) {
-    //   return res.json({
-    //     Firstmessage:
-    //       "Congrats! First time logging in! please change your password ",
-    //     email: accountFound.email,
-    //     id: accountFound._id,
-    //     statusCode: signinSuccessfully.statusCode,
-    //     message: signinSuccessfully.message,
-    //     token,
-    //   });
-    // }
+   
     const payLoad = {
       id: accountFound._id,
       firstName: accountFound.firstName,
@@ -222,26 +212,26 @@ const viewProfile = async (req, res) => {
 //Update Profile
 
 const updateProfile = async (req, res) => {
-  account_controller.use(authenticateM2);
+  // account_controller.use(authenticateM2);
 
   try {
 
- //authorize
- const payload = jwt.verify(req.headers.token,secretOrKey);
- const id = jwt.verify(req.headers.tokenId,secretOrKey)
+  //authenticate that this is a valid member
+        //authorize that this is a Hr member
 
- const check = await staffModel.findOne({memberId: id})
-
- if(!check){
-   return res.send("not authorized");
- }
-
-    const { Account } = req.body;
-   
-
+        jwt.verify(req.headers.authtoken,secretOrKey);
+        console.log(jwt_decode(req.headers.authtoken).id)
+        const val = await staffModel.findById(jwt_decode(req.headers.authtoken).id)
+ 
+       const id = val.memberId
+       console.log(id)
+         const check = await staffModel.findOne({memberId: id})
+         if(!check){
+           return res.send("not authorized");
+         }
+        
     const accountFound = await staffModel.findOne(
       { memberId:id},
-      console.log("Done")
     );
 
  
@@ -255,29 +245,32 @@ const updateProfile = async (req, res) => {
 
     if (accountFound.staffMemberType != "HR Member") {
       console.log(accountFound.staffMemberType);
-      if (Account.salary != null) {
+      if (req.body.salary != null) {
         return res.json({
           statusCode: onlyHr.statusCode,
           error: onlyHr.message,
         });
       }
-
+console.log(req.body)
       await staffModel.findOneAndUpdate(
-        { memberId: Account.memberId },
+        { memberId: id},
         {
-          address: Account.address,
-          birthDate: Account.birthDate,
-          gender: Account.gender,
+          address: req.body.address,
+          birthDate: req.body.birthDate,
+          gender: req.body.gender,
         }
       );
+      console.log("DODODO")
+      console.log(val)
+
     } else {
       await staffModel.findOneAndUpdate(
-        { memberId: Account.memberId },
+        { memberId: id },
         {
-          address: Account.address,
-          birthDate: Account.birthDate,
-          salary: Account.salary,
-          gender: Account.gender,
+          address: req.body.address,
+          birthDate: req.body.birthDate,
+          salary: req.body.salary,
+          gender: req.body.gender,
         }
       );
     }
@@ -298,20 +291,24 @@ const updateProfile = async (req, res) => {
 const resetPassword = async (req, res) => {
   try {
 
-//authorize
-const payload = jwt.verify(req.headers.token,secretOrKey);
-const id = jwt.verify(req.headers.tokenId,secretOrKey)
+//authenticate that this is a valid member
+    //authorize that this is a Hr member
 
-const check = await staffModel.findOne({memberId: id})
+    jwt.verify(req.headers.authtoken, secretOrKey);
+    // console.log(jwt_decode(req.headers.authtoken).id);
+    const val = await staffModel.findById(jwt_decode(req.headers.authtoken).id);
 
-if(!check){
-  return res.send("not authorized");
-}
+    const id = val.memberId;
+    const check = await staffModel.findOne({ memberId: id });
+
+    if (!check) {
+      return res.send("not authorized");
+    }
+    
 
     const Account = req.body;
 
-    // const accountFound = await staffModel.findOne({ email: Account.email });
-
+console.log("Heree")
     if (Account.newPassword === "123456") {
       return res.json({
         statusCode: newPasswordNotLikeOld.statusCode,
@@ -319,9 +316,27 @@ if(!check){
       });
     }
 
+    const saltKey1 = bcrypt.genSaltSync(salt);
+    const hashed_pass1 = bcrypt.hashSync(Account.oldPassword, saltKey1);
+    console.log("HERE")
+    console.log(Account.oldPassword)
+    console.log(hashed_pass1)
+    console.log(val.password)
+
+  
+
+    if(!(bcrypt.compareSync(hashed_pass1, val.password))){
+      return res.json({
+        statusCode: 1010,
+        error: "Old Password Is Wrong",
+      });
+    }
+
+
     const saltKey = bcrypt.genSaltSync(salt);
     const hashed_pass = bcrypt.hashSync(Account.newPassword, saltKey);
-    await staffModel.findOneAndUpdate({ memberId},{password: hashed_pass});
+    await staffModel.findOneAndUpdate({ memberId: id},{password: hashed_pass});
+    console.log("HEREE")
 
     return res.json({
       statusCode: passwordChangedSuccessfully.statusCode,

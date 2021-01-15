@@ -80,43 +80,41 @@ function changeBackgroundOut(e) {
   e.target.style.color = "Black";
 }
 
-export default function ResetPasswordIns() {
+export default function UpdatePassword() {
   const classes = useStyles();
+  const [password, setPassword] = React.useState("");
+  const [newPassword, setNewPassword] = React.useState("");
   const [show, setShow] = React.useState(false);
-  const [oldpassword, setOldPassword] = React.useState("");
-  const[newpassword,setNewPassword] = React.useState("");
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const handleOldPassword = (e) => setOldPassword(e.target.value);
-  const handleNewPassword = (e) => setNewPassword(e.target.value);
   const [open, setOpen] = React.useState(false);
+  const handlePassword = (e) => setPassword(e.target.value);
+  const handleNewPassword = (e) => setNewPassword(e.target.value);
+  const handleClose1 = () => setShow(false);
+ 
+  
+
   const handleSubmit = (e) => {
-    
+
     setOpen(true);
     e.preventDefault();
-    const password = {
-      password: newpassword,
-    };
-    console.log(password);
+    const obj = {
+      oldPassword: password,
+      newPassword: newPassword,    };
+    console.log(obj);
     axios
-      .post("/account/resetPassword", password)
+      .post("/account/resetPassword", obj)
       .then((res) => {
         console.log("success");
-        //console.log(res.data.msg)
+        console.log(res)
 
         //swal(res.data.msg);
       })
       .catch((err) => {
         console.log("There is an error ..." + err);
       });
-    handleClose();
+    handleClose1();
   };
-  
 
-  const handleClick = () => {
-    setOpen(true);
-  };
-  const handleClose1 = (event, reason) => {
+  const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
@@ -124,9 +122,6 @@ export default function ResetPasswordIns() {
     setOpen(false);
   };
 
-  
-
-  
   return (
     <div
       style={{
@@ -141,7 +136,7 @@ export default function ResetPasswordIns() {
       <table className={classes.tableStyle}>
         <tr>
           <Typography className={classes.titleStyle}>
-            Reset my Password
+            Update my Password
           </Typography>
 
           <br></br>
@@ -161,7 +156,7 @@ export default function ResetPasswordIns() {
                       label="Old Password"
                       variant="outlined"
                       size="small"
-                      onchange={handleOldPassword}
+                      onChange={handlePassword}
                     />
                   </form>
                 </td>
@@ -172,7 +167,7 @@ export default function ResetPasswordIns() {
                       label="New Password"
                       variant="outlined"
                       size="small"
-                      onchange={handleNewPassword}
+                      onChange={handleNewPassword}
                     />
                   </form>
                 </td>
@@ -194,14 +189,14 @@ export default function ResetPasswordIns() {
                   onClick={handleSubmit}
                   variant="contained"
                 >
-                  Reset password
+                  Update password
                 </Button>
                 <Snackbar
                   open={open}
                   autoHideDuration={6000}
-                  onClose={handleClose1}
+                  onClose={handleClose}
                 >
-                  <Alert onClose={handleClose1} severity="success">
+                  <Alert onClose={handleClose} severity="success">
                     Password changed.
                   </Alert>
                 </Snackbar>
