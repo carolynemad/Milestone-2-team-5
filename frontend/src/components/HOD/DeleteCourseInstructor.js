@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-
+import axios from "axios";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -81,16 +81,31 @@ function changeBackgroundOut(e) {
 
 export default function DeleteCourseInstructor() {
   const classes = useStyles();
-  const [password, setPassword] = React.useState("");
-
-  const handleChange = (event) => {
-    setPassword(event.target.value);
-  };
-
   const [open, setOpen] = React.useState(false);
+  const [memberid, setMemberID] = React.useState("");
+  const [courseid, setCourseID] = React.useState("");
+  const handleMemberID = (e) => setMemberID(e.target.value);
+  const handleCourseID = (e) => setCourseID(e.target.value);
+  const [show, setShow] = React.useState(false);
+  const handleClose1 = () => setShow(false);
 
-  const handleClick = () => {
+  const handleSubmit = (e) => {
     setOpen(true);
+    e.preventDefault();
+    const deletecourse = {
+      courseID: courseid,
+      memberId: memberid,
+    };
+    console.log( deletecourse);
+    axios
+      .post("/acAccount/deleteCourseInstructor", deletecourse)
+      .then((res) => {
+        console.log("success");
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
   };
 
   const handleClose = (event, reason) => {
@@ -115,7 +130,7 @@ export default function DeleteCourseInstructor() {
       <table className={classes.tableStyle}>
         <tr>
           <Typography className={classes.titleStyle}>
-            Delete Course Instructor
+            Delete Course Coordinator
           </Typography>
 
           <br></br>
@@ -132,9 +147,10 @@ export default function DeleteCourseInstructor() {
                   <form className={classes.root} noValidate autoComplete="off">
                     <TextField
                       id="outlined-basic"
-                      label="Member ID"
+                      label="Course ID"
                       variant="outlined"
                       size="small"
+                      onChange={handleCourseID}
                     />
                   </form>
                 </td>
@@ -142,9 +158,10 @@ export default function DeleteCourseInstructor() {
                   <form className={classes.root} noValidate autoComplete="off">
                     <TextField
                       id="outlined-basic"
-                      label="Course ID"
+                      label="Member ID"
                       variant="outlined"
                       size="small"
+                      onChange={handleMemberID}
                     />
                   </form>
                 </td>
@@ -163,7 +180,7 @@ export default function DeleteCourseInstructor() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Delete Course Instructor
@@ -171,10 +188,10 @@ export default function DeleteCourseInstructor() {
                 <Snackbar
                   open={open}
                   autoHideDuration={6000}
-                  onClose={handleClose}
+                  onClose={handleClose1}
                 >
-                  <Alert onClose={handleClose} severity="success">
-                    Course Instructor Deleted.
+                  <Alert onClose={handleClose1} severity="success">
+                    Course Coordinator Assigned.
                   </Alert>
                 </Snackbar>
               </div>{" "}

@@ -147,10 +147,10 @@ const assignCourseInstructor = async (req, res) => {
     const Course = req.body;
 
     const courseFound = await courseModel.findOne({
-      courseName: Course.Body.courseName,
+      courseID: Course.courseID,
     });
     const accountFound = await staffModel.findOne({
-      email: Course.Body.instructorEmail,
+      memberid: Course.memberId,
     });
 
     if (!courseFound) {

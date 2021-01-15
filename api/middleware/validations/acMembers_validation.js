@@ -10,8 +10,8 @@ const { validationError } = require('../../constants/statusCodesEnum')
 
     const schema = {
       Body: Joi.object({
-        courseName: Joi.string().required(),
-        instructorEmail: Joi.string().email().required(),
+        courseID: Joi.string().required(),
+        memberId: Joi.string().required(),
        
       })
     }
