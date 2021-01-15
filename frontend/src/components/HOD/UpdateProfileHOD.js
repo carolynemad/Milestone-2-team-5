@@ -71,6 +71,7 @@ const useStyles = makeStyles((theme) => ({
   colStyle: {
     width: "50vw",
   },
+  
   root3: {
     width: "100%",
     "& > * + *": {
@@ -101,11 +102,13 @@ export default function UpdateProfileHOD() {
   const [address, setAddress] = React.useState("");
   const [gender, setGender] = React.useState("Other");
   const [date, setDate] = React.useState("");
+  const [salary, setSalary] = React.useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleAddress = (e) => setAddress(e.target.value);
   const handleGender = (e) => setGender(e.target.value);
   const handleDate = (e) => setDate(e.target.value);
+  const handleSalary = (e) => setSalary(e.target.value);
   const [open, setOpen] = React.useState(false);
   const handleSubmit = (e) => {
     setOpen(true);
@@ -114,15 +117,14 @@ export default function UpdateProfileHOD() {
       address: address,
       gender: gender,
       birthDate: date,
+      salary: salary,
     };
     console.log(profile);
     axios
-      .post("/account/updateProfile", profile)
+      .post("/account/updateprofile", profile)
       .then((res) => {
         console.log("success");
-        //console.log(res.data.msg)
-
-        //swal(res.data.msg);
+       
       })
       .catch((err) => {
         console.log("There is an error ..." + err);
@@ -138,6 +140,7 @@ export default function UpdateProfileHOD() {
     }
     setOpen(false);
   };
+
   return (
     <div
       style={{
@@ -175,17 +178,38 @@ export default function UpdateProfileHOD() {
                     <Select
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
+                      //value={values.day}
                       onChange={handleGender}
                       label="Gender"
                     >
                       <MenuItem value=""></MenuItem>
-                      <MenuItem value={"MALE"}>Male</MenuItem>
-                      <MenuItem value={"FEMALE"}>Female</MenuItem>
-                      <MenuItem value={"OTHER"}>Other</MenuItem>
+                      <MenuItem value={10}>Male</MenuItem>
+                      <MenuItem value={20}>Female</MenuItem>
+                      <MenuItem value={30}>Other</MenuItem>
                     </Select>
                   </FormControl>
                 </td>
               </table>
+            </tr>
+            <tr>
+              <FormControl
+                fullWidth
+                className={classes.root2}
+                variant="outlined"
+              >
+                <InputLabel htmlFor="outlined-adornment-amount">
+                  Salary
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-amount"
+                  //value={values.amount}
+                  onChange={handleSalary}
+                  startAdornment={
+                    <InputAdornment position="start">EGY POUNDS</InputAdornment>
+                  }
+                  labelWidth={60}
+                />
+              </FormControl>
             </tr>
             <tr>
               <td>
@@ -216,7 +240,7 @@ export default function UpdateProfileHOD() {
                   />
                 </form>
               </td>
-            </tr> 
+            </tr>
             <tr></tr>
             <tr>
               <div
@@ -237,10 +261,10 @@ export default function UpdateProfileHOD() {
                   Update Information
                 </Button>
                 <Snackbar
-                  //open={open}
+                  open={open}
                   autoHideDuration={6000}
                   onClose={handleClose1}
-                >
+                > 
                   <Alert onClose={handleClose1} severity="success">
                     Information Updated.
                   </Alert>

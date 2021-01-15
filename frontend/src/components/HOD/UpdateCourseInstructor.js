@@ -9,6 +9,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import axios from "axios";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -75,28 +76,36 @@ function changeBackgroundIn(e) {
 function changeBackgroundOut(e) {
   e.target.style.color = "Black";
 }
-
 export default function UpdateCourseInstructor() {
   const classes = useStyles();
-
-  const [type, setType] = React.useState("");
-
-  const handleChange = (event) => {
-    setType(event.target.value);
-  };
-
   const [open, setOpen] = React.useState(false);
+  const [oldmemberid, setOldMemberID] = React.useState("");
+  const [newmemberid, setNewMemberID] = React.useState("");
+  const [courseid, setCourseID] = React.useState("");
+  const handleOldMemberID = (e) => setOldMemberID(e.target.value);
+  const handleNewMemberID = (e) => setNewMemberID(e.target.value);
+  const handleCourseID = (e) => setCourseID(e.target.value);
+  const [show, setShow] = React.useState(false);
+  const handleClose1 = () => setShow(false);
 
-  const handleClick = () => {
+  const handleSubmit = (e) => {
     setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
+    e.preventDefault();
+    const course = {
+      courseID: courseid,
+      memberId1: oldmemberid,
+      memberID2: newmemberid
+    };
+    console.log(course);
+    axios
+      .post("/acAccount/assignCourseInstructor", course)
+      .then((res) => {
+        console.log("success");
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
   };
 
   return (
@@ -139,6 +148,7 @@ export default function UpdateCourseInstructor() {
                         label="Old Member ID"
                         variant="outlined"
                         size="small"
+                        onChange={handleOldMemberID}
                       />
                     </form>
                   </td>
@@ -156,6 +166,7 @@ export default function UpdateCourseInstructor() {
                         label="New Member ID"
                         variant="outlined"
                         size="small"
+                        onChange={handleNewMemberID}
                       />
                     </form>
                   </td>
@@ -173,6 +184,7 @@ export default function UpdateCourseInstructor() {
                         label="Course ID"
                         variant="outlined"
                         size="small"
+                        onChange={handleCourseID}
                       />
                     </form>
                   </td>
@@ -192,7 +204,7 @@ export default function UpdateCourseInstructor() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Update Course Instructor
@@ -200,9 +212,9 @@ export default function UpdateCourseInstructor() {
                 <Snackbar
                   open={open}
                   autoHideDuration={6000}
-                  onClose={handleClose}
+                  onClose={handleClose1}
                 >
-                  <Alert onClose={handleClose} severity="success">
+                  <Alert onClose={handleClose1} severity="success">
                     Course Instructor Updated.
                   </Alert>
                 </Snackbar>

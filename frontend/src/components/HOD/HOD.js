@@ -28,9 +28,13 @@ import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
 import ListAltOutlinedIcon from "@material-ui/icons/ListAltOutlined";
 import {Link} from 'react-router-dom'
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
-
-
-const drawerWidth = 240;
+import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
+import FunctionsIcon from "@material-ui/icons/Functions";
+import ViewListIcon from "@material-ui/icons/ViewList";
+//import UpdateOutlinedIcon from "@material-ui/icons/UpdateOutlined";
+const drawerWidth = 280;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -182,6 +186,14 @@ export default function ACpage() {
             "Update My Profile",
             "Reset My Password",
             "Attendance",
+            "Accept/Reject",
+            "Assign Course Instructor",
+            "Delete Course Instructor",
+            "View Course Coverage",
+            "View Members",
+            "Update Course Instructor",
+            "View Slot Assignment",
+            
           ].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
@@ -189,6 +201,14 @@ export default function ACpage() {
               <Link to = "/hod/updateprofile">{index === 1 && <UpdateOutlinedIcon />}</Link>
               <Link to = "/hod/resetpassword">{index === 2 && <LockOpenOutlinedIcon />}</Link>
               <Link to = "/hod/attendance">{index === 3 && <ListAltOutlinedIcon />}</Link>
+              <Link to = "/hod/acceptorrejectrequests">{index === 4 && <QuestionAnswerIcon />}</Link>
+              <Link to = "/hod/assigncourseinstructor">{index === 5 && <AddIcon />}</Link>
+              <Link to = "/hod/deletecourseinstructor">{index === 6 && <RemoveIcon />}</Link>
+              <Link to = "/hod/viewcoursecoverage">{index === 7 && <FunctionsIcon />}</Link>
+              <Link to = "/hod/viewmember">{index === 8 && <ViewListIcon />}</Link>
+              <Link to = "/hod/updatecourseinstructor">{index === 9&& <UpdateOutlinedIcon />}</Link>
+              <Link to = "/hod/viewslotassignment">{index === 10 && <ViewListIcon />}</Link>
+              
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -209,33 +229,10 @@ export default function ACpage() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
+          
         </Typography>
         <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
+         
         </Typography>
       </main>
     </div>

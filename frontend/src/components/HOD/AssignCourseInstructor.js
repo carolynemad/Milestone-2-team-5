@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-
+import axios from "axios";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -81,16 +81,31 @@ function changeBackgroundOut(e) {
 
 export default function AssignCourseInstructor() {
   const classes = useStyles();
-  const [password, setPassword] = React.useState("");
-
-  const handleChange = (event) => {
-    setPassword(event.target.value);
-  };
-
   const [open, setOpen] = React.useState(false);
+  const [memberid, setMemberID] = React.useState("");
+  const [courseid, setCourseID] = React.useState("");
+  const handleMemberID = (e) => setMemberID(e.target.value);
+  const handleCourseID = (e) => setCourseID(e.target.value);
+  const [show, setShow] = React.useState(false);
+  const handleClose1 = () => setShow(false);
 
-  const handleClick = () => {
+  const handleSubmit = (e) => {
     setOpen(true);
+    e.preventDefault();
+    const course = {
+      courseID: courseid,
+      memberId: memberid,
+    };
+    console.log(course);
+    axios
+      .post("/acAccount/assignCourseInstructor", course)
+      .then((res) => {
+        console.log("success");
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
   };
 
   const handleClose = (event, reason) => {
@@ -132,9 +147,10 @@ export default function AssignCourseInstructor() {
                   <form className={classes.root} noValidate autoComplete="off">
                     <TextField
                       id="outlined-basic"
-                      label="Member ID"
+                      label="Course ID"
                       variant="outlined"
                       size="small"
+                      onChange={handleCourseID}
                     />
                   </form>
                 </td>
@@ -142,9 +158,10 @@ export default function AssignCourseInstructor() {
                   <form className={classes.root} noValidate autoComplete="off">
                     <TextField
                       id="outlined-basic"
-                      label="Course ID"
+                      label="Member ID"
                       variant="outlined"
                       size="small"
+                      onChange={handleMemberID}
                     />
                   </form>
                 </td>
@@ -163,7 +180,7 @@ export default function AssignCourseInstructor() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Assign Course Instructor
@@ -171,9 +188,9 @@ export default function AssignCourseInstructor() {
                 <Snackbar
                   open={open}
                   autoHideDuration={6000}
-                  onClose={handleClose}
+                  onClose={handleClose1}
                 >
-                  <Alert onClose={handleClose} severity="success">
+                  <Alert onClose={handleClose1} severity="success">
                     Course Instructor Assigned.
                   </Alert>
                 </Snackbar>
