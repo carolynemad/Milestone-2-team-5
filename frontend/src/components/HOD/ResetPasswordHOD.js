@@ -80,7 +80,7 @@ function changeBackgroundOut(e) {
   e.target.style.color = "Black";
 }
 
-export default function ResetPassword() {
+export default function ResetPasswordHOD() {
   const classes = useStyles();
   const [show, setShow] = React.useState(false);
   const [oldpassword, setOldPassword] = React.useState("");

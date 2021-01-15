@@ -121,13 +121,13 @@ export default function SendRequest() {
       requestType: request,
       comments : comments,
       activeDate: activedate,
-      endDate: enddate, //must be added in the backend
+      //endDate: enddate, //must be added in the backend
       slotID:slotid,
       
     };
     console.log(SendRequest);
     axios
-      .post("/account/sendRequest", SendRequest)
+      .post("/acAccount/sendRequest", SendRequest)
       .then((res) => {
         console.log("success");
         //console.log(res.data.msg)
@@ -287,7 +287,7 @@ export default function SendRequest() {
                     type="date"
                     defaultValue="1999-04-02"
                     className={classes.textField}
-                    onChange={handleEnddate}
+                    //onChange={handleEnddate}
                     InputLabelProps={{
                       shrink: true,
                     }}

@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import axios from "axios";
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -79,33 +79,18 @@ function changeBackgroundOut(e) {
   e.target.style.color = "Black";
 }
 
-export default function AssignCourseCoordinator() {
+export default function ResetPassword() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [courseID, setCourseID] = React.useState("");
-  const [assistantID, setAssistantID] = React.useState("");
-  const handleCourseID = (e) => setCourseID(e.target.value);
-  const handleAssistantID = (e) => setAssistantID(e.target.value);
-  const [show, setShow] = React.useState(false);
-  const handleClose1 = () => setShow(false);
+  const [password, setPassword] = React.useState("");
 
-  const handleSubmit = (e) => {
+  const handleChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
     setOpen(true);
-    e.preventDefault();
-    const course = {
-      courseID: courseID,
-      courseCoordinator: assistantID,
-    };
-    console.log(course);
-    axios
-      .post("/acAccount/assignCourseCoordinator", course)
-      .then((res) => {
-        console.log("success");
-      })
-      .catch((err) => {
-        console.log("There is an error ..." + err);
-      });
-    handleClose1();
   };
 
   const handleClose = (event, reason) => {
@@ -130,7 +115,7 @@ export default function AssignCourseCoordinator() {
       <table className={classes.tableStyle}>
         <tr>
           <Typography className={classes.titleStyle}>
-            Assign Course Coordinator
+            Reset my Password
           </Typography>
 
           <br></br>
@@ -147,10 +132,9 @@ export default function AssignCourseCoordinator() {
                   <form className={classes.root} noValidate autoComplete="off">
                     <TextField
                       id="outlined-basic"
-                      label="Assistant ID"
+                      label="Old Password"
                       variant="outlined"
                       size="small"
-                      onChange={handleAssistantID}
                     />
                   </form>
                 </td>
@@ -158,10 +142,9 @@ export default function AssignCourseCoordinator() {
                   <form className={classes.root} noValidate autoComplete="off">
                     <TextField
                       id="outlined-basic"
-                      label="Course ID"
+                      label="New Password"
                       variant="outlined"
                       size="small"
-                      onChange={handleCourseID}
                     />
                   </form>
                 </td>
@@ -180,10 +163,10 @@ export default function AssignCourseCoordinator() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleSubmit}
+                  onClick={handleClick}
                   variant="contained"
                 >
-                  Assign Course Coordinator
+                  Reset password
                 </Button>
                 <Snackbar
                   open={open}
@@ -191,7 +174,7 @@ export default function AssignCourseCoordinator() {
                   onClose={handleClose}
                 >
                   <Alert onClose={handleClose} severity="success">
-                    Course Coordinator Assigned.
+                    Password changed.
                   </Alert>
                 </Snackbar>
               </div>{" "}

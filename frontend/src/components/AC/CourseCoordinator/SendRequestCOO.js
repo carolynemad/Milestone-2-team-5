@@ -7,11 +7,9 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import axios from "axios";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -30,14 +28,6 @@ const useStyles = makeStyles((theme) => ({
       width: "31.35vw ",
     },
   },
-
-  titleStyle: {
-    fontSize: "2vw",
-    textAlign: "center",
-    fontFamily: "Helvetica",
-    color: "black",
-    fontWeight: "bold",
-  },
   container: {
     display: "flex",
     flexWrap: "wrap",
@@ -45,6 +35,13 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       width: "31.35vw ",
     },
+  },
+  titleStyle: {
+    fontSize: "2vw",
+    textAlign: "center",
+    fontFamily: "Helvetica",
+    color: "black",
+    fontWeight: "bold",
   },
 
   tableStyle: {
@@ -71,7 +68,6 @@ const useStyles = makeStyles((theme) => ({
   colStyle: {
     width: "50vw",
   },
-  
   root3: {
     width: "100%",
     "& > * + *": {
@@ -95,51 +91,28 @@ function changeBackgroundOut(e) {
   e.target.style.color = "Black";
 }
 
-export default function UpdateProfile() {
+export default function SendRequest() {
   const classes = useStyles();
+  const [values, setValues] = React.useState({
+    reciever: "",
+    type: "",
+  });
 
-  const [show, setShow] = React.useState(false);
-  const [address, setAddress] = React.useState("");
-  const [gender, setGender] = React.useState("Other");
-  const [date, setDate] = React.useState("");
-  const [salary, setSalary] = React.useState("");
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const handleAddress = (e) => setAddress(e.target.value);
-  const handleGender = (e) => setGender(e.target.value);
-  const handleDate = (e) => setDate(e.target.value);
-  const handleSalary = (e) => setSalary(e.target.value);
-  const [open, setOpen] = React.useState(false);
-  const handleSubmit = (e) => {
-    setOpen(true);
-    e.preventDefault();
-    const profile = {
-      address: address,
-      gender: gender,
-      birthDate: date,
-      salary: salary,
-    };
-    console.log(profile);
-    axios
-      .post("/account/updateProfile", profile)
-      .then((res) => {
-        console.log("success");
-        //console.log(res.data.msg)
-
-        //swal(res.data.msg);
-      })
-      .catch((err) => {
-        console.log("There is an error ..." + err);
-      });
-    handleClose();
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
   };
+
+  const [open, setOpen] = React.useState(false);
+
   const handleClick = () => {
     setOpen(true);
   };
-  const handleClose1 = (event, reason) => {
+
+  const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
+
     setOpen(false);
   };
 
@@ -156,7 +129,7 @@ export default function UpdateProfile() {
     >
       <table className={classes.tableStyle}>
         <tr>
-          <Typography className={classes.titleStyle}>Update Profile</Typography>
+          <Typography className={classes.titleStyle}>Send Request</Typography>
 
           <br></br>
         </tr>
@@ -166,62 +139,87 @@ export default function UpdateProfile() {
         </tr>
         <tr className={classes.rowStyle}>
           <table>
-            <tr>
-              <table>
+            <table>
+              <tr>
+                <td>
+                  <form className={classes.root2} noValidate autoComplete="off">
+                    <FormControl
+                      required
+                      variant="outlined"
+                      size="small"
+                      className={classes.formControl}
+                    >
+                      <InputLabel id="demo-simple-select-outlined-label">
+                        Receiver
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={values.Reciever}
+                        onChange={handleChange}
+                        label="Reciever"
+                      >
+                        <MenuItem value=""></MenuItem>
+                        <MenuItem value={10}>Head Of Department</MenuItem>
+                        <MenuItem value={20}>HR</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </form>
+                </td>
+              </tr>
+              <tr>
                 <td>
                   <FormControl
+                    required
                     variant="outlined"
                     size="small"
                     className={classes.formControl}
                   >
                     <InputLabel id="demo-simple-select-outlined-label">
-                      Gender
+                      Request Type
                     </InputLabel>
                     <Select
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
-                      //value={values.day}
-                      onChange={handleGender}
-                      label="Gender"
+                      value={values.day}
+                      onChange={handleChange}
+                      label="Request Type"
                     >
                       <MenuItem value=""></MenuItem>
-                      <MenuItem value={10}>Male</MenuItem>
-                      <MenuItem value={20}>Female</MenuItem>
-                      <MenuItem value={30}>Other</MenuItem>
+                      <MenuItem value={10}>Accidental Leave</MenuItem>
+                      <MenuItem value={20}>Annual Leave</MenuItem>
+                      <MenuItem value={30}>Compensation Leave</MenuItem>
+                      <MenuItem value={40}>Maternity Leave</MenuItem>
+                      <MenuItem value={50}>Sick Leave</MenuItem>
+                      <MenuItem value={60}>Replacement</MenuItem>
+                      <MenuItem value={70}>ChangeDayOff</MenuItem>
+                      <MenuItem value={80}>SlotLinking</MenuItem>
                     </Select>
                   </FormControl>
                 </td>
-              </table>
-            </tr>
+              </tr>
+            </table>
+
             <tr>
-              <FormControl
-                fullWidth
-                className={classes.root2}
-                variant="outlined"
-              >
-                <InputLabel htmlFor="outlined-adornment-amount">
-                  Salary
-                </InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-amount"
-                  //value={values.amount}
-                  onChange={handleSalary}
-                  startAdornment={
-                    <InputAdornment position="start">EGY POUNDS</InputAdornment>
-                  }
-                  labelWidth={60}
-                />
-              </FormControl>
+              <td>
+                <form className={classes.root2} noValidate autoComplete="off">
+                  <TextField
+                    id="outlined-basic"
+                    label="Brief/Comments"
+                    variant="outlined"
+                    size="small"
+                  />
+                </form>
+              </td>
             </tr>
             <tr>
               <td>
                 <form className={classes.root2} noValidate autoComplete="off">
                   <TextField
                     id="outlined-basic"
-                    label="Address"
+                    label="Slot ID"
                     variant="outlined"
                     size="small"
-                    onChange={handleAddress}
                   />
                 </form>
               </td>
@@ -231,11 +229,26 @@ export default function UpdateProfile() {
                 <form className={classes.container} noValidate>
                   <TextField
                     id="date"
-                    label="Birthday"
+                    label="Active Date"
                     type="date"
                     defaultValue="1999-04-02"
                     className={classes.textField}
-                    onChange={handleDate}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </form>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <form className={classes.container} noValidate>
+                  <TextField
+                    id="date"
+                    label="End Date"
+                    type="date"
+                    defaultValue="1999-04-02"
+                    className={classes.textField}
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -257,18 +270,18 @@ export default function UpdateProfile() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleSubmit}
+                  onClick={handleClick}
                   variant="contained"
                 >
-                  Update Information
+                  Send Request
                 </Button>
                 <Snackbar
                   open={open}
                   autoHideDuration={6000}
                   onClose={handleClose}
-                > 
+                >
                   <Alert onClose={handleClose} severity="success">
-                    Information Updated.
+                    Request Sent.
                   </Alert>
                 </Snackbar>
               </div>{" "}

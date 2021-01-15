@@ -94,7 +94,7 @@ function changeBackgroundOut(e) {
   e.target.style.color = "Black";
 }
 
-export default function UpdateProfile() {
+export default function UpdateProfileHOD() {
   const classes = useStyles();
 
   const [show, setShow] = React.useState(false);
@@ -216,7 +216,7 @@ export default function UpdateProfile() {
                   />
                 </form>
               </td>
-            </tr>
+            </tr> 
             <tr></tr>
             <tr>
               <div

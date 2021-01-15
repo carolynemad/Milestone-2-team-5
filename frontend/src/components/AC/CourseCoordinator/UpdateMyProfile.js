@@ -11,7 +11,6 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import axios from "axios";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -71,7 +70,6 @@ const useStyles = makeStyles((theme) => ({
   colStyle: {
     width: "50vw",
   },
-  
   root3: {
     width: "100%",
     "& > * + *": {
@@ -98,48 +96,32 @@ function changeBackgroundOut(e) {
 export default function UpdateProfile() {
   const classes = useStyles();
 
-  const [show, setShow] = React.useState(false);
-  const [address, setAddress] = React.useState("");
-  const [gender, setGender] = React.useState("Other");
-  const [date, setDate] = React.useState("");
-  const [salary, setSalary] = React.useState("");
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const handleAddress = (e) => setAddress(e.target.value);
-  const handleGender = (e) => setGender(e.target.value);
-  const handleDate = (e) => setDate(e.target.value);
-  const handleSalary = (e) => setSalary(e.target.value);
-  const [open, setOpen] = React.useState(false);
-  const handleSubmit = (e) => {
-    setOpen(true);
-    e.preventDefault();
-    const profile = {
-      address: address,
-      gender: gender,
-      birthDate: date,
-      salary: salary,
-    };
-    console.log(profile);
-    axios
-      .post("/account/updateProfile", profile)
-      .then((res) => {
-        console.log("success");
-        //console.log(res.data.msg)
+  const [values, setValues] = React.useState({
+    amount: "",
+    day: "",
+  });
 
-        //swal(res.data.msg);
-      })
-      .catch((err) => {
-        console.log("There is an error ..." + err);
-      });
-    handleClose();
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
   };
+
+  const [type, setType] = React.useState("");
+
+  const handleChange2 = (event) => {
+    setType(event.target.type);
+  };
+
+  const [open, setOpen] = React.useState(false);
+
   const handleClick = () => {
     setOpen(true);
   };
-  const handleClose1 = (event, reason) => {
+
+  const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
+
     setOpen(false);
   };
 
@@ -180,8 +162,8 @@ export default function UpdateProfile() {
                     <Select
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
-                      //value={values.day}
-                      onChange={handleGender}
+                      value={values.day}
+                      onChange={handleChange2}
                       label="Gender"
                     >
                       <MenuItem value=""></MenuItem>
@@ -204,8 +186,8 @@ export default function UpdateProfile() {
                 </InputLabel>
                 <OutlinedInput
                   id="outlined-adornment-amount"
-                  //value={values.amount}
-                  onChange={handleSalary}
+                  value={values.amount}
+                  onChange={handleChange("amount")}
                   startAdornment={
                     <InputAdornment position="start">EGY POUNDS</InputAdornment>
                   }
@@ -221,7 +203,6 @@ export default function UpdateProfile() {
                     label="Address"
                     variant="outlined"
                     size="small"
-                    onChange={handleAddress}
                   />
                 </form>
               </td>
@@ -235,7 +216,6 @@ export default function UpdateProfile() {
                     type="date"
                     defaultValue="1999-04-02"
                     className={classes.textField}
-                    onChange={handleDate}
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -257,7 +237,7 @@ export default function UpdateProfile() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleSubmit}
+                  onClick={handleClick}
                   variant="contained"
                 >
                   Update Information
@@ -266,7 +246,7 @@ export default function UpdateProfile() {
                   open={open}
                   autoHideDuration={6000}
                   onClose={handleClose}
-                > 
+                >
                   <Alert onClose={handleClose} severity="success">
                     Information Updated.
                   </Alert>
