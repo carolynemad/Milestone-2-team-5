@@ -26,9 +26,8 @@ import PermIdentityOutlinedIcon from "@material-ui/icons/PermIdentityOutlined";
 import UpdateOutlinedIcon from "@material-ui/icons/UpdateOutlined";
 import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
 import ListAltOutlinedIcon from "@material-ui/icons/ListAltOutlined";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
-
 
 const drawerWidth = 240;
 
@@ -166,10 +165,18 @@ export default function ACpage() {
             <ListItem button key={text}>
               {/* <ListItemIcon>{index % 2 === 0 ? <ViewHeadlineOutlinedIcon /> : <MailIcon />}</ListItemIcon> */}
               <ListItemIcon>
-                <Link to = "/hod/viewschedule">{index === 0 && <ScheduleOutlinedIcon />}</Link>
-                <Link to = "/hod/sendrequest">{index === 1 && <SendOutlinedIcon />}</Link>
-                <Link to = "/hod/viewrequests">{index === 2 && <AllInboxOutlinedIcon />}</Link>
-                <Link to = "/hod/viewnotifications">{index === 3 && <NotificationsActiveOutlinedIcon />}</Link>
+                <Link to="/hod/viewschedule">
+                  {index === 0 && <ScheduleOutlinedIcon />}
+                </Link>
+                <Link to="/hod/sendrequest">
+                  {index === 1 && <SendOutlinedIcon />}
+                </Link>
+                <Link to="/hod/viewrequests">
+                  {index === 2 && <AllInboxOutlinedIcon />}
+                </Link>
+                <Link to="/hod/viewnotifications">
+                  {index === 3 && <NotificationsActiveOutlinedIcon />}
+                </Link>
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -185,10 +192,18 @@ export default function ACpage() {
           ].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-              <Link to = "/hod/viewprofile">{index === 0 && <PermIdentityOutlinedIcon />}</Link>
-              <Link to = "/hod/updateprofile">{index === 1 && <UpdateOutlinedIcon />}</Link>
-              <Link to = "/hod/resetpassword">{index === 2 && <LockOpenOutlinedIcon />}</Link>
-              <Link to = "/hod/attendance">{index === 3 && <ListAltOutlinedIcon />}</Link>
+                <Link to="/hod/viewprofile">
+                  {index === 0 && <PermIdentityOutlinedIcon />}
+                </Link>
+                <Link to="/hod/updateprofile">
+                  {index === 1 && <UpdateOutlinedIcon />}
+                </Link>
+                <Link to="/hod/resetpassword">
+                  {index === 2 && <LockOpenOutlinedIcon />}
+                </Link>
+                <Link to="/hod/attendance">
+                  {index === 3 && <ListAltOutlinedIcon />}
+                </Link>
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -199,7 +214,9 @@ export default function ACpage() {
           {["Logout"].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-              <Link to = "/login">{index === 0 && <ExitToAppOutlinedIcon />}</Link>
+                <Link to="/login">
+                  {index === 0 && <ExitToAppOutlinedIcon />}
+                </Link>
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>

@@ -28,10 +28,10 @@ app.use((req, res) => {
 //   res.status(404).send({ err: "No such url" });
 // });
 
-// app.use('/acAccount', ac)
+// app.use("/acAccount", ac);
 // app.use((req, res) => {
-//   res.status(404).send({ err: 'No such url' })
-// })
+//   res.status(404).send({ err: "No such url" });
+// });
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");

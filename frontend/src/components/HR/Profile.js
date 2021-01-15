@@ -15,6 +15,8 @@ import CakeIcon from "@material-ui/icons/Cake";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import RoomIcon from "@material-ui/icons/Room";
 import CommuteIcon from "@material-ui/icons/Commute";
+import BookIcon from "@material-ui/icons/Book";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -106,7 +108,11 @@ export default function Profile() {
     >
       <table className={classes.tableStyle}>
         <tr>
-          {" "}
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />{" "}
           <div className={classes.root}>
             <Avatar className={classes.purple}>C</Avatar>
             <Typography className={classes.titleStyle}>
@@ -201,6 +207,14 @@ export default function Profile() {
                       primary="Accident leave balance"
                       secondary="4"
                     />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <BookIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary="Request log" secondary="Request 1" />
                   </ListItem>
                 </List>
               </table>

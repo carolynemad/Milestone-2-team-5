@@ -5,7 +5,8 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
-
+import Button from "@material-ui/core/Button";
+import axios from "axios";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -77,6 +78,27 @@ function changeBackgroundOut(e) {
 
 export default function Notifications() {
   const classes = useStyles();
+  const handleClose = () => setShow(false);
+  const [open, setOpen] = React.useState(false);
+  const [show, setShow] = React.useState(false);
+
+  const handleSubmit = (e) => {
+    setOpen(true);
+    e.preventDefault();
+
+    axios
+      .post("/acAccount/showNotifications")
+      .then((res) => {
+        console.log("success");
+        console.log(res);
+
+        //swal(res.data.msg);
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose();
+  };
 
   return (
     <div
@@ -168,6 +190,16 @@ export default function Notifications() {
               </table>
             </tr>
           </table>
+          <br />
+          <Button
+            className={classes.buttonStyle}
+            onMouseOver={changeBackgroundIn}
+            onMouseOut={changeBackgroundOut}
+            onClick={handleSubmit}
+            variant="contained"
+          >
+            Refresh
+          </Button>
         </tr>
       </table>
     </div>
