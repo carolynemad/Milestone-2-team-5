@@ -91,7 +91,7 @@ export default function DeleteCourseAssignment() {
     setOpen(true);
     e.preventDefault();
     const course = {
-      courseID: courseID,
+      courseId: courseID,
       memberId: assistant,
     };
     console.log(course);
@@ -99,6 +99,7 @@ export default function DeleteCourseAssignment() {
       .post("/acAccount/instructorDeleteCourseAssignment", course)
       .then((res) => {
         console.log("success");
+        console.log(res)
       })
       .catch((err) => {
         console.log("There is an error ..." + err);

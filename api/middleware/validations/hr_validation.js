@@ -138,10 +138,10 @@ const validateAddNewMember = (req, res, next) => {
 
 const validateUpdateExistingMember = (req, res, next) => {
   const schema = Joi.object({
-    Account: Joi.object({
-      email: Joi.string().email().required(),
+      // email: Joi.string().email().required(),
+      memberId:Joi.string().min(3),
       gender: Joi.string().valid([gender.MALE, gender.FEMALE]),
-      dateOfBirth: Joi.date(),
+      birthDate: Joi.date(),
       address: Joi.string().min(3),
       salary: Joi,
       officeLocation: Joi.string().min(3),
@@ -151,7 +151,16 @@ const validateUpdateExistingMember = (req, res, next) => {
         "Course Instructor",
         "Course Coordinator",
       ]),
-    }),
+      daysOff: Joi.string().valid([
+        "Staurday",
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+
+      ]),
   });
   const isValid = Joi.validate(req.body, schema);
   if (isValid.error) {

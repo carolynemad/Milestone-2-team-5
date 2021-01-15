@@ -99,7 +99,7 @@ export default function UpdateMember() {
   const [show, setShow] = React.useState(false);
   const handleClose1 = () => setShow(false);
   const [memberID, setMemberID] = React.useState("");
-  const [memberType, setMemberType] = React.useState("Unassigned");
+  const [memberType, setMemberType] = React.useState("");
   const [location, setLocation] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [daysOff, setDaysOff] = React.useState("Friday");
@@ -121,16 +121,16 @@ export default function UpdateMember() {
       birthDate: birthDate,
       address: address,
       officeLocation: location,
-      StaffMemberType: memberType,
+      staffMemberType: memberType,
       daysOff: daysOff,
-      memberID: memberID, //Needs to be changes in backend
+      memberId: memberID, //Needs to be changes in backend
     };
     console.log(mem);
     axios
       .post("/hrAccount/updateExistingMember", mem)
       .then((res) => {
         console.log("success");
-        //console.log(res.data.msg)
+        console.log(res)
 
         //swal(res.data.msg);
       })
@@ -219,13 +219,13 @@ export default function UpdateMember() {
                       label="Days Off"
                     >
                       <MenuItem value=""></MenuItem>
-                      <MenuItem value={10}>Saturday</MenuItem>
-                      <MenuItem value={20}>Monday</MenuItem>
-                      <MenuItem value={30}>Tuesday</MenuItem>
-                      <MenuItem value={40}>Wednesday</MenuItem>
-                      <MenuItem value={50}>Thursday</MenuItem>
-                      <MenuItem value={60}>Friday</MenuItem>
-                      <MenuItem value={70}>Sunday</MenuItem>
+                      <MenuItem value={"Saturday"}>Saturday</MenuItem>
+                      <MenuItem value={"Monday"}>Monday</MenuItem>
+                      <MenuItem value={"Tuesday"}>Tuesday</MenuItem>
+                      <MenuItem value={"Wednesday"}>Wednesday</MenuItem>
+                      <MenuItem value={"Thursday"}>Thursday</MenuItem>
+                      <MenuItem value={"Friday"}>Friday</MenuItem>
+                      <MenuItem value={"Sunday"}>Sunday</MenuItem>
                     </Select>
                   </FormControl>
                 </td>
@@ -247,12 +247,12 @@ export default function UpdateMember() {
                   label="Staff Member Type"
                 >
                   <MenuItem value=""></MenuItem>
-                  <MenuItem value={10}>Head Of Department</MenuItem>
-                  <MenuItem value={20}>Course Instructor</MenuItem>
-                  <MenuItem value={30}>Course Coordinator</MenuItem>
-                  <MenuItem value={40}>HR Member</MenuItem>
-                  <MenuItem value={50}>Teacher Assistant</MenuItem>
-                  <MenuItem value={60}>Unassigned</MenuItem>
+                  <MenuItem value={"Head Of Department"}>Head Of Department</MenuItem>
+                  <MenuItem value={"Course Instructor"}>Course Instructor</MenuItem>
+                  <MenuItem value={"Course Courdinator"}>Course Coordinator</MenuItem>
+                  <MenuItem value={"HR Member"}>HR Member</MenuItem>
+                  <MenuItem value={"Teacher Assistant"}>Teacher Assistant</MenuItem>
+                  <MenuItem value={"Unassigned"}>Unassigned</MenuItem>
                 </Select>
               </FormControl>
             </tr>

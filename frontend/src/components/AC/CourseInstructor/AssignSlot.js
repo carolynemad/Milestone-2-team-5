@@ -83,8 +83,10 @@ export default function AssignSlot() {
   const classes = useStyles();
   const [memberID, setMemberID] = React.useState("");
   const [slotID, setSlotID] = React.useState("");
+  const [courseId, setCourseId] = React.useState("");
   const handleMemberID = (e) => setMemberID(e.target.value);
   const handleSlotID = (e) => setSlotID(e.target.value);
+  const handleCourseId = (e) => setCourseId(e.target.value);
   const handleClose1 = () => setShow(false);
   const [show, setShow] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -101,14 +103,16 @@ export default function AssignSlot() {
     setOpen(true);
     e.preventDefault();
     const course = {
-      acID: memberID,
+      memberId: memberID,
       slotID: slotID,
+      courseId: courseId,
     };
-    console.log(course);
+    // console.log(course);
     axios
       .post("/acAccount/assignAcMemberToUnassignedSlot", course)
       .then((res) => {
         console.log("success");
+        console.log(res)
       })
       .catch((err) => {
         console.log("There is an error ..." + err);
@@ -169,6 +173,20 @@ export default function AssignSlot() {
                         variant="outlined"
                         size="small"
                         onChange={handleSlotID}
+                      />
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div className={classes.root}>
+                      <TextField
+                        required
+                        id="outlined-basic"
+                        label="CourseID"
+                        variant="outlined"
+                        size="small"
+                        onChange={handleCourseId}
                       />
                     </div>
                   </td>

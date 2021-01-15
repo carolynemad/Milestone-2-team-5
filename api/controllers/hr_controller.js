@@ -659,9 +659,9 @@ const updateExistingMember = async (req, res) => {
       return res.send("not authorized");
     }
 
-    const { Account } = req.body;
+    const Account = req.body;
 
-    const memberFound = await staffModel.findOne({ email: Account.email });
+    const memberFound = await staffModel.findOne({ memberId: Account.memberId});
 
     if (!memberFound) {
       return res.json({
@@ -672,7 +672,7 @@ const updateExistingMember = async (req, res) => {
     const idBefore = Account.staffMemberType;
 
     const newAccount = await staffModel.findOneAndUpdate(
-      { email: Account.email },
+      { memberId: Account.memberId },
       {
         salary: Account.salary,
         birthDate: Account.birthDate,

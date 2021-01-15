@@ -2,6 +2,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const jwt_decode = require("jwt-decode");
+
 //Models Requires
 const staffModel = require("../../models/staff_model");
 const courseModel = require("../../models/course_model");
@@ -145,10 +146,10 @@ const assignCourseInstructor = async (req, res) => {
     const Course = req.body;
 
     const courseFound = await courseModel.findOne({
-      courseName: Course.Body.courseName,
+      courseID: Course.courseID,
     });
     const accountFound = await staffModel.findOne({
-      email: Course.Body.instructorEmail,
+      memberid: Course.memberId,
     });
 
     if (!courseFound) {
@@ -1350,7 +1351,7 @@ const assignCourseCoordinator = async (req, res) => {
       return res.send("not authorized");
     }
     myID = id;
-    const body = req.body.Body;
+    const body = req.body;
 
     const acMember = await staffModel.findOne({ memberId: body.memberId });
     // console.log(acMember)
@@ -1454,9 +1455,8 @@ const assignAcMemberToUnassignedSlot = async (req, res) => {
     if (!check.staffMemberType.includes("Instructor")) {
       return res.send("not authorized");
     }
-
     myID = id;
-    const body = req.body.Body;
+    const body = req.body;
 
     const acMember = await staffModel.findOne({ memberId: body.memberId });
     // console.log(acMember)
@@ -1472,6 +1472,7 @@ const assignAcMemberToUnassignedSlot = async (req, res) => {
     const courses = await courseModel.find();
     var i = 0;
     var j = 0;
+    console.log("HEREEEE");
 
     while (i < courses.length) {
       var course = courses[i];
@@ -2257,7 +2258,7 @@ const deleteAssignmentOFAcMember = async (req, res) => {
     const body = req.body;
 
     const myID = id;
-    const member = await staffModel.findOne({ memberId: myID });
+    const member = await staffModel.findOne({ memberId: body.memberId });
     const courses = await courseModel.find();
 
     myCourses = [];

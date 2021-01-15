@@ -10,8 +10,8 @@ const { validationError } = require('../../constants/statusCodesEnum')
 
     const schema = {
       Body: Joi.object({
-        courseName: Joi.string().required(),
-        instructorEmail: Joi.string().email().required(),
+        courseID: Joi.string().required(),
+        memberId: Joi.string().required(),
        
       })
     }
@@ -333,11 +333,8 @@ const { validationError } = require('../../constants/statusCodesEnum')
 
   const validateAssignCourseCoordinator = (req, res, next) => {
     const schema = {
-      Body: Joi.object({
         memberId: Joi.string().required(),
         courseId: Joi.string().required()
-          })
-         .required(),
     }
     const isValid = Joi.validate(req.body, schema)
     if (isValid.error) {
@@ -351,12 +348,9 @@ const { validationError } = require('../../constants/statusCodesEnum')
 
   const validateAssignAcMemberToUnassignedSlot = (req, res, next) => {
     const schema = {
-      Body: Joi.object({
         memberId: Joi.string().required(),
         courseId: Joi.string().required(),
         slotID: Joi.string().required()
-          })
-         .required(),
     }
     const isValid = Joi.validate(req.body, schema)
     if (isValid.error) {
@@ -429,12 +423,9 @@ const { validationError } = require('../../constants/statusCodesEnum')
   const validateDeleteAssignmentOfAcMember = (req, res, next) => {
   
     const schema = {
-      Body: Joi.object({
-        courseID: Joi.string().required(),
-        acMemberID: Joi.string().required(),
-        
-      })
-    }
+      memberId: Joi.string().required(),
+      courseId: Joi.string().required()
+  }
     const isValid = Joi.validate(req.body, schema)
     if (isValid.error) {
       let errorMsg = isValid.error.details[0].message
