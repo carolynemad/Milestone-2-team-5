@@ -15,6 +15,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,16 +76,39 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function AcceptOrReject() {
+export default function AcceptOrRejectCOO() {
   const classes = useStyles();
+  const [show, setShow] = React.useState(false);
+  const [requestid, setRequestID] = React.useState("");
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleRequestID= (e) => setRequestID(e.target.value);
   const [open, setOpen] = React.useState(false);
+  const handleSubmit = (e) => {
+    
+    setOpen(true);
+    e.preventDefault();
+    const acceptorrejectrequests = {
+      requestID:requestid
+    };
+    console.log(acceptorrejectrequests);
+    axios
+      .post("/acAccount/coordinatorAcceptSlotLinkingRequest", acceptorrejectrequests)
+      
+      .then((res) => {
+        console.log("success");
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose();
+  };
+  
 
-  const [checked, setChecked] = React.useState([0]);
   const handleClick = () => {
     setOpen(true);
   };
-
-  const handleClose = (event, reason) => {
+  const handleClose1 = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
@@ -92,18 +116,6 @@ export default function AcceptOrReject() {
     setOpen(false);
   };
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
-  };
 
   return (
     <div
@@ -125,37 +137,21 @@ export default function AcceptOrReject() {
           <br></br>
         </tr>
         <tr>
+        
           <hr style={{ width: "28vw" }} />
           <br></br>
         </tr>
         <tr className={classes.rowStyle}>
           <table>
             <tr>
-              <table>
-                <tr>
-                  <List dense className={classes.root}>
-                    {[0, 1, 2, 3].map((value) => {
-                      const labelId = `checkbox-list-secondary-label-${value}`;
-                      return (
-                        <ListItem key={value} button>
-                          <ListItemText
-                            id={labelId}
-                            primary={`Line item ${value + 1}`}
-                          />
-                          <ListItemSecondaryAction>
-                            <Checkbox
-                              edge="end"
-                              onChange={handleToggle(value)}
-                              checked={checked.indexOf(value) !== -1}
-                              inputProps={{ "aria-labelledby": labelId }}
-                            />
-                          </ListItemSecondaryAction>
-                        </ListItem>
-                      );
-                    })}
-                  </List>
-                </tr>
-              </table>
+            <TextField
+            style={{ width: "25vw" }}
+            id="outlined-basic"
+            label="Request ID"
+            variant="outlined"
+            size="small"
+           onChange={handleRequestID}
+            />
             </tr>
             <div
               style={{
@@ -169,17 +165,21 @@ export default function AcceptOrReject() {
                 className={classes.buttonStyle}
                 onMouseOver={changeBackgroundIn}
                 onMouseOut={changeBackgroundOut}
-                onClick={handleClick}
+                onClick={handleSubmit}
                 variant="contained"
               >
-                Accept El response mesh byzhar (Snackbar)
+                Accept 
               </Button>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
               <Snackbar
                 open={open}
                 autoHideDuration={6000}
-                onClose={handleClose}
+                onClose={handleClose1}
               >
-                <Alert onClose={handleClose} severity="success">
+                <Alert onClose={handleClose1} severity="success">
                   Accepted
                 </Alert>
               </Snackbar>
@@ -196,7 +196,7 @@ export default function AcceptOrReject() {
                 className={classes.buttonStyle}
                 onMouseOver={changeBackgroundIn}
                 onMouseOut={changeBackgroundOut}
-                onClick={handleClick}
+                onClick={handleSubmit}
                 variant="contained"
               >
                 Reject
@@ -204,9 +204,9 @@ export default function AcceptOrReject() {
               <Snackbar
                 open={open}
                 autoHideDuration={6000}
-                onClose={handleClose}
+                onClose={handleClose1}
               >
-                <Alert onClose={handleClose} severity="success">
+                <Alert onClose={handleClose1} severity="success">
                   Rejected
                 </Alert>
               </Snackbar>

@@ -115,7 +115,7 @@ export default function SendRequest() {
   const handleSubmit = (e) => {
     setOpen(true);
     e.preventDefault();
-    const sendrequest = {
+    const Sendrequest = {
       //receiverID: receiver,
       recieverID:receiver,
       requestType: request,
@@ -127,11 +127,10 @@ export default function SendRequest() {
     };
     console.log(SendRequest);
     axios
-      .post("/acAccount/sendRequest", SendRequest)
+      .post("/acAccount/sendSlotLinkingRequest", SendRequest)
       .then((res) => {
         console.log("success");
-        //console.log(res.data.msg)
-
+console.log(res)
         //swal(res.data.msg);
       })
       .catch((err) => {
@@ -142,7 +141,7 @@ export default function SendRequest() {
   
 
   const handleClick = () => {
-    setOpen(true);
+    setOpen(true);  
   };
   const handleClose1 = (event, reason) => {
     if (reason === "clickaway") {

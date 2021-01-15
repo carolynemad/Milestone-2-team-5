@@ -2909,7 +2909,7 @@ const coordinatorRejectSlotLinkingRequest = async (req, res) => {
     }
 
     const memberID = id;
-    const RequestID = req.body.Body.requestID; //body
+    const RequestID = req.body.requestID; //body
 
     console.log(RequestID);
     const requestsFound = await requestModel.findOne({ requestID: RequestID });
