@@ -84,32 +84,31 @@ export default function RemoveCourseSlot() {
   const classes = useStyles();
   const [show, setShow] = React.useState(false);
   const [courseid, setCourseID] = React.useState("");
-  const[slotid,setSlotID] = React.useState("");
+  const [slotid, setSlotID] = React.useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleCourseID = (e) => setCourseID(e.target.value);
   const handleSlotID = (e) => setSlotID(e.target.value);
   const [open, setOpen] = React.useState(false);
   const handleSubmit = (e) => {
-    
     setOpen(true);
     e.preventDefault();
     const removecourseslot = {
-      courseID:courseid,
-      slotID:slotid,
+      courseID: courseid,
+      slotID: slotid,
     };
     console.log(removecourseslot);
     axios
       .post("/acAccount/coordinatorDeleteCourseSlots", removecourseslot)
       .then((res) => {
         console.log("success");
+        console.log(res);
       })
       .catch((err) => {
         console.log("There is an error ..." + err);
       });
     handleClose();
   };
-  
 
   const handleClick = () => {
     setOpen(true);

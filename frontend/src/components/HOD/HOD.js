@@ -133,7 +133,7 @@ export default function ACpage() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Slim Abdelnadher
+            Head of Department
           </Typography>
         </Toolbar>
       </AppBar>

@@ -5,10 +5,9 @@ const { accountType, gender } = require("../../constants/enums");
 
 const validateUpdateFaculty = (req, res, next) => {
   const schema = Joi.object({
-      facultyName: Joi.string().min(3).required(),
-      departments: Joi.array().required(),
-      facultyHead: Joi.string().min(3).required(),
-    
+    facultyName: Joi.string().min(3).required(),
+    departments: Joi.array().required(),
+    facultyHead: Joi.string().min(3).required(),
   });
   const isValid = Joi.validate(req.body, schema);
   if (isValid.error) {
@@ -40,9 +39,7 @@ const validateAddFaculty = (req, res, next) => {
 
 const validateDeleteFaculty = (req, res, next) => {
   const schema = {
-    
-      facultyName: Joi.string().required(),
-    
+    facultyName: Joi.string().required(),
   };
   const isValid = Joi.validate(req.body, schema);
   if (isValid.error) {
@@ -57,10 +54,10 @@ const validateDeleteFaculty = (req, res, next) => {
 
 const validateUpdateDepartment = (req, res, next) => {
   const schema = Joi.object({
-      departmentName: Joi.string().min(3).required(),
-      courses: Joi.array(),
-      departmentHead: Joi.string().min(3),
-      staff: Joi.array(),
+    departmentName: Joi.string().min(3).required(),
+    courses: Joi.array(),
+    departmentHead: Joi.string().min(3),
+    staff: Joi.array(),
   });
   const isValid = Joi.validate(req.body, schema);
   if (isValid.error) {
@@ -74,12 +71,10 @@ const validateUpdateDepartment = (req, res, next) => {
 
 const validateDeleteDepartment = (req, res, next) => {
   const schema = Joi.object({
-    
-      departmentName: Joi.string().min(3).required(),
-      courses: Joi.array(),
-      departmentHead: Joi.string().min(3),
-      staff: Joi.array(),
-    
+    departmentName: Joi.string().min(3).required(),
+    courses: Joi.array(),
+    departmentHead: Joi.string().min(3),
+    staff: Joi.array(),
   });
   const isValid = Joi.validate(req.body, schema);
   if (isValid.error) {
@@ -111,19 +106,18 @@ const validateAddDepartment = (req, res, next) => {
 
 const validateAddNewMember = (req, res, next) => {
   const schema = {
-    
-      email: Joi.string().email().required(),
-      // password: Joi.valid("123456").required(),
-      firstName: Joi.string().min(3).required(),
-      lastName: Joi.string().min(3).required(),
-      gender: Joi.string().valid([gender.MALE, gender.FEMALE]).required(),
-      birthDate: Joi.date().required(),
-      address: Joi.string().min(3).required(),
-      salary: Joi.required(),
-      officeLocation: Joi.string().min(3).required(),
-      // staffMemberType: Joi.string().valid(["HR Member","Head Of Department","Course Instructor","Course Coordinator"]).required(),
-      memberType: Joi.string().valid(["HR", "Academic"]).required(),
-    
+    email: Joi.string().email().required(),
+    firstName: Joi.string().min(3).required(),
+    lastName: Joi.string().min(3).required(),
+    gender: Joi.string()
+      .valid([gender.MALE, gender.FEMALE, "Other"])
+      .required(),
+    birthDate: Joi.date().required(),
+    address: Joi.string().min(3).required(),
+    salary: Joi.string(),
+    officeLocation: Joi.string().min(3).required(),
+    // staffMemberType: Joi.string().valid(["HR Member","Head Of Department","Course Instructor","Course Coordinator"]).required(),
+    memberType: Joi.string().valid(["HR", "Academic"]).required(),
   };
   const isValid = Joi.validate(req.body, schema);
   if (isValid.error) {
@@ -138,29 +132,28 @@ const validateAddNewMember = (req, res, next) => {
 
 const validateUpdateExistingMember = (req, res, next) => {
   const schema = Joi.object({
-      // email: Joi.string().email().required(),
-      memberId:Joi.string().min(3),
-      gender: Joi.string().valid([gender.MALE, gender.FEMALE]),
-      birthDate: Joi.date(),
-      address: Joi.string().min(3),
-      salary: Joi,
-      officeLocation: Joi.string().min(3),
-      staffMemberType: Joi.string().valid([
-        "HR Member",
-        "Head Of Department",
-        "Course Instructor",
-        "Course Coordinator",
-      ]),
-      daysOff: Joi.string().valid([
-        "Staurday",
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-
-      ]),
+    // email: Joi.string().email().required(),
+    memberId: Joi.string().min(3),
+    gender: Joi.string().valid([gender.MALE, gender.FEMALE]),
+    birthDate: Joi.date(),
+    address: Joi.string().min(3),
+    salary: Joi,
+    officeLocation: Joi.string().min(3),
+    staffMemberType: Joi.string().valid([
+      "HR Member",
+      "Head Of Department",
+      "Course Instructor",
+      "Course Coordinator",
+    ]),
+    daysOff: Joi.string().valid([
+      "Staurday",
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+    ]),
   });
   const isValid = Joi.validate(req.body, schema);
   if (isValid.error) {
@@ -174,9 +167,7 @@ const validateUpdateExistingMember = (req, res, next) => {
 
 const validateRemoveExistingMember = (req, res, next) => {
   const schema = Joi.object({
-   
-      memberId: Joi.string().required(),
-    
+    memberId: Joi.string().required(),
   });
   const isValid = Joi.validate(req.body, schema);
   if (isValid.error) {
@@ -209,9 +200,7 @@ const validateAddLocation = (req, res, next) => {
 
 const validateRemoveLocation = (req, res, next) => {
   const schema = {
-   
-      locationName: Joi.string().required(),
-    
+    locationName: Joi.string().required(),
   };
   const isValid = Joi.validate(req.body, schema);
   if (isValid.error) {
@@ -226,19 +215,19 @@ const validateRemoveLocation = (req, res, next) => {
 
 const validateUpdateLocation = (req, res, next) => {
   const schema = {
-      locationName: Joi.string().required(),
-      capacity: Joi.number().required(),
-      locationType: Joi.string()
-        .valid([
-          "lecture",
-          "lab",
-          "tutorial",
-          "TAoffice",
-          "DRoffice",
-          "Exam Hall",
-        ])
-        .required(),
-      // capacity: Joi.number().required,
+    locationName: Joi.string().required(),
+    capacity: Joi.number().required(),
+    locationType: Joi.string()
+      .valid([
+        "lecture",
+        "lab",
+        "tutorial",
+        "TAoffice",
+        "DRoffice",
+        "Exam Hall",
+      ])
+      .required(),
+    // capacity: Joi.number().required,
   };
   const isValid = Joi.validate(req.body, schema);
   if (isValid.error) {
@@ -286,9 +275,7 @@ const validateAddCourse = (req, res, next) => {
 
 const validateDeleteCourse = (req, res, next) => {
   const schema = {
-    
-      courseId: Joi.string().required(),
-    
+    courseId: Joi.string().required(),
   };
   const isValid = Joi.validate(req.body, schema);
   if (isValid.error) {
@@ -303,10 +290,10 @@ const validateDeleteCourse = (req, res, next) => {
 
 const validateUpdateCourse = (req, res, next) => {
   const schema = {
-      courseId: Joi.string().required(),
-      newCourseName: Joi.string(),
-      courseNewId: Joi.string(),
-      newDepartmentName: Joi.string(),
+    courseId: Joi.string().required(),
+    newCourseName: Joi.string(),
+    courseNewId: Joi.string(),
+    newDepartmentName: Joi.string(),
   };
   const isValid = Joi.validate(req.body, schema);
   if (isValid.error) {
@@ -336,6 +323,4 @@ module.exports = {
   validateAddCourse,
   validateDeleteCourse,
   validateUpdateCourse,
-
 };
-

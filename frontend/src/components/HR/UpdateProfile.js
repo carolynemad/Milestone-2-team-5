@@ -12,6 +12,7 @@ import Select from "@material-ui/core/Select";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import axios from "axios";
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -70,6 +71,7 @@ const useStyles = makeStyles((theme) => ({
   colStyle: {
     width: "50vw",
   },
+
   root3: {
     width: "100%",
     "& > * + *": {
@@ -93,49 +95,49 @@ function changeBackgroundOut(e) {
   e.target.style.color = "Black";
 }
 
-export default function UpdateProfile() {
+export default function UpdateProfileIns() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+
   const [show, setShow] = React.useState(false);
-  const [gender, setGender] = React.useState("Other");
-  const [salary, setSalary] = React.useState(0);
   const [address, setAddress] = React.useState("");
-  const [birthDate, setBirthDate] = React.useState("");
-
-  const handleGender = (e) => setGender(e.target.value);
+  const [gender, setGender] = React.useState("Other");
+  const [date, setDate] = React.useState("");
+  const [salary, setSalary] = React.useState("");
   const handleSalary = (e) => setSalary(e.target.value);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const handleAddress = (e) => setAddress(e.target.value);
-  const handleBirthDate = (e) => setBirthDate(e.target.value);
-  const handleClose1 = () => setShow(false);
-
+  const handleGender = (e) => setGender(e.target.value);
+  const handleDate = (e) => setDate(e.target.value);
+  const [open, setOpen] = React.useState(false);
   const handleSubmit = (e) => {
     setOpen(true);
     e.preventDefault();
-    const mem = {
-      gender: gender,
-      salary: salary,
+    const profile = {
       address: address,
-      birthDate: birthDate,
+      gender: gender,
+      birthDate: date,
+      salary: salary,
     };
-    console.log(mem);
+    console.log(profile);
     axios
-      .post("/account/updateProfile", mem)
+      .post("/account/updateProfile", profile)
       .then((res) => {
         console.log("success");
-        console.log(res)
-
-        //swal(res.data.msg);
+        console.log(res);
       })
       .catch((err) => {
         console.log("There is an error ..." + err);
       });
-    handleClose1();
+    handleClose();
   };
-  const handleClose = (event, reason) => {
+  const handleClick = () => {
+    setOpen(true);
+  };
+  const handleClose1 = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-
     setOpen(false);
   };
 
@@ -176,17 +178,32 @@ export default function UpdateProfile() {
                     <Select
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
+                      //value={values.day}
                       onChange={handleGender}
                       label="Gender"
                     >
                       <MenuItem value=""></MenuItem>
-                      <MenuItem value={10}>Male</MenuItem>
-                      <MenuItem value={20}>Female</MenuItem>
-                      <MenuItem value={30}>Other</MenuItem>
+                      <MenuItem value={"Male"}>Male</MenuItem>
+                      <MenuItem value={"Female"}>Female</MenuItem>
+                      <MenuItem value={"Other"}>Other</MenuItem>
                     </Select>
                   </FormControl>
                 </td>
               </table>
+            </tr>
+
+            <tr>
+              <td>
+                <form className={classes.root2} noValidate autoComplete="off">
+                  <TextField
+                    id="outlined-basic"
+                    label="Address"
+                    variant="outlined"
+                    size="small"
+                    onChange={handleAddress}
+                  />
+                </form>
+              </td>
             </tr>
             <tr>
               <FormControl
@@ -209,27 +226,14 @@ export default function UpdateProfile() {
             </tr>
             <tr>
               <td>
-                <form className={classes.root2} noValidate autoComplete="off">
-                  <TextField
-                    id="outlined-basic"
-                    label="Address"
-                    variant="outlined"
-                    size="small"
-                    onChange={handleAddress}
-                  />
-                </form>
-              </td>
-            </tr>
-            <tr>
-              <td>
                 <form className={classes.container} noValidate>
                   <TextField
                     id="date"
                     label="Birthday"
                     type="date"
                     defaultValue="1999-04-02"
-                    onChange={handleBirthDate}
                     className={classes.textField}
+                    onChange={handleDate}
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -259,9 +263,9 @@ export default function UpdateProfile() {
                 <Snackbar
                   open={open}
                   autoHideDuration={6000}
-                  onClose={handleClose}
+                  onClose={handleClose1}
                 >
-                  <Alert onClose={handleClose} severity="success">
+                  <Alert onClose={handleClose1} severity="success">
                     Information Updated.
                   </Alert>
                 </Snackbar>

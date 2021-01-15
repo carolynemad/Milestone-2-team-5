@@ -101,6 +101,7 @@ export default function AssignCourseInstructor() {
       .post("/acAccount/assignCourseInstructor", course)
       .then((res) => {
         console.log("success");
+        console.log(res);
       })
       .catch((err) => {
         console.log("There is an error ..." + err);

@@ -6,7 +6,6 @@ import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import axios from "axios";
-
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -80,31 +79,29 @@ function changeBackgroundOut(e) {
   e.target.style.color = "Black";
 }
 
-export default function UpdatePassword() {
+export default function ResetPassword() {
   const classes = useStyles();
   const [password, setPassword] = React.useState("");
-  const [newPassword, setNewPassword] = React.useState("");
   const [show, setShow] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
-  const handlePassword = (e) => setPassword(e.target.value);
-  const handleNewPassword = (e) => setNewPassword(e.target.value);
   const handleClose1 = () => setShow(false);
- 
-  
+
+  const handleChange = (event) => {
+    setPassword(event.target.value);
+  };
 
   const handleSubmit = (e) => {
-
     setOpen(true);
     e.preventDefault();
     const obj = {
-      oldPassword: password,
-      newPassword: newPassword,    };
+      password: password,
+    };
     console.log(obj);
     axios
-      .post("/account/resetPassword", obj)
+      .post("/hrAccount/resetPassword", obj)
       .then((res) => {
         console.log("success");
-        console.log(res)
+
+        console.log(res);
 
         //swal(res.data.msg);
       })
@@ -113,6 +110,7 @@ export default function UpdatePassword() {
       });
     handleClose1();
   };
+  const [open, setOpen] = React.useState(false);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -136,7 +134,7 @@ export default function UpdatePassword() {
       <table className={classes.tableStyle}>
         <tr>
           <Typography className={classes.titleStyle}>
-            Update my Password
+            Reset my Password
           </Typography>
 
           <br></br>
@@ -156,7 +154,7 @@ export default function UpdatePassword() {
                       label="Old Password"
                       variant="outlined"
                       size="small"
-                      onChange={handlePassword}
+                      onChange={handleChange}
                     />
                   </form>
                 </td>
@@ -167,7 +165,7 @@ export default function UpdatePassword() {
                       label="New Password"
                       variant="outlined"
                       size="small"
-                      onChange={handleNewPassword}
+                      onChange={handleChange}
                     />
                   </form>
                 </td>
@@ -189,7 +187,7 @@ export default function UpdatePassword() {
                   onClick={handleSubmit}
                   variant="contained"
                 >
-                  Update password
+                  Reset password
                 </Button>
                 <Snackbar
                   open={open}

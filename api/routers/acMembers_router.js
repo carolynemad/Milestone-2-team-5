@@ -4,6 +4,7 @@ const router = express.Router();
 
 //controllers
 const {
+  updateCourseInstructor,
   deleteCourseInstructor,
   assignCourseInstructor,
   viewDaysOff,
@@ -71,6 +72,7 @@ const {
   validateCoordinatorRejectSlotLinkingRequest,
   validateCoordinatorAcceptSlotLinkingRequest,
   validateHodAcceptRequest,
+  validateUpdateCourseInstructor,
 } = require("../middleware/validations/acMembers_validation");
 
 //Routings
@@ -80,6 +82,13 @@ router.post(
   validateDeleteCourseInstructor,
   deleteCourseInstructor
 );
+
+router.post(
+  "/updateCourseInstructor",
+  validateUpdateCourseInstructor,
+  updateCourseInstructor
+);
+
 router.post(
   "/assignCourseInstructor",
   validateAssignCourseInstructor,

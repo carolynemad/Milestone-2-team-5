@@ -96,11 +96,12 @@ export default function DeleteCourseInstructor() {
       courseID: courseid,
       memberId: memberid,
     };
-    console.log( deletecourse);
+    console.log(deletecourse);
     axios
       .post("/acAccount/deleteCourseInstructor", deletecourse)
       .then((res) => {
         console.log("success");
+        console.log(res);
       })
       .catch((err) => {
         console.log("There is an error ..." + err);
