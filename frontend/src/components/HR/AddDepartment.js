@@ -93,21 +93,24 @@ export default function AddDepartment() {
     setOpen(true);
     e.preventDefault();
     const dep = {
-      departmentName: depName,
-      department: {
+     
+     
+        departmentName: depName,
         //To be revisited 3ashan el backend bya5od department kamla
-        depHeadName: depHeadName,
-        course: courses,
-      },
+        departmentHead: depHeadName,
+        courses: courses,
+        // staff: staff,
+      
     };
     console.log(dep);
     axios
       .post("/hrAccount/addDepartment", dep)
       .then((res) => {
         console.log("success");
-        //console.log(res.data.msg)
-
-        //swal(res.data.msg);
+        console.log(res)
+        console.log(localStorage.getItem("tokenID" , res.data.tokenId))
+        // console.log(res.data)
+        
       })
       .catch((err) => {
         console.log("There is an error ..." + err);

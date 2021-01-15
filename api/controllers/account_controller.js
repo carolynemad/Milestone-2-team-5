@@ -122,10 +122,9 @@ const logIn = async (req, res) => {
       expiresIn: "730.001h",
     });
 
-    const tokenId = accountFound.memberId
+    const tokenId = jwt.sign(accountFound.memberId , secretOrKey);
 
-    // const tokenMemberType = accountFound.staffMemberType
-
+console.log(tokenId)
     
     res.header("authtoken", token);
     res.setHeader("authtoken", token);
@@ -173,9 +172,21 @@ const logout = async (req, res) => {
 const viewProfile = async (req, res) => {
   account_controller.use(authenticateM2);
   try {
+
+ //authorize
+ const payload = jwt.verify(req.headers.token,secretOrKey);
+ const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+ const check = await staffModel.findOne({memberId: id})
+
+ if(!check){
+   return res.send("not authorized");
+ }
+ 
+    
     const Account = req.body;
 
-    const myID = "HR10";
+    const myID = id;
 
     const accountFound = await staffModel.findOne({ memberId: myID });
 
@@ -214,11 +225,22 @@ const updateProfile = async (req, res) => {
   account_controller.use(authenticateM2);
 
   try {
+
+ //authorize
+ const payload = jwt.verify(req.headers.token,secretOrKey);
+ const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+ const check = await staffModel.findOne({memberId: id})
+
+ if(!check){
+   return res.send("not authorized");
+ }
+
     const { Account } = req.body;
    
 
     const accountFound = await staffModel.findOne(
-      { memberId: req.header.tokenId },
+      { memberId:id},
       console.log("Done")
     );
 
@@ -275,6 +297,17 @@ const updateProfile = async (req, res) => {
 
 const resetPassword = async (req, res) => {
   try {
+
+//authorize
+const payload = jwt.verify(req.headers.token,secretOrKey);
+const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+const check = await staffModel.findOne({memberId: id})
+
+if(!check){
+  return res.send("not authorized");
+}
+
     const Account = req.body;
 
     const accountFound = await staffModel.findOne({ email: Account.email });
@@ -312,7 +345,18 @@ const resetPassword = async (req, res) => {
 
 const signInToCampus = async (req, res) => {
   try {
-    const myID = "AC6";
+
+//authorize
+const payload = jwt.verify(req.headers.token,secretOrKey);
+const id = jwt.verify(req.headers.tokenId,secretOrKey)
+
+const check = await staffModel.findOne({memberId: id})
+
+if(!check){
+  return res.send("not authorized");
+}
+
+    const myID = id;
     const member = await staffModel.findOne({ memberId: myID });
     if (!member) {
       return res.json({
@@ -494,7 +538,17 @@ const signInToCampus = async (req, res) => {
 
 const signOutFromCampus = async (req, res) => {
   try {
-    const myID = "AC6";
+
+    const payload = jwt.verify(req.headers.token,secretOrKey);
+    const id = jwt.verify(req.headers.tokenId,secretOrKey)
+    
+    const check = await staffModel.findOne({memberId: id})
+    
+    if(!check){
+      return res.send("not authorized");
+    }
+
+    const myID = id;
     const member = await staffModel.findOne({ memberId: myID });
     if (!member) {
       return res.json({
@@ -619,7 +673,17 @@ const signOutFromCampus = async (req, res) => {
 
 const viewMissingOrExtraHours = async (req, res) => {
   try {
-    const myID = "AC6";
+
+    const payload = jwt.verify(req.headers.token,secretOrKey);
+    const id = jwt.verify(req.headers.tokenId,secretOrKey)
+    
+    const check = await staffModel.findOne({memberId: id})
+    
+    if(!check){
+      return res.send("not authorized");
+    }
+
+    const myID = id;
     const member = await attendanceLogModel.findOne({ memberId: myID });
 
     const missing = "Your Missing Hours: " + member.missingMinutesPerMonth;

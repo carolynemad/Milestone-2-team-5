@@ -107,13 +107,13 @@ const { accountType , gender} = require('../../constants/enums')
   const validateAddDepartment = (req, res, next) => {
    
     const schema = {
-      Department: Joi.object({
+     
         departmentName: Joi.string().required(),
         departmentHead: Joi.string().min(3).required(),
         courses: Joi.array().required(),
-        staff: Joi.array().required(),
+        staff: Joi.array(),
        
-      })
+     
     }
     const isValid = Joi.validate(req.body, schema)
     if (isValid.error) {

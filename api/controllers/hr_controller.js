@@ -1,5 +1,7 @@
 //Requires
 const bcrypt = require("bcryptjs");
+const jwt_decode = require("jwt-decode");
+
 const jwt = require("jsonwebtoken");
 var authenticate = require("../authentication/verifyToken");
 
@@ -459,24 +461,25 @@ const updateDepartment = async (req, res) => {
 
 const addDepartment = async (req, res) => {
   try {
-
+    
        //authenticate that this is a valid member
         //authorize that this is a Hr member
-        const payload = jwt.verify(req.headers.token,secretOrKey);
-        const id = jwt.verify(req.headers.tokenId,secretOrKey)
 
+       jwt.verify(req.headers.authtoken,secretOrKey);
+       console.log(jwt_decode(req.headers.authtoken).id)
+       const val = await staffModel.findById(jwt_decode(req.headers.authtoken).id)
+
+      const id = val.memberId
         const check = await staffModel.findOne({memberId: id})
 
         if(!check){
           return res.send("not authorized");
         }
-        // console.log(payload.id);
         if (!((check.staffMemberType).includes("HR"))){ 
-            //console.log(payload.id);
             return res.send("not authorized");
         }
 
-    const { Department } = req.body;
+    const Department  = req.body;
 
     const deptFound = await departmentModel.findOne({
       departmentName: Department.departmentName,
