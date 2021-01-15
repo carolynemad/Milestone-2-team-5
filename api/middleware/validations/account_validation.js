@@ -55,11 +55,9 @@ const validateLogIn = (req, res, next) => {
       requirementCount: 8,
     }
     const schema = {
-      Account: Joi.object({ id: Joi.string().required() }).required(),
-      Credentials: Joi.object({
+    
         oldPassword: Joi.string().required(),
         newPassword: new PasswordComplexity(complexityOptions).required(),
-      }).required(),
     }
     const isValid = Joi.validate(req.body, schema)
     if (isValid.error) {

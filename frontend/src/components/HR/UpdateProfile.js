@@ -122,7 +122,7 @@ export default function UpdateProfile() {
       .post("/account/updateProfile", mem)
       .then((res) => {
         console.log("success");
-        //console.log(res.data.msg)
+        console.log(res)
 
         //swal(res.data.msg);
       })

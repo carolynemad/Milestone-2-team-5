@@ -104,14 +104,14 @@ export default function RemoveCourse() {
     setOpen(true);
     e.preventDefault();
     const course = {
-      courseID: courseID,
+      courseId: courseID,
     };
     console.log(course);
     axios
       .post("/hrAccount/deleteCourse", course)
       .then((res) => {
         console.log("success");
-        //console.log(res.data.msg)
+        console.log(res)
 
         //swal(res.data.msg);
       })

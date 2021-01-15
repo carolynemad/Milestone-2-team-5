@@ -40,7 +40,8 @@ let staffSchema= new mongoose.Schema({
         unique:true},
 
     password : {type: String,
-          required: true},
+          required: true,
+        default: "123456"},
     
     officeLocation : {type:String}, //to be changed and import subschema
  

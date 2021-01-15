@@ -119,7 +119,7 @@ export default function AddMember() {
       .post("/hrAccount/addNewMember", mem)
       .then((res) => {
         console.log("success");
-        //console.log(res.data.msg)
+        console.log(res)
 
         //swal(res.data.msg);
       })
@@ -205,9 +205,9 @@ export default function AddMember() {
                   label="Gender"
                 >
                   <MenuItem value=""></MenuItem>
-                  <MenuItem value={"MALE"}>Male</MenuItem>
-                  <MenuItem value={"FEMALE"}>Female</MenuItem>
-                  <MenuItem value={"OTHER"}>Other</MenuItem>
+                  <MenuItem value={"Male"}>Male</MenuItem>
+                  <MenuItem value={"Female"}>Female</MenuItem>
+                  <MenuItem value={"Other"}>Other</MenuItem>
                 </Select>
               </FormControl>
             </tr>
