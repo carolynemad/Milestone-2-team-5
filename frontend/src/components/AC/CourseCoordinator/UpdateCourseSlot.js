@@ -9,6 +9,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import axios from "axios";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -85,33 +86,63 @@ function changeBackgroundOut(e) {
   e.target.style.color = "Black";
 }
 
-export default function UpdateCourseSlot() {
+export default function UpdateCourseSlots() {
   const classes = useStyles();
-  const [values, setValues] = React.useState({
-    amount: "",
-  });
-  const [number, setNumber] = React.useState("");
-  const [type, setType] = React.useState("");
-  const [day, setDay] = React.useState("");
+  const [show, setShow] = React.useState(false);
+  const [slotid, setSlotID] = React.useState("");
+  const[courseid,setCourseID] = React.useState("");
+  const[slotday,setSlotDay] = React.useState("");
+  const[slotnumber,setSlotNumber] = React.useState("");
+  const[slottype,setSlotType] = React.useState("");
+  const[memberid,setMemberID] = React.useState("");
+  const[location,setLocation] = React.useState("");
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleSlotID= (e) => setSlotID(e.target.value);
+  const handleCourseID = (e) => setCourseID(e.target.value);
+  const handleSlotDay = (e) => setSlotDay(e.target.value);
+  const handleSlotNumber = (e) => setSlotNumber(e.target.value);
+  const handleSlotType = (e) => setSlotType(e.target.value);
+  const handleMemberID = (e) => setMemberID(e.target.value);
+  const handleLocation = (e) => setLocation(e.target.value);
   const [open, setOpen] = React.useState(false);
-
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-    setNumber(event.target.value);
-    setType(event.target.value);
-    setDay(event.target.value);
+  const handleSubmit = (e) => {
+    
+    setOpen(true);
+    e.preventDefault();
+    const updatecourseslot = {
+      courseID:courseid,
+      location:location,
+      slotDay:slotday,
+      slotType:slottype,
+      slotNumber:slotnumber,
+      slotID:slotid,
+      acID:memberid,
+    };
+    console.log(updatecourseslot);
+    axios
+      .post("/acAccount/coordinatorUpdateCourseSlots", updatecourseslot)
+      .then((res) => {
+        console.log("success");
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose();
   };
+  
+
   const handleClick = () => {
     setOpen(true);
   };
-
-  const handleClose = (event, reason) => {
+  const handleClose1 = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
 
     setOpen(false);
   };
+
 
   return (
     <div
@@ -153,6 +184,7 @@ export default function UpdateCourseSlot() {
                         label="Slot ID"
                         variant="outlined"
                         size="small"
+                        onChange={handleSlotID}
                       />
                     </form>
                   </td>
@@ -171,6 +203,7 @@ export default function UpdateCourseSlot() {
                         label="Course ID"
                         variant="outlined"
                         size="small"
+                        onChange={handleCourseID}
                       />
                     </form>
                   </td>
@@ -188,8 +221,8 @@ export default function UpdateCourseSlot() {
                       <Select
                         labelId="demo-simple-select-outlined-label"
                         id="demo-simple-select-outlined"
-                        value={day}
-                        onChange={handleChange}
+                       //value={day}
+                        onChange={handleSlotDay}
                         label="Slot Day"
                       >
                         <MenuItem value=""></MenuItem>
@@ -216,8 +249,8 @@ export default function UpdateCourseSlot() {
                       <Select
                         labelId="demo-simple-select-outlined-label"
                         id="demo-simple-select-outlined"
-                        value={number}
-                        onChange={handleChange}
+                        //value={number}
+                        onChange={handleSlotNumber}
                         label="Slot Number"
                       >
                         <MenuItem value=""></MenuItem>
@@ -246,8 +279,8 @@ export default function UpdateCourseSlot() {
                     <Select
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
-                      value={type}
-                      onChange={handleChange}
+                     // value={type}
+                      onChange={handleSlotType}
                       label="Slot Type"
                     >
                       <MenuItem value=""></MenuItem>
@@ -267,6 +300,7 @@ export default function UpdateCourseSlot() {
                       label="Member ID"
                       variant="outlined"
                       size="small"
+                      onChange={handleMemberID}
                     />
                   </form>
                 </td>
@@ -299,7 +333,7 @@ export default function UpdateCourseSlot() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Update Course Slot
@@ -307,9 +341,9 @@ export default function UpdateCourseSlot() {
                 <Snackbar
                   open={open}
                   autoHideDuration={6000}
-                  onClose={handleClose}
+                  onClose={handleClose1}
                 >
-                  <Alert onClose={handleClose} severity="success">
+                  <Alert onClose={handleClose1} severity="success">
                     Course Slot Updated.
                   </Alert>
                 </Snackbar>

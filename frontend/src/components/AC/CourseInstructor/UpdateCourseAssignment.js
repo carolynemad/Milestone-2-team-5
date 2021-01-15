@@ -95,16 +95,15 @@ export default function UpdateCourseAssignment() {
     e.preventDefault();
     const updatecourseassignment = {
       courseID:courseid,
-      
+      memberId:oldassistantname,
+      memberId:newassistantname //to be changed in the backend
+
     };
     console.log(UpdateCourseAssignment);
     axios
-      .post("/acAccount/updatecourseassignment", updatecourseassignment)
+      .post("/acAccount/instructorUpdateCourseAssignment", updatecourseassignment)
       .then((res) => {
         console.log("success");
-        //console.log(res.data.msg)
-
-        //swal(res.data.msg);
       })
       .catch((err) => {
         console.log("There is an error ..." + err);

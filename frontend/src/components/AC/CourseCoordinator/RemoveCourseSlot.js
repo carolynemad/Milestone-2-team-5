@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import axios from "axios";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -81,26 +82,45 @@ function changeBackgroundOut(e) {
 
 export default function RemoveCourseSlot() {
   const classes = useStyles();
-  const [password, setPassword] = React.useState("");
-
-  const handleChange = (event) => {
-    setPassword(event.target.value);
-  };
-
+  const [show, setShow] = React.useState(false);
+  const [courseid, setCourseID] = React.useState("");
+  const[slotid,setSlotID] = React.useState("");
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleCourseID = (e) => setCourseID(e.target.value);
+  const handleSlotID = (e) => setSlotID(e.target.value);
   const [open, setOpen] = React.useState(false);
+  const handleSubmit = (e) => {
+    
+    setOpen(true);
+    e.preventDefault();
+    const removecourseslot = {
+      courseID:courseid,
+      slotID:slotid,
+    };
+    console.log(removecourseslot);
+    axios
+      .post("/acAccount/coordinatorDeleteCourseSlots", removecourseslot)
+      .then((res) => {
+        console.log("success");
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose();
+  };
+  
 
   const handleClick = () => {
     setOpen(true);
   };
-
-  const handleClose = (event, reason) => {
+  const handleClose1 = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
 
     setOpen(false);
   };
-
   return (
     <div
       style={{
@@ -134,6 +154,7 @@ export default function RemoveCourseSlot() {
                     label="Course ID"
                     variant="outlined"
                     size="small"
+                    onChange={handleCourseID}
                   />
                 </form>
               </td>
@@ -146,6 +167,7 @@ export default function RemoveCourseSlot() {
                     label="Slot ID"
                     variant="outlined"
                     size="small"
+                    onChange={handleSlotID}
                   />
                 </form>
               </td>
@@ -163,7 +185,7 @@ export default function RemoveCourseSlot() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Remove Course Slot
@@ -171,9 +193,9 @@ export default function RemoveCourseSlot() {
                 <Snackbar
                   open={open}
                   autoHideDuration={6000}
-                  onClose={handleClose}
+                  onClose={handleClose1}
                 >
-                  <Alert onClose={handleClose} severity="success">
+                  <Alert onClose={handleClose1} severity="success">
                     Course Slot Removed.
                   </Alert>
                 </Snackbar>
