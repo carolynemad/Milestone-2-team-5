@@ -334,4 +334,6 @@ module.exports = {
   validateAddCourse,
   validateDeleteCourse,
   validateUpdateCourse,
+
 };
+
