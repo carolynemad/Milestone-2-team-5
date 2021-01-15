@@ -100,7 +100,7 @@ export default function RemoveLocation() {
       .post("/hrAccount/removeLocation", obj)
       .then((res) => {
         console.log("success");
-        //console.log(res.data.msg)
+        console.log(res)
 
         //swal(res.data.msg);
       })

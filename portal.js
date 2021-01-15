@@ -18,20 +18,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => res.send("Home Page Route"));
 
-// app.use("/account", account);
-// app.use((req, res) => {
-//   res.status(404).send({ err: "No such url" });
-// });
+app.use("/account", account);
+app.use((req, res) => {
+  res.status(404).send({ err: "No such url" });
+});
 
 // app.use("/hrAccount", hr);
 // app.use((req, res) => {
 //   res.status(404).send({ err: "No such url" });
 // });
 
-app.use('/acAccount', ac)
-app.use((req, res) => {
-  res.status(404).send({ err: 'No such url' })
-})
+// app.use('/acAccount', ac)
+// app.use((req, res) => {
+//   res.status(404).send({ err: 'No such url' })
+// })
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");

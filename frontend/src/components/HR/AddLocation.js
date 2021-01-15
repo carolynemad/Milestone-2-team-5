@@ -110,7 +110,11 @@ export default function AddLocation() {
       .post("/hrAccount/addLocation", loc)
       .then((res) => {
         console.log("success");
+
+        console.log(res)
         //console.log(res.data.msg)
+
+        console.log(res);
 
         //swal(res.data.msg);
       })

@@ -198,12 +198,12 @@ export default function UpdateLocation() {
                         label="Location Type"
                       >
                         <MenuItem value=""></MenuItem>
-                        <MenuItem value={10}>Lecture</MenuItem>
-                        <MenuItem value={20}>Lab</MenuItem>
-                        <MenuItem value={30}>Tutorial</MenuItem>
-                        <MenuItem value={40}>TAoffice</MenuItem>
-                        <MenuItem value={50}>DRoffice</MenuItem>
-                        <MenuItem value={60}>Exam Hall</MenuItem>
+                        <MenuItem value={"lecture"}>Lecture</MenuItem>
+                        <MenuItem value={"lab"}>Lab</MenuItem>
+                        <MenuItem value={"tutorial"}>Tutorial</MenuItem>
+                        <MenuItem value={"TAoffice"}>TAoffice</MenuItem>
+                        <MenuItem value={"DRoffice"}>DRoffice</MenuItem>
+                        <MenuItem value={"Exam Hall"}>Exam Hall</MenuItem>
                       </Select>
                     </FormControl>
                   </td>

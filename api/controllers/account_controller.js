@@ -310,7 +310,7 @@ if(!check){
 
     const Account = req.body;
 
-    const accountFound = await staffModel.findOne({ email: Account.email });
+    // const accountFound = await staffModel.findOne({ email: Account.email });
 
     if (Account.newPassword === "123456") {
       return res.json({
@@ -321,12 +321,7 @@ if(!check){
 
     const saltKey = bcrypt.genSaltSync(salt);
     const hashed_pass = bcrypt.hashSync(Account.newPassword, saltKey);
-    await staffModel.findOneAndUpdate(
-      { memberId },
-      {
-        password: hashed_pass,
-      }
-    );
+    await staffModel.findOneAndUpdate({ memberId},{password: hashed_pass});
 
     return res.json({
       statusCode: passwordChangedSuccessfully.statusCode,

@@ -99,10 +99,10 @@ export default function UpdateCourse() {
     setOpen(true);
     e.preventDefault();
     const obj = {
-      courseID: oldID,
+      courseId: oldID,
       courseNewId: newID, //NOT SURE
-      courseName: courseName,
-      departmentName: depName,
+      newCourseName: courseName,
+      newDepartmentName: depName,
     };
     console.log(obj);
     axios

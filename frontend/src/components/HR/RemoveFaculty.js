@@ -100,7 +100,7 @@ export default function RemoveFaculty() {
       .post("/hrAccount/deleteFaculty", obj)
       .then((res) => {
         console.log("success");
-        //console.log(res.data.msg)
+        console.log(res)
 
         //swal(res.data.msg);
       })

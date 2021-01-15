@@ -89,9 +89,10 @@ export default function UpdateDepartment() {
   const [course, setCourse] = React.useState("");
   const [staff, setStaff] = React.useState("");
   const handleDepartmentName = (e) => setDepName(e.target.value);
-  const handleDepartmentHeadName = (e) => setDepHeadName(e.target.value);
   const handleStaff = (e) => setStaff(e.target.value);
   const handleCourse = (e) => setCourse(e.target.value);
+  const handleDepartmentHeadName = (e) => setDepHeadName(e.target.value);
+
 
   const handleSubmit = (e) => {
     setOpen(true);
@@ -179,13 +180,16 @@ export default function UpdateDepartment() {
                       autoComplete="off"
                     >
                       <TextField
+                      
                         id="outlined-basic"
                         label="Department Head Name"
                         variant="outlined"
                         size="small"
-                        onchange={handleDepartmentHeadName}
+                        onChange={handleDepartmentHeadName}
                       />
                     </form>
+
+                    
                   </td>
                 </tr>
                 <tr>

@@ -89,18 +89,22 @@ export default function UpdatePassword() {
   const handlePassword = (e) => setPassword(e.target.value);
   const handleNewPassword = (e) => setNewPassword(e.target.value);
   const handleClose1 = () => setShow(false);
+ 
+  
+
   const handleSubmit = (e) => {
+
     setOpen(true);
     e.preventDefault();
     const obj = {
-      password: newPassword,
-    };
+      oldPassword: password,
+      newPassword: newPassword,    };
     console.log(obj);
     axios
       .post("/account/resetPassword", obj)
       .then((res) => {
         console.log("success");
-        //console.log(res.data.msg)
+        console.log(res)
 
         //swal(res.data.msg);
       })

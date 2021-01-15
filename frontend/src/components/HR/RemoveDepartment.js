@@ -110,7 +110,7 @@ export default function RemoveDepartment() {
       .post("/hrAccount/deleteDepartment", obj)
       .then((res) => {
         console.log("success");
-        //console.log(res.data.msg)
+        console.log(res)
 
         //swal(res.data.msg);
       })
