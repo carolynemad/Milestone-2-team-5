@@ -112,6 +112,7 @@ export default function AddLocation() {
         console.log("success");
         console.log(res)
         //console.log(res.data.msg)
+        console.log(res);
 
         //swal(res.data.msg);
       })
