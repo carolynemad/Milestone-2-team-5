@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-
+import axios from "axios";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -81,17 +81,32 @@ function changeBackgroundOut(e) {
 
 export default function DeleteCourseAssignment() {
   const classes = useStyles();
-  const [password, setPassword] = React.useState("");
-
-  const handleChange = (event) => {
-    setPassword(event.target.value);
+  const [courseID, setCourseID] = React.useState("");
+  const [assistant, setAssistant] = React.useState("");
+  const handleCourseID = (e) => setCourseID(e.target.value);
+  const handleAssistant = (e) => setAssistant(e.target.value);
+  const [show, setShow] = React.useState(false);
+  const handleClose1 = () => setShow(false);
+  const handleSubmit = (e) => {
+    setOpen(true);
+    e.preventDefault();
+    const course = {
+      courseID: courseID,
+      memberId: assistant,
+    };
+    console.log(course);
+    axios
+      .post("/acAccount/instructorDeleteCourseAssignment", course)
+      .then((res) => {
+        console.log("success");
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose1();
   };
 
   const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -135,6 +150,7 @@ export default function DeleteCourseAssignment() {
                       label="Assistant ID"
                       variant="outlined"
                       size="small"
+                      onChange={handleAssistant}
                     />
                   </form>
                 </td>
@@ -145,6 +161,7 @@ export default function DeleteCourseAssignment() {
                       label="Course ID"
                       variant="outlined"
                       size="small"
+                      onChange={handleCourseID}
                     />
                   </form>
                 </td>
@@ -163,7 +180,7 @@ export default function DeleteCourseAssignment() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Delete Course Assignment
