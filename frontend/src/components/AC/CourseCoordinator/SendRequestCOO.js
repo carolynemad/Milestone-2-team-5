@@ -10,6 +10,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import axios from "axios";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -91,31 +92,64 @@ function changeBackgroundOut(e) {
   e.target.style.color = "Black";
 }
 
-export default function SendRequest() {
+export default function SendRequestCOO() {
   const classes = useStyles();
-  const [values, setValues] = React.useState({
-    reciever: "",
-    type: "",
-  });
-
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-
+  const [show, setShow] = React.useState(false);
+  const [receiver, setReceiver] = React.useState("");
+  const[request,setRequest] = React.useState("");
+  const[comments,setComments] = React.useState("");
+  const[slotid,setSlotid] = React.useState("");
+  const[activedate,setAcitvedate] = React.useState("");
+  const[enddate,setEnddate] = React.useState("");
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleReceiver = (e) => setReceiver(e.target.value);
+  const handleRequest = (e) => setRequest(e.target.value);
+  const handleComments = (e) => setComments(e.target.value);
+  const handleSlotid = (e) => setSlotid(e.target.value);
+  const handleActivedate = (e) => setAcitvedate(e.target.value);
+  const handleEnddate = (e) => setEnddate(e.target.value);
+  
+  
   const [open, setOpen] = React.useState(false);
+  const handleSubmit = (e) => {
+    setOpen(true);
+    e.preventDefault();
+    const SendRequest = {
+      //receiverID: receiver,
+      recieverID:receiver,
+      requestType: request,
+      comments : comments,
+      activeDate: activedate,
+      //endDate: enddate, //must be added in the backend
+      slotID:slotid,
+      
+    };
+    console.log(SendRequest);
+    axios
+      .post("/acAccount/sendSlotLinkingRequest", SendRequest)
+      .then((res) => {
+        console.log("success");
+console.log(res)
+        //swal(res.data.msg);
+      })
+      .catch((err) => {
+        console.log("There is an error ..." + err);
+      });
+    handleClose();
+  };
+  
 
   const handleClick = () => {
-    setOpen(true);
+    setOpen(true);  
   };
-
-  const handleClose = (event, reason) => {
+  const handleClose1 = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
 
     setOpen(false);
   };
-
   return (
     <div
       style={{
@@ -155,8 +189,8 @@ export default function SendRequest() {
                       <Select
                         labelId="demo-simple-select-outlined-label"
                         id="demo-simple-select-outlined"
-                        value={values.Reciever}
-                        onChange={handleChange}
+                        
+                        onChange={handleReceiver}
                         label="Reciever"
                       >
                         <MenuItem value=""></MenuItem>
@@ -181,8 +215,8 @@ export default function SendRequest() {
                     <Select
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
-                      value={values.day}
-                      onChange={handleChange}
+                     
+                      onChange={handleRequest}
                       label="Request Type"
                     >
                       <MenuItem value=""></MenuItem>
@@ -208,6 +242,7 @@ export default function SendRequest() {
                     label="Brief/Comments"
                     variant="outlined"
                     size="small"
+                    onChange={handleComments}
                   />
                 </form>
               </td>
@@ -220,6 +255,7 @@ export default function SendRequest() {
                     label="Slot ID"
                     variant="outlined"
                     size="small"
+                    onChange={handleSlotid}
                   />
                 </form>
               </td>
@@ -233,6 +269,7 @@ export default function SendRequest() {
                     type="date"
                     defaultValue="1999-04-02"
                     className={classes.textField}
+                    onChange={handleActivedate}
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -249,6 +286,7 @@ export default function SendRequest() {
                     type="date"
                     defaultValue="1999-04-02"
                     className={classes.textField}
+                    //onChange={handleEnddate}
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -270,7 +308,7 @@ export default function SendRequest() {
                   className={classes.buttonStyle}
                   onMouseOver={changeBackgroundIn}
                   onMouseOut={changeBackgroundOut}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                   variant="contained"
                 >
                   Send Request

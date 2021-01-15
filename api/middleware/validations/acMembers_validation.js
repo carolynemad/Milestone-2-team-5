@@ -312,13 +312,10 @@ const { validationError } = require('../../constants/statusCodesEnum')
 
   const validateSendSlotLinkingRequest = (req, res, next) => {
     const schema = {
-      Body: Joi.object({
          slotID:Joi.string().required(),
          brief:Joi.string(),
          comments:Joi.string(),
          requestID:Joi.string().required(),
-          })
-         .required(),
     }
     const isValid = Joi.validate(req.body, schema)
     if (isValid.error) {
